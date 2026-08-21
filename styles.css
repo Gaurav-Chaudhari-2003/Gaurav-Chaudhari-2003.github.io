@@ -23,7 +23,6 @@ html, body {
     line-height: 1.6;
     overflow-x: hidden;
     width: 100%;
-    position: relative;
 }
 
 h1,
@@ -557,11 +556,13 @@ footer p {
     }
 
     .name {
-        font-size: 2.5rem;
+        font-size: 2.2rem;
+        margin-bottom: 0.5rem;
     }
 
     .title {
-        font-size: 1.4rem;
+        font-size: 1.2rem;
+        margin-bottom: 0.5rem;
     }
 
     .about-grid {
@@ -633,15 +634,35 @@ footer p {
         padding: 4rem 0;
     }
     
+    #hero {
+        padding-top: 50px;
+    }
+    
     .hero-container {
         flex-direction: column-reverse;
         text-align: center;
-        gap: 2.5rem;
+        gap: 1rem;
+    }
+
+    .hero-image img {
+        max-width: 220px;
+    }
+
+    .summary {
+        font-size: 0.95rem;
+        margin-bottom: 1.5rem;
     }
     
     .hero-cta {
         justify-content: center;
         flex-wrap: wrap;
+        margin-bottom: 1.5rem;
+        gap: 0.5rem;
+    }
+
+    .hero-cta .btn {
+        padding: 0.6rem 1.2rem;
+        font-size: 0.9rem;
     }
     
     .social-links {
