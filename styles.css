@@ -25,6 +25,13 @@ html, body {
     width: 100%;
 }
 
+.main-wrapper {
+    overflow-x: hidden;
+    width: 100%;
+    position: relative;
+    min-height: 100vh;
+}
+
 h1,
 h2,
 h3,
