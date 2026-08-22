@@ -25,12 +25,6 @@ html, body {
     width: 100%;
 }
 
-.main-wrapper {
-    overflow-x: hidden;
-    width: 100%;
-    position: relative;
-    min-height: 100vh;
-}
 
 h1,
 h2,
@@ -538,8 +532,8 @@ footer p {
 /* Responsive */
 @media screen and (max-width: 768px) {
     .nav-links {
-        position: absolute;
-        right: 0;
+        position: fixed;
+        right: -250px;
         top: 70px;
         background: var(--bg-card);
         backdrop-filter: blur(20px);
@@ -550,12 +544,11 @@ footer p {
         border-radius: 0 0 0 16px;
         border-left: 1px solid var(--border);
         border-bottom: 1px solid var(--border);
-        transform: translateX(100%);
-        transition: transform 0.3s ease;
+        transition: right 0.3s ease;
     }
 
     .nav-links.nav-active {
-        transform: translateX(0%);
+        right: 0;
     }
 
     .hamburger {
@@ -590,11 +583,12 @@ footer p {
     }
 
     /* Modal & Demo Responsiveness */
-    .demo-content {
+    .advanced-modal {
         width: 95%;
-        padding: 1.5rem;
+        padding: 1rem;
         max-height: 90vh;
         overflow-y: auto;
+        overflow-x: hidden;
     }
     
     .demo-layout {
@@ -608,32 +602,42 @@ footer p {
     
     /* Demo 2: Iris */
     .cctv-panel, .iot-panel {
-        height: 300px;
+        height: 250px !important;
+    }
+    .iris-dashboard {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    /* Demo 1: RAG */
+    .rag-search-container {
+        flex-direction: column;
     }
     
     /* Demo 3: Intent Graph */
     .intent-graph-panel {
-        height: 250px;
+        height: 220px !important;
     }
     .svg-container {
-        transform: scale(0.45);
+        transform: scale(0.35);
         transform-origin: top center;
-        width: 220%;
-        left: -60%;
+        width: 280%;
+        left: -90%;
     }
     
     /* Demo 4: Recon */
-    .receipt-container, .statements-container {
-        height: 300px;
+    .receipt-container, .recon-bank-panel {
+        height: 250px !important;
     }
     .receipt {
-        transform: scale(0.85);
-        transform-origin: center center;
+        transform: scale(0.65);
+        transform-origin: top center;
+        margin-bottom: -50px;
     }
     
     /* Demo 5: Pothole */
     .pothole-vision-panel, .pothole-map-panel {
-        height: 300px;
+        height: 250px !important;
     }
     
     /* General Website Responsiveness */
