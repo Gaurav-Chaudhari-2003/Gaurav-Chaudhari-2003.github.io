@@ -187,20 +187,17 @@ function resetDemos() {
         document.getElementById('ph-ai-status').style.color = '#94a3b8';
         document.getElementById('ph-log').innerText = '> System Ready. Awaiting citizen reports.';
     }
+
+    // PMRDA Demo Reset
+    if (typeof resetPmrdaDemo === 'function') {
+        resetPmrdaDemo();
+    }
 }
 
-demoBtns.forEach(btn => {
-    btn.addEventListener('click', (e) => {
-        const targetId = e.target.getAttribute('data-demo');
-        demoContainers.forEach(container => container.classList.add('hidden'));
-        document.getElementById(targetId).classList.remove('hidden');
-        resetDemos();
-        modal.classList.add('show');
-    });
-});
-
-closeBtn.addEventListener('click', () => { modal.classList.remove('show'); resetDemos(); });
-window.addEventListener('click', (e) => { if (e.target === modal) { modal.classList.remove('show'); resetDemos(); } });
+if (closeBtn && modal) {
+    closeBtn.addEventListener('click', () => { modal.classList.remove('show'); resetDemos(); });
+    window.addEventListener('click', (e) => { if (e.target === modal) { modal.classList.remove('show'); resetDemos(); } });
+}
 
 // RAG Demo Logic
 const ragSearchBtn = document.getElementById('rag-search-btn');
@@ -600,3 +597,173 @@ function runPotholeFlow(isReal) {
 
 if(btnPhReal) btnPhReal.addEventListener('click', () => runPotholeFlow(true));
 if(btnPhFake) btnPhFake.addEventListener('click', () => runPotholeFlow(false));
+
+// PMRDA & PMC DB Analytics Chatbot Demo Logic
+let pmrdaTimeouts = [];
+
+function resetPmrdaDemo() {
+    pmrdaTimeouts.forEach(clearTimeout);
+    pmrdaTimeouts = [];
+    const progressArea = document.getElementById('pmrda-progress-area');
+    const resultsArea = document.getElementById('pmrda-results-area');
+    if (progressArea) progressArea.classList.add('hidden');
+    if (resultsArea) resultsArea.classList.add('hidden');
+}
+
+function runPmrdaQuery(queryText) {
+    resetPmrdaDemo();
+
+    const input = document.getElementById('pmrda-query-input');
+    const progressArea = document.getElementById('pmrda-progress-area');
+    const progressStep = document.getElementById('pmrda-progress-step');
+    const progressBar = document.getElementById('pmrda-progress-bar');
+    const resultsArea = document.getElementById('pmrda-results-area');
+    const sqlCode = document.getElementById('pmrda-sql-code');
+    const tableContainer = document.getElementById('pmrda-table-container');
+    const chartContainer = document.getElementById('pmrda-chart-container');
+    const summaryText = document.getElementById('pmrda-summary-text');
+
+    if (input) input.value = queryText;
+    if (!progressArea) return;
+
+    progressArea.classList.remove('hidden');
+    progressBar.style.width = '15%';
+    progressStep.innerText = 'Resolving User Context & RBAC Permissions (Town Planning Officer)...';
+
+    pmrdaTimeouts.push(setTimeout(() => {
+        progressBar.style.width = '40%';
+        progressStep.innerText = 'Inspecting live PostgreSQL schema (Excluding bak_* snapshot tables)...';
+
+        pmrdaTimeouts.push(setTimeout(() => {
+            progressBar.style.width = '75%';
+            progressStep.innerText = 'Searching Agent Memory & compiling PostgreSQL 16 query...';
+
+            pmrdaTimeouts.push(setTimeout(() => {
+                progressBar.style.width = '100%';
+                progressStep.innerText = 'Query executed successfully. Streaming results...';
+
+                pmrdaTimeouts.push(setTimeout(() => {
+                    progressArea.classList.add('hidden');
+                    resultsArea.classList.remove('hidden');
+
+                    // Determine query type and populate realistic response
+                    if (queryText.includes('Marathi') || queryText.includes('एकूण')) {
+                        sqlCode.innerText = `SELECT \n  COUNT(*)::int AS total_applications,\n  COUNT(CASE WHEN status = 'approved' THEN 1 END)::int AS approved_cnt,\n  COUNT(CASE WHEN status = 'pending' THEN 1 END)::int AS pending_cnt\nFROM rts_citizen_applications\nWHERE deleted_at IS NULL\n  AND status NOT IN ('deleted', 'started', 'draft');`;
+                        
+                        tableContainer.innerHTML = `
+                            <table style="width:100%; border-collapse:collapse; font-size:0.8rem; text-align:left;">
+                                <thead>
+                                    <tr style="border-bottom:1px solid #334155; color:#94a3b8;">
+                                        <th style="padding:6px;">Category (वर्ग)</th>
+                                        <th style="padding:6px;">Applications (एकूण अर्ज)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr style="border-bottom:1px solid #1e293b;"><td style="padding:6px; color:#22c55e;">Approved (मंजूर)</td><td style="padding:6px; font-weight:bold;">3,142</td></tr>
+                                    <tr style="border-bottom:1px solid #1e293b;"><td style="padding:6px; color:#f59e0b;">Pending (प्रलंबित)</td><td style="padding:6px; font-weight:bold;">854</td></tr>
+                                    <tr style="border-bottom:1px solid #1e293b;"><td style="padding:6px; color:#ef4444;">Rejected (नामंजूर)</td><td style="padding:6px; font-weight:bold;">280</td></tr>
+                                </tbody>
+                            </table>`;
+
+                        chartContainer.innerHTML = `
+                            <svg width="100%" height="160" viewBox="0 0 240 160">
+                                <circle cx="120" cy="80" r="55" fill="none" stroke="#22c55e" stroke-width="24" stroke-dasharray="250 350" />
+                                <circle cx="120" cy="80" r="55" fill="none" stroke="#f59e0b" stroke-width="24" stroke-dasharray="70 350" stroke-dashoffset="-250" />
+                                <circle cx="120" cy="80" r="55" fill="none" stroke="#ef4444" stroke-width="24" stroke-dasharray="25 350" stroke-dashoffset="-320" />
+                                <text x="120" y="76" text-anchor="middle" fill="#fff" font-size="14" font-weight="bold">4,276</text>
+                                <text x="120" y="94" text-anchor="middle" fill="#94a3b8" font-size="10">एकूण अर्ज</text>
+                            </svg>`;
+
+                        summaryText.innerText = "PMRDA प्रणाली सुरू झाल्यापासून आजपर्यंत एकूण 4,276 नागरिक अर्ज प्राप्त झाले आहेत. त्यापैकी 3,142 अर्ज मंजूर (73.5%), 854 अर्ज विविध टप्प्यांवर प्रलंबित (20%), तर 280 अर्ज नामंजूर करण्यात आले आहेत.";
+                    
+                    } else if (queryText.includes('status') || queryText.includes('grouped')) {
+                        sqlCode.innerText = `SELECT \n  status, \n  COUNT(*)::int AS cnt \nFROM rts_citizen_applications \nWHERE deleted_at IS NULL \n  AND status NOT IN ('deleted', 'started', 'draft') \nGROUP BY status \nORDER BY cnt DESC;`;
+
+                        tableContainer.innerHTML = `
+                            <table style="width:100%; border-collapse:collapse; font-size:0.8rem; text-align:left;">
+                                <thead>
+                                    <tr style="border-bottom:1px solid #334155; color:#94a3b8;">
+                                        <th style="padding:6px;">Status</th>
+                                        <th style="padding:6px;">Count</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr style="border-bottom:1px solid #1e293b;"><td style="padding:6px;">Approved</td><td style="padding:6px; font-weight:bold; color:#22c55e;">3,142</td></tr>
+                                    <tr style="border-bottom:1px solid #1e293b;"><td style="padding:6px;">Under Review (Desk)</td><td style="padding:6px; font-weight:bold; color:#38bdf8;">612</td></tr>
+                                    <tr style="border-bottom:1px solid #1e293b;"><td style="padding:6px;">Rejected</td><td style="padding:6px; font-weight:bold; color:#ef4444;">280</td></tr>
+                                    <tr style="border-bottom:1px solid #1e293b;"><td style="padding:6px;">Payment Pending</td><td style="padding:6px; font-weight:bold; color:#f59e0b;">242</td></tr>
+                                </tbody>
+                            </table>`;
+
+                        chartContainer.innerHTML = `
+                            <svg width="100%" height="160" viewBox="0 0 240 160">
+                                <rect x="20" y="30" width="140" height="22" rx="4" fill="#22c55e" />
+                                <text x="165" y="46" fill="#fff" font-size="10" font-weight="bold">3,142</text>
+                                <rect x="20" y="60" width="45" height="22" rx="4" fill="#38bdf8" />
+                                <text x="70" y="76" fill="#fff" font-size="10" font-weight="bold">612</text>
+                                <rect x="20" y="90" width="22" height="22" rx="4" fill="#ef4444" />
+                                <text x="47" y="106" fill="#fff" font-size="10" font-weight="bold">280</text>
+                                <rect x="20" y="120" width="18" height="22" rx="4" fill="#f59e0b" />
+                                <text x="43" y="136" fill="#fff" font-size="10" font-weight="bold">242</text>
+                            </svg>`;
+
+                        summaryText.innerText = "Breakdown of total 4,276 PMRDA applications by current status: 3,142 Approved (73.5%), 612 Under Active Desk Review, 280 Rejected due to incomplete documentation, and 242 Pending Payment Gateway completion.";
+
+                    } else {
+                        // Monthly trend (default)
+                        sqlCode.innerText = `SELECT \n  TO_CHAR(created_at, 'Mon YYYY') AS month_label, \n  COUNT(*)::int AS total_applications \nFROM rts_citizen_applications \nWHERE created_at >= NOW() - INTERVAL '12 months' \n  AND status NOT IN ('deleted', 'started', 'draft') \nGROUP BY TO_CHAR(created_at, 'Mon YYYY'), DATE_TRUNC('month', created_at) \nORDER BY DATE_TRUNC('month', created_at) ASC;`;
+
+                        tableContainer.innerHTML = `
+                            <table style="width:100%; border-collapse:collapse; font-size:0.8rem; text-align:left;">
+                                <thead>
+                                    <tr style="border-bottom:1px solid #334155; color:#94a3b8;">
+                                        <th style="padding:6px;">Month</th>
+                                        <th style="padding:6px;">Submissions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr style="border-bottom:1px solid #1e293b;"><td style="padding:6px;">Oct 2025</td><td style="padding:6px; font-weight:bold;">310</td></tr>
+                                    <tr style="border-bottom:1px solid #1e293b;"><td style="padding:6px;">Nov 2025</td><td style="padding:6px; font-weight:bold;">345</td></tr>
+                                    <tr style="border-bottom:1px solid #1e293b;"><td style="padding:6px;">Dec 2025</td><td style="padding:6px; font-weight:bold;">412</td></tr>
+                                    <tr style="border-bottom:1px solid #1e293b;"><td style="padding:6px;">Jan 2026</td><td style="padding:6px; font-weight:bold;">490</td></tr>
+                                    <tr style="border-bottom:1px solid #1e293b;"><td style="padding:6px;">Feb 2026</td><td style="padding:6px; font-weight:bold;">528</td></tr>
+                                </tbody>
+                            </table>`;
+
+                        chartContainer.innerHTML = `
+                            <svg width="100%" height="160" viewBox="0 0 240 160">
+                                <path d="M 20 130 L 60 110 L 100 95 L 140 60 L 180 40 L 220 25" stroke="#38bdf8" stroke-width="3" fill="none" />
+                                <circle cx="20" cy="130" r="4" fill="#38bdf8" />
+                                <circle cx="60" cy="110" r="4" fill="#38bdf8" />
+                                <circle cx="100" cy="95" r="4" fill="#38bdf8" />
+                                <circle cx="140" cy="60" r="4" fill="#38bdf8" />
+                                <circle cx="180" cy="40" r="4" fill="#38bdf8" />
+                                <circle cx="220" cy="25" r="5" fill="#22c55e" />
+                                <text x="215" y="15" fill="#22c55e" font-size="9" font-weight="bold">528</text>
+                            </svg>`;
+
+                        summaryText.innerText = "All-Time submission trend indicates consistent upward growth across PMRDA RTS services over the past 12 months, peaking at 528 applications in Feb 2026 driven by Town Planning & Building Permission approvals.";
+                    }
+                }, 300));
+            }, 600));
+        }, 500));
+    }, 400));
+}
+
+// Bind PMRDA Event Listeners
+const btnPmrdaRun = document.getElementById('btn-pmrda-run');
+const pmrdaInput = document.getElementById('pmrda-query-input');
+const pmrdaPresets = document.querySelectorAll('.pmrda-preset-btn');
+
+if (btnPmrdaRun && pmrdaInput) {
+    btnPmrdaRun.addEventListener('click', () => runPmrdaQuery(pmrdaInput.value));
+    pmrdaInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') runPmrdaQuery(pmrdaInput.value); });
+}
+
+pmrdaPresets.forEach(btn => {
+    btn.addEventListener('click', () => {
+        const q = btn.getAttribute('data-query');
+        if (q) runPmrdaQuery(q);
+    });
+});
+

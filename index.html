@@ -160,23 +160,141 @@
     <section id="ai-projects" class="section">
         <div class="container">
             <h2 class="section-title">Enterprise <span>AI/ML Projects</span></h2>
-            <div class="project-grid">
-                <div class="project-card glass-card">
-                    <div class="project-content">
-                        <h3>Multi-Tenant AI Document Search Engine (RAG)</h3>
-                        <p>Architected a production-ready enterprise RAG platform utilizing pgvector and hybrid search
-                            (HyDE fallback). Built a scalable pipeline with Celery workers for asynchronous processing.
-                            Implemented AI provider hot-swapping (Anthropic/OpenAI) using singleton caching and strict
-                            RLS tenant isolation.</p>
-                        <div class="project-tags">
-                            <span><i class="devicon-fastapi-plain colored"></i> FastAPI</span>
-                            <span><i class="devicon-nextjs-plain" style="color:white;"></i> Next.js</span>
-                            <span><i class="devicon-postgresql-plain colored"></i> PostgreSQL</span>
-                            <span><i class="fas fa-leaf" style="color:#22c55e;"></i> Celery</span>
+            <div class="project-showcase-grid">
+
+                <!-- 1. PMRDA & PMC DB Analytics Chatbot (Vanna 2.0) -->
+                <div class="project-showcase-card glass-card">
+                    <div class="showcase-details">
+                        <div>
+                            <div class="showcase-badge"><i class="fas fa-database"></i> Natural Language to SQL</div>
+                            <h3>PMRDA & PMC DB Analytics Chatbot (Vanna 2.0)</h3>
+                            <p>Enterprise Natural Language to SQL Analytics Engine & Streaming Assistant built for Pune Metropolitan Region Development Authority (PMRDA) & PMC RTS database (PostgreSQL 16). Resolves user permissions, performs dynamic schema filtering, generates safe PostgreSQL queries, and streams live tables, charts, & executive summaries.</p>
+                            <ul class="showcase-features">
+                                <li><i class="fas fa-check-circle"></i> Live PostgreSQL 16 dynamic schema discovery (excl. bak_* tables)</li>
+                                <li><i class="fas fa-check-circle"></i> User-aware RBAC & Row-Level Security (RLS) enforcement</li>
+                                <li><i class="fas fa-check-circle"></i> Real-time SSE streaming for SQL, data tables, Plotly charts, & summary</li>
+                                <li><i class="fas fa-check-circle"></i> Multi-lingual support (English, Marathi, Hinglish)</li>
+                            </ul>
                         </div>
-                        <div style="display: flex; gap: 0.5rem; margin-top: 1.5rem;">
-                            <button class="btn btn-primary demo-btn" style="flex: 1;" data-demo="demo-rag">View
-                                Simulated Demo</button>
+                        <div class="project-tags" style="margin-top: auto;">
+                            <span><i class="devicon-fastapi-plain colored"></i> FastAPI</span>
+                            <span><i class="devicon-postgresql-plain colored"></i> PostgreSQL 16</span>
+                            <span><i class="fas fa-robot" style="color:#f59e0b;"></i> Vanna 2.0</span>
+                            <span><i class="fas fa-brain" style="color:#a855f7;"></i> OpenRouter</span>
+                            <span><i class="devicon-typescript-plain colored"></i> Web Component</span>
+                            <span><i class="fas fa-chart-bar" style="color:#38bdf8;"></i> Plotly</span>
+                        </div>
+                    </div>
+                    <div class="showcase-demo-container">
+                        <div id="demo-pmrda" class="demo-container">
+                            <div class="pmrda-demo-wrapper" style="display:flex; flex-direction:column; gap:0.8rem; width:100%;">
+                                <!-- User & Auth Header Bar -->
+                                <div style="display:flex; justify-content:space-between; align-items:center; background:#1e293b; padding:0.5rem 0.8rem; border-radius:6px; font-size:0.75rem; border:1px solid #334155;">
+                                    <span style="color:#22c55e; display:flex; align-items:center; gap:0.4rem; font-weight:600;">
+                                        <i class="fas fa-database"></i> PostgreSQL 16: Active (pmrda_rts_prod)
+                                    </span>
+                                    <span style="color:#38bdf8; display:flex; align-items:center; gap:0.4rem; font-weight:600;">
+                                        <i class="fas fa-user-shield"></i> Role: Town Planner (Admin)
+                                    </span>
+                                </div>
+
+                                <!-- Quick Query Pill Buttons -->
+                                <div style="display:flex; flex-wrap:wrap; gap:0.4rem; align-items:center;">
+                                    <span style="font-size:0.75rem; color:var(--text-muted); font-weight:bold;">Presets:</span>
+                                    <button class="btn btn-secondary pmrda-preset-btn" data-query="Show me the monthly application submission trend for the last 12 months" style="padding:0.3rem 0.6rem; font-size:0.7rem;">
+                                        📊 Monthly Submission Trend
+                                    </button>
+                                    <button class="btn btn-secondary pmrda-preset-btn" data-query="What are the total application counts grouped by application status?" style="padding:0.3rem 0.6rem; font-size:0.7rem;">
+                                        📋 Status Breakdown
+                                    </button>
+                                    <button class="btn btn-secondary pmrda-preset-btn" data-query="एकूण किती नागरिक अर्ज दाखल झाले आहेत?" style="padding:0.3rem 0.6rem; font-size:0.7rem;">
+                                        🇮🇳 एकूण अर्ज (Marathi)
+                                    </button>
+                                </div>
+
+                                <!-- Input Box -->
+                                <div style="display:flex; gap:0.5rem; align-items:center;">
+                                    <input type="text" id="pmrda-query-input" placeholder="Ask any question about PMRDA RTS applications or fees..." value="Show me the monthly application submission trend for the last 12 months" style="flex:1; padding:0.6rem; border-radius:6px; border:1px solid var(--border); background:var(--bg-main); color:var(--text-main); font-size:0.85rem;">
+                                    <button id="btn-pmrda-run" class="btn btn-primary" style="padding:0.6rem 1.2rem; white-space:nowrap; font-size:0.85rem;">
+                                        <i class="fas fa-paper-plane"></i> Run Query
+                                    </button>
+                                </div>
+
+                                <!-- Progress Log Bar -->
+                                <div id="pmrda-progress-area" class="hidden" style="background:#0f172a; padding:0.6rem 0.8rem; border-radius:6px; border:1px solid #38bdf8; font-family:monospace; font-size:0.75rem; color:#38bdf8;">
+                                    <div style="display:flex; align-items:center; gap:0.4rem; margin-bottom:0.3rem;">
+                                        <i class="fas fa-spinner fa-spin" id="pmrda-spinner"></i>
+                                        <span id="pmrda-progress-step">Initializing Vanna Agent...</span>
+                                    </div>
+                                    <div style="width:100%; background:#1e293b; height:4px; border-radius:2px; overflow:hidden;">
+                                        <div id="pmrda-progress-bar" style="width:15%; height:100%; background:#38bdf8; transition:width 0.3s ease;"></div>
+                                    </div>
+                                </div>
+
+                                <!-- Output Results Area -->
+                                <div id="pmrda-results-area" class="hidden" style="display:flex; flex-direction:column; gap:0.8rem; animation:fadeInModal 0.4s ease;">
+                                    
+                                    <!-- Generated SQL Card (Gated) -->
+                                    <div style="background:#0f172a; border-radius:6px; border:1px solid #334155; overflow:hidden;">
+                                        <div style="background:#1e293b; padding:0.4rem 0.8rem; display:flex; justify-content:space-between; align-items:center; font-size:0.75rem; border-bottom:1px solid #334155;">
+                                            <span style="color:#22c55e; font-weight:bold;"><i class="fas fa-code"></i> Generated PostgreSQL 16 Query</span>
+                                            <span style="background:rgba(34,197,94,0.15); color:#22c55e; padding:2px 6px; border-radius:4px; font-size:0.65rem; font-weight:bold;">RLS Filtered</span>
+                                        </div>
+                                        <pre id="pmrda-sql-code" style="padding:0.8rem; color:#a78bfa; font-family:monospace; font-size:0.75rem; margin:0; overflow-x:auto; white-space:pre-wrap; line-height:1.4;"></pre>
+                                    </div>
+
+                                    <!-- Data Table & Chart Split Layout -->
+                                    <div class="demo-layout" style="margin:0; min-height:auto; gap:0.8rem;">
+                                        <!-- Data Table -->
+                                        <div style="flex:1; background:#0f172a; border-radius:6px; border:1px solid #334155; padding:0.8rem; overflow-x:auto;">
+                                            <div style="font-weight:bold; color:var(--text-main); font-size:0.8rem; margin-bottom:0.5rem; display:flex; align-items:center; gap:0.4rem;">
+                                                <i class="fas fa-table" style="color:#38bdf8;"></i> Streamed Recordset
+                                            </div>
+                                            <div id="pmrda-table-container"></div>
+                                        </div>
+
+                                        <!-- Plotly SVG Visual Chart -->
+                                        <div style="flex:1; background:#0f172a; border-radius:6px; border:1px solid #334155; padding:0.8rem; display:flex; flex-direction:column;">
+                                            <div style="font-weight:bold; color:var(--text-main); font-size:0.8rem; margin-bottom:0.5rem; display:flex; align-items:center; gap:0.4rem;">
+                                                <i class="fas fa-chart-bar" style="color:#f59e0b;"></i> Plotly Visualization
+                                            </div>
+                                            <div id="pmrda-chart-container" style="flex:1; min-height:140px; display:flex; justify-content:center; align-items:center;"></div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Executive AI Summary Box -->
+                                    <div style="background:var(--bg-card); padding:0.8rem 1rem; border-radius:6px; border:1px solid var(--border); border-left:4px solid var(--primary);">
+                                        <div style="font-weight:bold; color:var(--text-main); font-size:0.8rem; margin-bottom:0.3rem; display:flex; align-items:center; gap:0.4rem;">
+                                            <i class="fas fa-robot" style="color:var(--primary);"></i> AI Executive Summary
+                                        </div>
+                                        <p id="pmrda-summary-text" style="font-size:0.82rem; color:var(--text-main); line-height:1.4; margin:0;"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. Multi-Tenant AI Document Search Engine (RAG) -->
+                <div class="project-showcase-card glass-card">
+                    <div class="showcase-details">
+                        <div>
+                            <div class="showcase-badge"><i class="fas fa-search"></i> Hybrid RAG Engine</div>
+                            <h3>Multi-Tenant AI Document Search Engine</h3>
+                            <p>Architected a production-ready enterprise RAG platform utilizing pgvector and hybrid search (HyDE fallback). Built a scalable pipeline with Celery workers for asynchronous document processing, AI provider hot-swapping (Anthropic/OpenAI) using singleton caching, and strict RLS tenant isolation.</p>
+                            <ul class="showcase-features">
+                                <li><i class="fas fa-check-circle"></i> pgvector hybrid vector search with HyDE fallback</li>
+                                <li><i class="fas fa-check-circle"></i> Asynchronous document processing via Celery workers</li>
+                                <li><i class="fas fa-check-circle"></i> Multi-tenant RLS isolation & provider hot-swapping</li>
+                            </ul>
+                        </div>
+                        <div style="display: flex; gap: 0.5rem; margin-top: 1.5rem; align-items: center;">
+                            <div class="project-tags" style="flex: 1;">
+                                <span><i class="devicon-fastapi-plain colored"></i> FastAPI</span>
+                                <span><i class="devicon-nextjs-plain" style="color:white;"></i> Next.js</span>
+                                <span><i class="devicon-postgresql-plain colored"></i> PostgreSQL</span>
+                                <span><i class="fas fa-leaf" style="color:#22c55e;"></i> Celery</span>
+                            </div>
                             <a href="https://www.linkedin.com/posts/stark-digital-media-services-pvt%2E-ltd%2E_stark-digitals-ai-team-solved-enterprise-activity-7492924379610222592-JgkU?utm_source=share&utm_medium=member_desktop&rcm=ACoAADR5BM4BNOk_qcR19XcLoumGvK3htznfn10"
                                 target="_blank" class="btn btn-secondary"
                                 style="display: flex; align-items: center; justify-content: center; padding: 0.5rem 1rem;"
@@ -185,24 +303,58 @@
                             </a>
                         </div>
                     </div>
+                    <div class="showcase-demo-container">
+                        <div id="demo-rag" class="demo-container">
+                            <div class="rag-interactive-demo" style="width:100%;">
+                                <!-- Search Bar -->
+                                <div class="rag-search-container">
+                                    <input type="text" id="rag-query-input" placeholder="Ask a question..." value="What is our Q3 revenue?">
+                                    <button id="rag-search-btn" class="btn btn-primary"><i class="fas fa-search"></i> Search</button>
+                                </div>
+
+                                <!-- Scanning Animation Area -->
+                                <div id="rag-scanning-area" class="hidden">
+                                    <div class="scanning-title">Scanning Vector Database...</div>
+                                    <div class="vector-grid"></div>
+                                    <div class="scan-line"></div>
+                                </div>
+
+                                <!-- Results Area -->
+                                <div id="rag-results-area" class="hidden">
+                                    <div class="rag-facts">
+                                        <h4><i class="fas fa-file-alt"></i> Retrieved Facts</h4>
+                                        <ul id="rag-facts-list"></ul>
+                                    </div>
+                                    <div class="rag-summary">
+                                        <h4><i class="fas fa-robot"></i> AI Summary</h4>
+                                        <p id="rag-summary-text" class="typing-text"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="project-card glass-card">
-                    <div class="project-content">
-                        <h3>Project Iris: Edge AI Office Telemetry & Automation</h3>
-                        <p>Engineered an intelligent office automation system replacing motion sensors with real-time
-                            PyTorch YOLO person detection (1-sec latency). Developed a custom OpenCV spatial motion
-                            engine to map bounding boxes to a 2D floorplan, triggering IoT relays (AZIOT, Broadlink IR)
-                            for HVAC optimization.</p>
-                        <div class="project-tags">
-                            <span><i class="devicon-pytorch-original colored"></i> PyTorch</span>
-                            <span><i class="fas fa-eye" style="color:#38bdf8;"></i> YOLO</span>
-                            <span><i class="devicon-opencv-plain colored"></i> OpenCV</span>
-                            <span><i class="fas fa-network-wired" style="color:#94a3b8;"></i> IoT</span>
+                <!-- 3. Project Iris: Edge AI Office Telemetry -->
+                <div class="project-showcase-card glass-card">
+                    <div class="showcase-details">
+                        <div>
+                            <div class="showcase-badge"><i class="fas fa-eye"></i> Edge Computer Vision</div>
+                            <h3>Project Iris: Edge AI Office Telemetry & Automation</h3>
+                            <p>Engineered an intelligent commercial office energy automation system replacing motion sensors with real-time PyTorch YOLO person detection (1-sec latency). Developed a custom OpenCV spatial motion engine to map bounding boxes to a 2D floorplan, triggering IoT relays (AZIOT, Broadlink IR) for HVAC optimization.</p>
+                            <ul class="showcase-features">
+                                <li><i class="fas fa-check-circle"></i> Real-time 1-sec latency PyTorch YOLO person detection</li>
+                                <li><i class="fas fa-check-circle"></i> OpenCV spatial bounding-box to 2D floorplan mapping</li>
+                                <li><i class="fas fa-check-circle"></i> Automated IoT relay triggers for HVAC & commercial lighting</li>
+                            </ul>
                         </div>
-                        <div style="display: flex; gap: 0.5rem; margin-top: 1.5rem;">
-                            <button class="btn btn-primary demo-btn" style="flex: 1;" data-demo="demo-iris">View
-                                Simulated Demo</button>
+                        <div style="display: flex; gap: 0.5rem; margin-top: 1.5rem; align-items: center;">
+                            <div class="project-tags" style="flex: 1;">
+                                <span><i class="devicon-pytorch-original colored"></i> PyTorch</span>
+                                <span><i class="fas fa-eye" style="color:#38bdf8;"></i> YOLO</span>
+                                <span><i class="devicon-opencv-plain colored"></i> OpenCV</span>
+                                <span><i class="fas fa-network-wired" style="color:#94a3b8;"></i> IoT</span>
+                            </div>
                             <a href="https://www.linkedin.com/posts/stark-digital-media-services-pvt%2E-ltd%2E_the-smarter-way-to-automate-commercial-energy-activity-7495097882304454656-rLDQ?utm_source=share&utm_medium=member_desktop&rcm=ACoAADR5BM4BNOk_qcR19XcLoumGvK3htznfn10"
                                 target="_blank" class="btn btn-secondary"
                                 style="display: flex; align-items: center; justify-content: center; padding: 0.5rem 1rem;"
@@ -211,58 +363,288 @@
                             </a>
                         </div>
                     </div>
+                    <div class="showcase-demo-container">
+                        <div id="demo-iris" class="demo-container">
+                            <div class="iris-interactive-demo" style="width:100%;">
+                                <div class="cctv-feed" id="iris-cctv">
+                                    <div class="room-overlay dark" id="iris-room-darkness"></div>
+                                    <div class="camera-ui">REC <span>🔴</span> | CH01: OFFICE MAIN</div>
+
+                                    <!-- Persons -->
+                                    <div class="cctv-person p1 hidden" id="cctv-p1">
+                                        <div class="yolo-bbox"><span>Person 0.98</span></div>
+                                    </div>
+                                    <div class="cctv-person p2 hidden" id="cctv-p2">
+                                        <div class="yolo-bbox"><span>Person 0.95</span></div>
+                                    </div>
+                                    <div class="cctv-person p3 hidden" id="cctv-p3">
+                                        <div class="yolo-bbox"><span>Person 0.91</span></div>
+                                    </div>
+                                    <div class="cctv-person p4 hidden" id="cctv-p4">
+                                        <div class="yolo-bbox"><span>Person 0.99</span></div>
+                                    </div>
+                                </div>
+                                <div class="iris-dashboard" style="margin-top:0.8rem;">
+                                    <div class="iris-stat">
+                                        <i class="fas fa-users"></i> Occupants: <span id="iris-occ">0</span>
+                                    </div>
+                                    <div class="iris-stat">
+                                        <i class="fas fa-lightbulb"></i> Lighting: <span id="iris-light">OFF</span>
+                                    </div>
+                                    <button id="iris-simulate-btn" class="btn btn-primary run-demo-btn" style="width: auto;">Start CCTV Feed</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="project-card glass-card">
-                    <div class="project-content">
-                        <h3>Enterprise Intent Detection Engine</h3>
-                        <p>Automated investor inquiry classification and routing system leveraging LangGraph and
-                            LangChain for multi-agent workflows. Integrated PostgreSQL with pgvector for semantic
-                            matching, coupled with a FastAPI backend, RBAC, and Redis caching.</p>
-                        <div class="project-tags">
+                <!-- 4. Enterprise Intent Detection Engine -->
+                <div class="project-showcase-card glass-card">
+                    <div class="showcase-details">
+                        <div>
+                            <div class="showcase-badge"><i class="fas fa-project-diagram"></i> Multi-Agent NLP</div>
+                            <h3>Enterprise Intent Detection Engine</h3>
+                            <p>Automated investor inquiry classification and routing system leveraging LangGraph and LangChain for multi-agent workflows. Integrated PostgreSQL with pgvector for semantic matching, coupled with a FastAPI backend, RBAC, and Redis caching.</p>
+                            <ul class="showcase-features">
+                                <li><i class="fas fa-check-circle"></i> LangGraph multi-agent DAG orchestration</li>
+                                <li><i class="fas fa-check-circle"></i> pgvector semantic similarity intent classifier</li>
+                                <li><i class="fas fa-check-circle"></i> Automated routing to FAQ bots or department human officers</li>
+                            </ul>
+                        </div>
+                        <div class="project-tags" style="margin-top: auto;">
                             <span><i class="fas fa-project-diagram" style="color:#22c55e;"></i> LangGraph</span>
                             <span><i class="fas fa-robot" style="color:#f59e0b;"></i> OpenAI</span>
                             <span><i class="devicon-fastapi-plain colored"></i> FastAPI</span>
                             <span><i class="devicon-postgresql-plain colored"></i> pgvector</span>
                         </div>
-                        <button class="btn btn-primary demo-btn" style="margin-top: 1.5rem; width: 100%;"
-                            data-demo="demo-intent">View Simulated Demo</button>
+                    </div>
+                    <div class="showcase-demo-container">
+                        <div id="demo-intent" class="demo-container">
+                            <div class="intent-graph-panel" style="width:100%; height:260px; background:#1e293b; border-radius:8px; border:1px solid #334155; position:relative; overflow:hidden;">
+                                <div class="svg-container">
+                                    <svg width="100%" height="260" viewBox="0 0 600 260" preserveAspectRatio="xMidYMid meet">
+                                        <!-- Base Paths -->
+                                        <path d="M 100 130 L 250 130" stroke="#334155" stroke-width="4" fill="none" />
+                                        <path d="M 250 130 C 350 130 350 60 450 60" stroke="#334155" stroke-width="4" fill="none" />
+                                        <path d="M 250 130 C 350 130 350 200 450 200" stroke="#334155" stroke-width="4" fill="none" />
+
+                                        <!-- Animated Data Streams -->
+                                        <path id="stream-input-cls" d="M 100 130 L 250 130" stroke="#38bdf8" stroke-width="4" fill="none" class="data-stream hidden" />
+                                        <path id="stream-cls-faq" d="M 250 130 C 350 130 350 60 450 60" stroke="#22c55e" stroke-width="4" fill="none" class="data-stream hidden" />
+                                        <path id="stream-cls-midc" d="M 250 130 C 350 130 350 200 450 200" stroke="#ef4444" stroke-width="4" fill="none" class="data-stream hidden" />
+                                    </svg>
+                                </div>
+
+                                <div class="graph-nodes" style="position:absolute; width:600px; height:260px; left:50%; transform:translateX(-50%); pointer-events:none;">
+                                    <!-- Sender -->
+                                    <div class="server-node" id="node-in" style="left: 50px; top: 100px;">
+                                        <i class="fas fa-user"></i><span>User</span>
+                                    </div>
+
+                                    <!-- NLP Classifier -->
+                                    <div class="server-node" id="node-cls" style="left: 200px; top: 100px;">
+                                        <i class="fas fa-brain"></i><span>NLP Engine</span>
+                                        <div class="node-status" id="cls-status">Idle</div>
+                                    </div>
+
+                                    <!-- Tooltip above NLP Engine -->
+                                    <div id="cls-tooltip" class="gui-tooltip hidden" style="left:205px; top:60px;">Processing...</div>
+
+                                    <!-- FAQ Agent -->
+                                    <div class="server-node" id="node-faq" style="left: 400px; top: 35px;">
+                                        <i class="fas fa-robot"></i><span>FAQ Bot</span>
+                                    </div>
+                                    <!-- Tooltip/Bubble next to FAQ Agent -->
+                                    <div id="faq-bubble" class="gui-bubble hidden" style="left:470px; top:25px;">
+                                        <p><strong>Response:</strong> For a handmill, land title & env. clearance are required.</p>
+                                    </div>
+
+                                    <!-- MIDC Officer -->
+                                    <div class="server-node" id="node-midc" style="left: 400px; top: 170px;">
+                                        <i class="fas fa-user-tie"></i><span>Officer</span>
+                                    </div>
+                                    <!-- Tooltip/Bubble next to MIDC -->
+                                    <div id="midc-bubble" class="gui-bubble hidden" style="left:470px; top:160px; border-left-color:#ef4444;">
+                                        <p><strong><i class="fas fa-file-invoice"></i> Proposal Received</strong><br />Priority: High</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="intent-controls" style="display:flex; flex-direction:column; gap:0.6rem; margin-top:0.8rem;">
+                                <div style="display:flex; gap:0.5rem; align-items:center;">
+                                    <input type="text" id="intent-custom-input" placeholder="Type a message to test the NLP router..." style="flex:1; padding:0.6rem; border-radius:4px; border:1px solid var(--border); background:var(--bg-main); color:var(--text-main); font-size:0.85rem;">
+                                    <button id="btn-intent-send" class="btn btn-primary" style="padding:0.6rem 1.2rem; font-size:0.85rem;">Send</button>
+                                </div>
+                                <div style="display:flex; gap:0.5rem; align-items:center;">
+                                    <span style="font-size:0.75rem; color:var(--text-muted); font-weight:bold;">Quick Tests:</span>
+                                    <button id="btn-intent-faq" class="btn btn-secondary" style="padding:0.3rem 0.6rem; font-size:0.75rem;">FAQ Query</button>
+                                    <button id="btn-intent-inv" class="btn btn-secondary" style="padding:0.3rem 0.6rem; font-size:0.75rem;">Investment Query</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <div class="project-card glass-card">
-                    <div class="project-content">
-                        <h3>AI FinTech Auto-Reconciler</h3>
-                        <p>Android-first React Native AI application running edge inference via native Gemini Nano
-                            (AICore) with Google ML Kit fallback for receipt OCR. Developed a 3-tier fuzzy merchant
-                            matching algorithm mapped through a custom JSI C++ bridge.</p>
-                        <div class="project-tags">
+                <!-- 5. AI FinTech Auto-Reconciler -->
+                <div class="project-showcase-card glass-card">
+                    <div class="showcase-details">
+                        <div>
+                            <div class="showcase-badge"><i class="fas fa-mobile-alt"></i> On-Device AI</div>
+                            <h3>AI FinTech Auto-Reconciler</h3>
+                            <p>Android-first React Native AI application running edge inference via native Gemini Nano (AICore) with Google ML Kit fallback for receipt OCR. Developed a 3-tier fuzzy merchant matching algorithm mapped through a custom JSI C++ bridge.</p>
+                            <ul class="showcase-features">
+                                <li><i class="fas fa-check-circle"></i> On-device Gemini Nano (AICore) edge vision inference</li>
+                                <li><i class="fas fa-check-circle"></i> ML Kit OCR fallback for expense scanning</li>
+                                <li><i class="fas fa-check-circle"></i> High-performance 3-tier merchant matching via C++ JSI</li>
+                            </ul>
+                        </div>
+                        <div class="project-tags" style="margin-top: auto;">
                             <span><i class="devicon-react-original colored"></i> React Native</span>
                             <span><i class="fas fa-brain" style="color:#a855f7;"></i> Gemini</span>
                             <span><i class="devicon-kotlin-plain colored"></i> Kotlin</span>
                             <span><i class="devicon-cplusplus-plain colored"></i> JSI (C++)</span>
                         </div>
-                        <button class="btn btn-primary demo-btn" style="margin-top: 1.5rem; width: 100%;"
-                            data-demo="demo-recon">View Simulated Demo</button>
+                    </div>
+                    <div class="showcase-demo-container">
+                        <div id="demo-recon" class="demo-container">
+                            <div class="demo-layout" style="gap:1rem; margin:0; min-height:auto;">
+                                <!-- Left: Receipt Scanner -->
+                                <div class="recon-camera-panel" style="flex:1; background:#1e293b; border-radius:8px; border:2px solid #334155; position:relative; overflow:hidden; display:flex; justify-content:center; align-items:center; height:280px;">
+                                    <div style="position:absolute; top:8px; left:8px; color:#fff; font-size:0.75rem;"><i class="fas fa-camera"></i> SCAN RECEIPT</div>
+
+                                    <!-- Receipt -->
+                                    <div class="recon-receipt" style="background:#fff; color:#000; padding:1rem; border-radius:4px; width:85%; font-family:monospace; box-shadow:0 10px 25px rgba(0,0,0,0.5); font-size:0.75rem; position:relative;">
+                                        <div style="text-align:center; font-weight:bold; font-size:0.95rem; border-bottom:1px dashed #ccc; padding-bottom:0.3rem; margin-bottom:0.3rem;">
+                                            <span id="ext-merchant" class="ext-span">STARBUCKS COFFEE</span>
+                                        </div>
+                                        <div><span id="ext-date" class="ext-span">Date: 21-Aug-2026</span></div>
+                                        <div>Time: 09:14 AM</div>
+                                        <div style="margin-top:0.5rem;">1x Caramel Macchiato &nbsp;$5.50</div>
+                                        <div>1x Avocado Toast &nbsp;&nbsp;&nbsp;&nbsp;$7.00</div>
+                                        <div style="border-top:1px dashed #ccc; padding-top:0.3rem; margin-top:0.3rem; font-weight:bold; font-size:0.95rem;">
+                                            <span id="ext-total" class="ext-span">TOTAL: $12.50</span>
+                                        </div>
+                                    </div>
+
+                                    <!-- Scanner Line -->
+                                    <div id="recon-scanner" class="hidden" style="position:absolute; top:0; left:0; width:100%; height:5px; background:#38bdf8; box-shadow:0 0 15px #38bdf8; z-index:10;"></div>
+                                </div>
+
+                                <!-- Right: Bank Statements -->
+                                <div class="recon-bank-panel" style="flex:1.1; background:#0f172a; border-radius:8px; border:1px solid #1e293b; display:flex; flex-direction:column; overflow:hidden; height:280px;">
+                                    <div style="background:#1e293b; padding:0.6rem 0.8rem; font-weight:bold; font-size:0.8rem; border-bottom:1px solid #334155;">
+                                        <i class="fas fa-university" style="color:#38bdf8;"></i> Bank Statement (Aug 21)
+                                    </div>
+                                    <div style="padding:0.6rem; display:flex; flex-direction:column; gap:0.4rem; overflow-y:auto;">
+                                        <div class="recon-tx" id="recon-tx-1" style="background:#1e293b; padding:0.6rem; border-radius:4px; display:flex; justify-content:space-between; align-items:center; border:1px solid transparent; font-size:0.75rem;">
+                                            <div>
+                                                <div style="font-weight:bold; color:#f8fafc;">Uber Rides</div>
+                                                <div style="font-size:0.65rem; color:#94a3b8;">21-Aug-2026 08:30 AM</div>
+                                            </div>
+                                            <div style="font-weight:bold; color:#ef4444;">-$24.00</div>
+                                        </div>
+
+                                        <div class="recon-tx" id="recon-tx-2" style="background:#1e293b; padding:0.6rem; border-radius:4px; display:flex; justify-content:space-between; align-items:center; border:1px solid transparent; font-size:0.75rem;">
+                                            <div>
+                                                <div style="font-weight:bold; color:#f8fafc;">Starbucks Coffee</div>
+                                                <div style="font-size:0.65rem; color:#94a3b8;">21-Aug-2026 09:16 AM</div>
+                                            </div>
+                                            <div style="display:flex; align-items:center; gap:0.5rem;">
+                                                <div class="tx-badge" id="recon-badge-2" style="opacity:0;"><i class="fas fa-check-circle" style="color:#22c55e;"></i> MATCHED</div>
+                                                <div style="font-weight:bold; color:#ef4444;">-$12.50</div>
+                                            </div>
+                                        </div>
+
+                                        <div class="recon-tx" id="recon-tx-3" style="background:#1e293b; padding:0.6rem; border-radius:4px; display:flex; justify-content:space-between; align-items:center; border:1px solid transparent; font-size:0.75rem;">
+                                            <div>
+                                                <div style="font-weight:bold; color:#f8fafc;">Amazon AWS</div>
+                                                <div style="font-size:0.65rem; color:#94a3b8;">20-Aug-2026 11:45 PM</div>
+                                            </div>
+                                            <div style="font-weight:bold; color:#ef4444;">-$85.00</div>
+                                        </div>
+                                    </div>
+
+                                    <div id="recon-status" style="margin-top:auto; padding:0.5rem; background:#1e293b; font-size:0.75rem; color:#38bdf8; text-align:center; border-top:1px solid #334155;">
+                                        Awaiting receipt scan...
+                                    </div>
+                                </div>
+                            </div>
+                            <button id="btn-recon-start" class="btn btn-primary run-demo-btn" style="margin-top:0.8rem; padding:0.6rem; font-size:0.8rem;">Start Auto-Reconciler</button>
+                        </div>
                     </div>
                 </div>
 
-                <div class="project-card glass-card">
-                    <div class="project-content">
-                        <h3>AI-Powered Pothole Analytics Platform</h3>
-                        <p>Hybrid React Native mobile client and web dashboard for automated infrastructure monitoring.
-                            Leveraged YOLO object detection and Gemini vision models to analyze user-uploaded images,
-                            automatically detecting potholes and calculating severity scores.</p>
-                        <div class="project-tags">
+                <!-- 6. AI-Powered Pothole Analytics Platform -->
+                <div class="project-showcase-card glass-card">
+                    <div class="showcase-details">
+                        <div>
+                            <div class="showcase-badge"><i class="fas fa-map-marker-alt"></i> Smart Municipal AI</div>
+                            <h3>AI-Powered Pothole Analytics Platform</h3>
+                            <p>Hybrid React Native mobile client and web dashboard for automated infrastructure monitoring. Leveraged YOLO object detection and Gemini vision models to analyze user-uploaded images, automatically detecting potholes and calculating severity scores.</p>
+                            <ul class="showcase-features">
+                                <li><i class="fas fa-check-circle"></i> Automated road defect detection via YOLO & Gemini Vision</li>
+                                <li><i class="fas fa-check-circle"></i> Real-time severity scoring & false-positive filtering</li>
+                                <li><i class="fas fa-check-circle"></i> PMC Officer interactive GIS map dashboard & work orders</li>
+                            </ul>
+                        </div>
+                        <div class="project-tags" style="margin-top: auto;">
                             <span><i class="devicon-react-original colored"></i> React Native</span>
                             <span><i class="fas fa-eye" style="color:#38bdf8;"></i> YOLO</span>
                             <span><i class="fas fa-brain" style="color:#a855f7;"></i> Gemini</span>
                             <span><i class="fas fa-map-marker-alt" style="color:#ef4444;"></i> Geolocation</span>
                         </div>
-                        <button class="btn btn-primary demo-btn" style="margin-top: 1.5rem; width: 100%;"
-                            data-demo="demo-pothole">View Simulated Demo</button>
+                    </div>
+                    <div class="showcase-demo-container">
+                        <div id="demo-pothole" class="demo-container">
+                            <div class="demo-layout" style="gap:1rem; margin:0; min-height:auto;">
+                                <!-- Left: AI Vision Scanner -->
+                                <div class="pothole-vision-panel" style="flex:1; background:#1e293b; border-radius:8px; border:2px solid #334155; position:relative; overflow:hidden; display:flex; flex-direction:column; height:280px;">
+                                    <div style="background:#0f172a; padding:0.5rem 0.8rem; font-weight:bold; font-size:0.75rem; border-bottom:1px solid #334155; display:flex; justify-content:space-between;">
+                                        <span><i class="fas fa-camera"></i> Citizen Upload</span>
+                                        <span id="ph-ai-status" style="color:#94a3b8;">Awaiting Image...</span>
+                                    </div>
+
+                                    <div style="flex:1; display:flex; justify-content:center; align-items:center; position:relative; background:#334155;">
+                                        <div id="ph-image-view" style="width:100%; height:100%; position:relative; background-position:center;">
+                                            <div id="ph-scanner" class="hidden" style="position:absolute; top:0; left:0; width:5px; height:100%; background:#38bdf8; box-shadow:0 0 15px #38bdf8;"></div>
+                                            <div id="ph-bbox" class="hidden" style="position:absolute; top:35%; left:30%; width:40%; height:35%; border:3px solid #ef4444; background:rgba(239,68,68,0.2);">
+                                                <span style="position:absolute; top:-22px; left:-3px; background:#ef4444; color:white; font-size:0.65rem; padding:2px 4px; font-weight:bold;">Pothole 98%</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div style="padding:0.6rem; display:flex; gap:0.5rem; justify-content:center; background:#1e293b; border-top:1px solid #334155;">
+                                        <button id="btn-ph-real" class="btn btn-secondary" style="font-size:0.75rem; padding:0.3rem 0.6rem;"><i class="fas fa-exclamation-triangle"></i> Real Pothole</button>
+                                        <button id="btn-ph-fake" class="btn btn-secondary" style="font-size:0.75rem; padding:0.3rem 0.6rem;"><i class="fas fa-road"></i> Clean Road</button>
+                                    </div>
+                                </div>
+
+                                <!-- Right: PMC Map Dashboard -->
+                                <div class="pothole-map-panel" style="flex:1.1; background:#0f172a; border-radius:8px; border:1px solid #1e293b; display:flex; flex-direction:column; overflow:hidden; height:280px;">
+                                    <div style="background:#1e293b; padding:0.5rem 0.8rem; font-weight:bold; font-size:0.75rem; border-bottom:1px solid #334155;">
+                                        <i class="fas fa-map-marked-alt" style="color:#38bdf8;"></i> PMC Dashboard Map
+                                    </div>
+
+                                    <div style="flex:1; position:relative; background:#1e293b; overflow:hidden;">
+                                        <svg width="100%" height="100%" viewBox="0 0 400 300" preserveAspectRatio="none">
+                                            <path d="M 50 -10 L 150 310 M -10 150 L 410 100 M 300 -10 L 250 310" stroke="#334155" stroke-width="25" fill="none" />
+                                            <path d="M 50 -10 L 150 310 M -10 150 L 410 100 M 300 -10 L 250 310" stroke="#475569" stroke-width="2" stroke-dasharray="15 15" fill="none" />
+                                        </svg>
+
+                                        <div class="map-dot completed" style="top:60px; left:290px;" title="Completed"><i class="fas fa-check"></i></div>
+                                        <div class="map-dot in-work" style="top:180px; left:120px;" title="In Work"><i class="fas fa-hard-hat"></i></div>
+                                        <div id="ph-new-marker" class="map-dot reported hidden" style="top:125px; left:240px;"><i class="fas fa-exclamation"></i></div>
+                                    </div>
+
+                                    <div id="ph-log" style="padding:0.5rem 0.8rem; background:#1e293b; font-size:0.75rem; color:#f8fafc; border-top:1px solid #334155; font-family:monospace; line-height:1.4;">
+                                        > System Ready. Awaiting citizen reports.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </section>
@@ -399,354 +781,6 @@
             <p>&copy; 2026 Gaurav Vilas Chaudhari. Built with HTML, CSS, and JS.</p>
         </div>
     </footer>
-
-    <!-- Demos Modal -->
-    <div id="demo-modal" class="modal">
-        <div class="modal-content glass-card advanced-modal">
-            <span class="close-btn">&times;</span>
-
-            <!-- Demo 1: RAG -->
-            <div id="demo-rag" class="demo-container hidden">
-                <h3>Multi-Tenant RAG Engine</h3>
-                <div class="rag-interactive-demo">
-                    <!-- Search Bar -->
-                    <div class="rag-search-container">
-                        <input type="text" id="rag-query-input" placeholder="Ask a question..."
-                            value="What is our Q3 revenue?">
-                        <button id="rag-search-btn" class="btn btn-primary"><i class="fas fa-search"></i>
-                            Search</button>
-                    </div>
-
-                    <!-- Scanning Animation Area -->
-                    <div id="rag-scanning-area" class="hidden">
-                        <div class="scanning-title">Scanning Vector Database...</div>
-                        <div class="vector-grid">
-                            <!-- JS populates nodes -->
-                        </div>
-                        <div class="scan-line"></div>
-                    </div>
-
-                    <!-- Results Area -->
-                    <div id="rag-results-area" class="hidden">
-                        <div class="rag-facts">
-                            <h4><i class="fas fa-file-alt"></i> Retrieved Facts</h4>
-                            <ul id="rag-facts-list"></ul>
-                        </div>
-                        <div class="rag-summary">
-                            <h4><i class="fas fa-robot"></i> AI Summary</h4>
-                            <p id="rag-summary-text" class="typing-text"></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Demo 2: Iris -->
-            <div id="demo-iris" class="demo-container hidden">
-                <h3>Project Iris: Edge AI</h3>
-                <div class="iris-interactive-demo">
-                    <div class="cctv-feed" id="iris-cctv">
-                        <div class="room-overlay dark" id="iris-room-darkness"></div>
-                        <div class="camera-ui">REC <span>🔴</span> | CH01: OFFICE MAIN</div>
-
-                        <!-- Persons -->
-                        <div class="cctv-person p1 hidden" id="cctv-p1">
-                            <div class="yolo-bbox"><span>Person 0.98</span></div>
-                        </div>
-                        <div class="cctv-person p2 hidden" id="cctv-p2">
-                            <div class="yolo-bbox"><span>Person 0.95</span></div>
-                        </div>
-                        <div class="cctv-person p3 hidden" id="cctv-p3">
-                            <div class="yolo-bbox"><span>Person 0.91</span></div>
-                        </div>
-                        <div class="cctv-person p4 hidden" id="cctv-p4">
-                            <div class="yolo-bbox"><span>Person 0.99</span></div>
-                        </div>
-                    </div>
-                    <div class="iris-dashboard">
-                        <div class="iris-stat">
-                            <i class="fas fa-users"></i> Occupants: <span id="iris-occ">0</span>
-                        </div>
-                        <div class="iris-stat">
-                            <i class="fas fa-lightbulb"></i> Lighting: <span id="iris-light">OFF</span>
-                        </div>
-                        <button id="iris-simulate-btn" class="btn btn-primary run-demo-btn" style="width: auto;">Start
-                            CCTV</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Demo 3: Intent Engine -->
-            <div id="demo-intent" class="demo-container hidden">
-                <h3>MIDC Intent Router</h3>
-                <p style="margin-bottom:1rem; color:var(--text-muted); font-size:0.9rem;">Real-time NLP classification
-                    routing queries to automated agents or human officers.</p>
-                <div class="intent-graph-panel"
-                    style="width:100%; height:320px; background:#1e293b; border-radius:8px; border:1px solid #334155; position:relative; overflow:hidden;">
-
-                    <div class="svg-container">
-                        <svg width="100%" height="320" viewBox="0 0 600 320" preserveAspectRatio="xMidYMid meet">
-                            <!-- Base Paths -->
-                            <path d="M 100 160 L 250 160" stroke="#334155" stroke-width="4" fill="none" />
-                            <path d="M 250 160 C 350 160 350 80 450 80" stroke="#334155" stroke-width="4" fill="none" />
-                            <path d="M 250 160 C 350 160 350 240 450 240" stroke="#334155" stroke-width="4"
-                                fill="none" />
-
-                            <!-- Animated Data Streams -->
-                            <path id="stream-input-cls" d="M 100 160 L 250 160" stroke="#38bdf8" stroke-width="4"
-                                fill="none" class="data-stream hidden" />
-                            <path id="stream-cls-faq" d="M 250 160 C 350 160 350 80 450 80" stroke="#22c55e"
-                                stroke-width="4" fill="none" class="data-stream hidden" />
-                            <path id="stream-cls-midc" d="M 250 160 C 350 160 350 240 450 240" stroke="#ef4444"
-                                stroke-width="4" fill="none" class="data-stream hidden" />
-                        </svg>
-                    </div>
-
-                    <div class="graph-nodes"
-                        style="position:absolute; width:600px; height:320px; left:50%; transform:translateX(-50%); pointer-events:none;">
-                        <!-- Sender -->
-                        <div class="server-node" id="node-in" style="left: 50px; top: 130px;">
-                            <i class="fas fa-user"></i><span>User</span>
-                        </div>
-
-                        <!-- NLP Classifier -->
-                        <div class="server-node" id="node-cls" style="left: 200px; top: 130px;">
-                            <i class="fas fa-brain"></i><span>NLP Engine</span>
-                            <div class="node-status" id="cls-status">Idle</div>
-                        </div>
-
-                        <!-- Tooltip above NLP Engine -->
-                        <div id="cls-tooltip" class="gui-tooltip hidden" style="left:205px; top:85px;">Processing...
-                        </div>
-
-                        <!-- FAQ Agent -->
-                        <div class="server-node" id="node-faq" style="left: 400px; top: 50px;">
-                            <i class="fas fa-robot"></i><span>FAQ Bot</span>
-                        </div>
-                        <!-- Tooltip/Bubble next to FAQ Agent -->
-                        <div id="faq-bubble" class="gui-bubble hidden" style="left:470px; top:40px;">
-                            <p><strong>Response:</strong> For a handmill, you need Land Title, Env. Clearance, and
-                                Registration.</p>
-                        </div>
-
-                        <!-- MIDC Officer -->
-                        <div class="server-node" id="node-midc" style="left: 400px; top: 210px;">
-                            <i class="fas fa-user-tie"></i><span>Officer</span>
-                        </div>
-                        <!-- Tooltip/Bubble next to MIDC -->
-                        <div id="midc-bubble" class="gui-bubble hidden"
-                            style="left:470px; top:200px; border-left-color:#ef4444;">
-                            <p><strong><i class="fas fa-file-invoice"></i> Proposal Received</strong><br />Priority:
-                                High<br />Added to Dashboard.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="intent-controls" style="display:flex; flex-direction:column; gap:1rem; margin-top:1rem;">
-                    <div style="display:flex; gap:0.5rem; align-items:center;">
-                        <input type="text" id="intent-custom-input"
-                            placeholder="Type a message to test the NLP router..."
-                            style="flex:1; padding:0.8rem; border-radius:4px; border:1px solid var(--border); background:var(--bg-main); color:var(--text-main);">
-                        <button id="btn-intent-send" class="btn btn-primary"
-                            style="padding:0.8rem 1.5rem;">Send</button>
-                    </div>
-                    <div style="display:flex; gap:0.5rem; align-items:center;">
-                        <span style="font-size:0.8rem; color:var(--text-muted); font-weight:bold;">Quick Tests:</span>
-                        <button id="btn-intent-faq" class="btn btn-secondary"
-                            style="padding:0.4rem 0.8rem; font-size:0.8rem;">FAQ Query</button>
-                        <button id="btn-intent-inv" class="btn btn-secondary"
-                            style="padding:0.4rem 0.8rem; font-size:0.8rem;">Investment Query</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Demo 4: Auto-Reconciler -->
-            <div id="demo-recon" class="demo-container hidden">
-                <h3>FinTech Auto-Reconciler</h3>
-                <p style="margin-bottom:1rem; color:var(--text-muted); font-size:0.9rem;">Automated expense matching
-                    between physical receipts and digital bank statements using OCR.</p>
-
-                <div class="demo-layout" style="gap:2rem;">
-                    <!-- Left: Receipt Scanner -->
-                    <div class="recon-camera-panel"
-                        style="flex:1; background:#1e293b; border-radius:8px; border:2px solid #334155; position:relative; overflow:hidden; display:flex; justify-content:center; align-items:center; height:380px;">
-                        <div style="position:absolute; top:10px; left:10px; color:#fff; font-size:0.8rem;"><i
-                                class="fas fa-camera"></i> SCAN RECEIPT</div>
-
-                        <!-- Receipt -->
-                        <div class="recon-receipt"
-                            style="background:#fff; color:#000; padding:1.5rem; border-radius:4px; width:85%; font-family:monospace; box-shadow:0 10px 25px rgba(0,0,0,0.5); font-size:0.85rem; position:relative;">
-                            <div
-                                style="text-align:center; font-weight:bold; font-size:1.1rem; border-bottom:1px dashed #ccc; padding-bottom:0.5rem; margin-bottom:0.5rem;">
-                                <span id="ext-merchant" class="ext-span">STARBUCKS COFFEE</span>
-                            </div>
-                            <div><span id="ext-date" class="ext-span">Date: 21-Aug-2026</span></div>
-                            <div>Time: 09:14 AM</div>
-                            <div style="margin-top:1rem;">1x Caramel Macchiato &nbsp;$5.50</div>
-                            <div>1x Avocado Toast &nbsp;&nbsp;&nbsp;&nbsp;$7.00</div>
-                            <div
-                                style="border-top:1px dashed #ccc; padding-top:0.5rem; margin-top:0.5rem; font-weight:bold; font-size:1.1rem;">
-                                <span id="ext-total" class="ext-span">TOTAL: $12.50</span>
-                            </div>
-                        </div>
-
-                        <!-- Scanner Line -->
-                        <div id="recon-scanner" class="hidden"
-                            style="position:absolute; top:0; left:0; width:100%; height:5px; background:#38bdf8; box-shadow:0 0 15px #38bdf8; z-index:10;">
-                        </div>
-                    </div>
-
-                    <!-- Right: Bank Statements -->
-                    <div class="recon-bank-panel"
-                        style="flex:1.2; background:#0f172a; border-radius:8px; border:1px solid #1e293b; display:flex; flex-direction:column; overflow:hidden; height:380px;">
-                        <div
-                            style="background:#1e293b; padding:1rem; font-weight:bold; border-bottom:1px solid #334155;">
-                            <i class="fas fa-university" style="color:#38bdf8;"></i> Bank Statement (Aug 21)
-                        </div>
-                        <div style="padding:1rem; display:flex; flex-direction:column; gap:0.5rem; overflow-y:auto;">
-
-                            <!-- Tx 1 -->
-                            <div class="recon-tx" id="recon-tx-1"
-                                style="background:#1e293b; padding:0.8rem; border-radius:6px; display:flex; justify-content:space-between; align-items:center; border:1px solid transparent; transition:all 0.3s;">
-                                <div>
-                                    <div style="font-weight:bold; color:#f8fafc;">Uber Rides</div>
-                                    <div style="font-size:0.75rem; color:#94a3b8;">21-Aug-2026 08:30 AM</div>
-                                </div>
-                                <div style="font-weight:bold; color:#ef4444;">-$24.00</div>
-                            </div>
-
-                            <!-- Tx 2 -->
-                            <div class="recon-tx" id="recon-tx-2"
-                                style="background:#1e293b; padding:0.8rem; border-radius:6px; display:flex; justify-content:space-between; align-items:center; border:1px solid transparent; transition:all 0.3s;">
-                                <div>
-                                    <div style="font-weight:bold; color:#f8fafc;">Starbucks Coffee</div>
-                                    <div style="font-size:0.75rem; color:#94a3b8;">21-Aug-2026 09:16 AM</div>
-                                </div>
-                                <div style="display:flex; align-items:center; gap:1rem;">
-                                    <div class="tx-badge" id="recon-badge-2" style="opacity:0;"><i
-                                            class="fas fa-check-circle" style="color:#22c55e;"></i> MATCHED</div>
-                                    <div style="font-weight:bold; color:#ef4444;">-$12.50</div>
-                                </div>
-                            </div>
-
-                            <!-- Tx 3 -->
-                            <div class="recon-tx" id="recon-tx-3"
-                                style="background:#1e293b; padding:0.8rem; border-radius:6px; display:flex; justify-content:space-between; align-items:center; border:1px solid transparent; transition:all 0.3s;">
-                                <div>
-                                    <div style="font-weight:bold; color:#f8fafc;">Amazon AWS</div>
-                                    <div style="font-size:0.75rem; color:#94a3b8;">20-Aug-2026 11:45 PM</div>
-                                </div>
-                                <div style="font-weight:bold; color:#ef4444;">-$85.00</div>
-                            </div>
-
-                        </div>
-
-                        <!-- Process Status Log -->
-                        <div id="recon-status"
-                            style="margin-top:auto; padding:0.8rem; background:#1e293b; font-size:0.8rem; color:#38bdf8; text-align:center; border-top:1px solid #334155;">
-                            Awaiting receipt scan...
-                        </div>
-                    </div>
-                </div>
-
-                <button id="btn-recon-start" class="btn btn-primary run-demo-btn" style="margin-top:1rem;">Start
-                    Auto-Reconciler</button>
-            </div>
-
-            <!-- Demo 5: Pothole Analytics -->
-            <div id="demo-pothole" class="demo-container hidden">
-                <h3>PMC Pothole Analytics</h3>
-                <p style="margin-bottom:1rem; color:var(--text-muted); font-size:0.9rem;">Automated defect detection to
-                    filter false positives and streamline municipal maintenance.</p>
-
-                <div class="demo-layout" style="gap:2rem;">
-                    <!-- Left: AI Vision Scanner -->
-                    <div class="pothole-vision-panel"
-                        style="flex:1; background:#1e293b; border-radius:8px; border:2px solid #334155; position:relative; overflow:hidden; display:flex; flex-direction:column; height:380px;">
-                        <div
-                            style="background:#0f172a; padding:0.8rem; font-weight:bold; border-bottom:1px solid #334155; display:flex; justify-content:space-between;">
-                            <span><i class="fas fa-camera"></i> Citizen Upload</span>
-                            <span id="ph-ai-status" style="color:#94a3b8;">Awaiting Image...</span>
-                        </div>
-
-                        <div
-                            style="flex:1; display:flex; justify-content:center; align-items:center; position:relative; background:#334155;">
-                            <!-- The image container -->
-                            <div id="ph-image-view"
-                                style="width:100%; height:100%; position:relative; background-position:center;">
-                                <!-- Scanner Sweep -->
-                                <div id="ph-scanner" class="hidden"
-                                    style="position:absolute; top:0; left:0; width:5px; height:100%; background:#38bdf8; box-shadow:0 0 15px #38bdf8;">
-                                </div>
-                                <!-- Bounding Box -->
-                                <div id="ph-bbox" class="hidden"
-                                    style="position:absolute; top:35%; left:30%; width:40%; height:35%; border:3px solid #ef4444; background:rgba(239,68,68,0.2);">
-                                    <span
-                                        style="position:absolute; top:-25px; left:-3px; background:#ef4444; color:white; font-size:0.75rem; padding:2px 5px; font-weight:bold;">Pothole
-                                        98%</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div
-                            style="padding:1rem; display:flex; gap:1rem; justify-content:center; background:#1e293b; border-top:1px solid #334155;">
-                            <button id="btn-ph-real" class="btn btn-secondary" style="font-size:0.8rem;"><i
-                                    class="fas fa-exclamation-triangle"></i> Real Pothole</button>
-                            <button id="btn-ph-fake" class="btn btn-secondary" style="font-size:0.8rem;"><i
-                                    class="fas fa-road"></i> Clean Road</button>
-                        </div>
-                    </div>
-
-                    <!-- Right: PMC Map Dashboard -->
-                    <div class="pothole-map-panel"
-                        style="flex:1.2; background:#0f172a; border-radius:8px; border:1px solid #1e293b; display:flex; flex-direction:column; overflow:hidden; height:380px;">
-                        <div
-                            style="background:#1e293b; padding:0.8rem; font-weight:bold; border-bottom:1px solid #334155;">
-                            <i class="fas fa-map-marked-alt" style="color:#38bdf8;"></i> PMC Officer Dashboard
-                        </div>
-
-                        <div style="flex:1; position:relative; background:#1e293b; overflow:hidden;">
-                            <!-- Simple SVG Map representation -->
-                            <svg width="100%" height="100%" viewBox="0 0 400 300" preserveAspectRatio="none">
-                                <path d="M 50 -10 L 150 310 M -10 150 L 410 100 M 300 -10 L 250 310" stroke="#334155"
-                                    stroke-width="25" fill="none" />
-                                <path d="M 50 -10 L 150 310 M -10 150 L 410 100 M 300 -10 L 250 310" stroke="#475569"
-                                    stroke-width="2" stroke-dasharray="15 15" fill="none" />
-                            </svg>
-
-                            <!-- Existing Map Markers -->
-                            <div class="map-dot completed" style="top:60px; left:290px;" title="Completed"><i
-                                    class="fas fa-check"></i></div>
-                            <div class="map-dot in-work" style="top:180px; left:120px;" title="In Work"><i
-                                    class="fas fa-hard-hat"></i></div>
-
-                            <!-- New Map Marker -->
-                            <div id="ph-new-marker" class="map-dot reported hidden" style="top:125px; left:240px;"><i
-                                    class="fas fa-exclamation"></i></div>
-
-                            <!-- Map Legend -->
-                            <div
-                                style="position:absolute; bottom:10px; right:10px; background:rgba(15,23,42,0.85); padding:0.5rem; border-radius:4px; font-size:0.7rem; border:1px solid #334155;">
-                                <div style="display:flex; align-items:center; gap:0.5rem; margin-bottom:6px;"><span
-                                        style="width:10px; height:10px; background:#ef4444; border-radius:50%;"></span>
-                                    Reported</div>
-                                <div style="display:flex; align-items:center; gap:0.5rem; margin-bottom:6px;"><span
-                                        style="width:10px; height:10px; background:#eab308; border-radius:50%;"></span>
-                                    In Work</div>
-                                <div style="display:flex; align-items:center; gap:0.5rem;"><span
-                                        style="width:10px; height:10px; background:#22c55e; border-radius:50%;"></span>
-                                    Completed</div>
-                            </div>
-                        </div>
-
-                        <div id="ph-log"
-                            style="padding:0.8rem; background:#1e293b; font-size:0.8rem; color:#f8fafc; border-top:1px solid #334155; font-family:monospace; line-height:1.4;">
-                            > System Ready. Awaiting citizen reports.
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <script src="script.js"></script>
 </body>
