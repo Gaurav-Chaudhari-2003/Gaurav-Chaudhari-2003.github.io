@@ -435,36 +435,36 @@
                                     </svg>
                                 </div>
 
-                                <div class="graph-nodes" style="position:absolute; width:600px; height:260px; left:50%; transform:translateX(-50%); pointer-events:none;">
+                                <div class="graph-nodes" style="position:absolute; width:100%; height:100%; top:0; left:0; pointer-events:none;">
                                     <!-- Sender -->
-                                    <div class="server-node" id="node-in" style="left: 50px; top: 100px;">
+                                    <div class="server-node" id="node-in" style="left: 6%; top: 38%;">
                                         <i class="fas fa-user"></i><span>User</span>
                                     </div>
 
                                     <!-- NLP Classifier -->
-                                    <div class="server-node" id="node-cls" style="left: 200px; top: 100px;">
+                                    <div class="server-node" id="node-cls" style="left: 32%; top: 38%;">
                                         <i class="fas fa-brain"></i><span>NLP Engine</span>
                                         <div class="node-status" id="cls-status">Idle</div>
                                     </div>
 
                                     <!-- Tooltip above NLP Engine -->
-                                    <div id="cls-tooltip" class="gui-tooltip hidden" style="left:205px; top:60px;">Processing...</div>
+                                    <div id="cls-tooltip" class="gui-tooltip hidden" style="left:38%; top:15%;">Processing...</div>
 
                                     <!-- FAQ Agent -->
-                                    <div class="server-node" id="node-faq" style="left: 400px; top: 35px;">
+                                    <div class="server-node" id="node-faq" style="left: 65%; top: 10%;">
                                         <i class="fas fa-robot"></i><span>FAQ Bot</span>
                                     </div>
                                     <!-- Tooltip/Bubble next to FAQ Agent -->
-                                    <div id="faq-bubble" class="gui-bubble hidden" style="left:470px; top:25px;">
-                                        <p><strong>Response:</strong> For a handmill, land title & env. clearance are required.</p>
+                                    <div id="faq-bubble" class="gui-bubble hidden" style="left:auto; right:2%; top:5%;">
+                                        <p><strong>Response:</strong> For handmill, land title required.</p>
                                     </div>
 
                                     <!-- MIDC Officer -->
-                                    <div class="server-node" id="node-midc" style="left: 400px; top: 170px;">
+                                    <div class="server-node" id="node-midc" style="left: 65%; top: 62%;">
                                         <i class="fas fa-user-tie"></i><span>Officer</span>
                                     </div>
                                     <!-- Tooltip/Bubble next to MIDC -->
-                                    <div id="midc-bubble" class="gui-bubble hidden" style="left:470px; top:160px; border-left-color:#ef4444;">
+                                    <div id="midc-bubble" class="gui-bubble hidden" style="left:auto; right:2%; top:55%; border-left-color:#ef4444;">
                                         <p><strong><i class="fas fa-file-invoice"></i> Proposal Received</strong><br />Priority: High</p>
                                     </div>
                                 </div>
