@@ -4,785 +4,713 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gaurav Vilas Chaudhari | Full-Stack & AI/ML Engineer</title>
+    <title>Gaurav Vilas Chaudhari — AI / ML Engineer</title>
     <meta name="description"
-        content="Portfolio of Gaurav Vilas Chaudhari, a versatile Software Engineer specializing in Full-Stack, Mobile (Android/Flutter), and AI/ML Engineering.">
+        content="Gaurav Vilas Chaudhari, AI/ML Engineer in Pune. Production LLM orchestration, RAG pipelines, natural-language analytics and real-time computer vision, with six interactive system demos.">
+    <meta name="theme-color" content="#09090a">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Gaurav Vilas Chaudhari — AI / ML Engineer">
+    <meta property="og:description"
+        content="LLM orchestration, RAG pipelines and real-time computer vision. Six interactive system demos.">
+    <meta property="og:url" content="https://gaurav-chaudhari-2003.github.io/">
+    <meta property="og:image" content="https://gaurav-chaudhari-2003.github.io/assets/portrait.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="icon"
+        href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23ff2a2a'/%3E%3Ctext x='16' y='23' font-family='Impact,sans-serif' font-size='17' text-anchor='middle' fill='white'%3EGC%3C/text%3E%3C/svg%3E">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@400;600;800&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Anton&family=Caveat:wght@600&family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@400;500;700&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="styles.css?v=3">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
+    <link rel="stylesheet" href="styles.css?v=4">
+
+    <!-- Decide before first paint whether the agent swarm assembles the page.
+         Skipped for reduced-motion users, deep links, and after "Skip" in this tab.
+         If script.js never boots, a watchdog reveals the page after 4s. -->
+    <script>
+        (function () {
+            var d = document.documentElement;
+            var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+            var skipped = false;
+            try { skipped = sessionStorage.getItem('swarm-skip') === '1'; } catch (e) { }
+            if (!reduce && !skipped && !location.hash) {
+                d.classList.add('swarm-on');
+                setTimeout(function () { if (!window.__swarmBooted) d.classList.remove('swarm-on'); }, 4000);
+            }
+        })();
+    </script>
 </head>
 
 <body>
-    <!-- Background Elements for Glassmorphism -->
-    <div class="bg-wrapper" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; overflow: hidden; z-index: -1;">
-        <div class="bg-shape shape-1"></div>
-        <div class="bg-shape shape-2"></div>
-        <div class="bg-shape shape-3"></div>
-    </div>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <div class="bg-grid" aria-hidden="true"></div>
 
-    <nav id="navbar">
-        <div class="nav-container">
-            <a href="#" class="logo">GC<span>.</span></a>
-            <ul class="nav-links">
-                <li><a href="#about">About</a></li>
-                <li><a href="#skills">Skills</a></li>
-                <li><a href="#ai-projects">AI Projects</a></li>
-                <li><a href="#other-projects">Mobile & Web Projects</a></li>
-                <li><a href="#experience">Experience</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-            <div class="hamburger">
-                <i class="fas fa-bars"></i>
-            </div>
+    <!-- ============ NAV ============ -->
+    <header class="nav" id="nav">
+        <div class="nav-inner" data-build="nav">
+            <a href="#top" class="brand" aria-label="Gaurav Chaudhari, back to top">
+                <span class="brand-mark">GC</span>
+                <span class="brand-txt">gaurav<span>.sys</span></span>
+            </a>
+            <nav class="nav-links" aria-label="Primary">
+                <a href="#about">About</a>
+                <a href="#stack">Stack</a>
+                <a href="#systems">Systems</a>
+                <a href="#lab">Lab</a>
+                <a href="#archive">Archive</a>
+                <a href="#log">Experience</a>
+                <a href="#contact">Contact</a>
+            </nav>
+            <div class="nav-status"><span class="pulse"></span>Online · Pune, IN</div>
+            <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-menu">Menu</button>
         </div>
-    </nav>
-
-    <header id="hero">
-        <div class="container hero-container">
-            <div class="hero-content">
-                <h3 class="greeting">Hi, I'm</h3>
-                <h1 class="name">Gaurav Vilas Chaudhari</h1>
-                <h2 class="title">Full-Stack, Mobile & <span>AI/ML Engineer</span></h2>
-                <p class="summary">Results-driven developer with a strong foundation in deep learning, computer vision,
-                    mobile apps, and LLM orchestration. Proven track record of designing production-grade AI systems and
-                    full-stack enterprise solutions.</p>
-                <div class="hero-cta">
-                    <a href="#contact" class="btn btn-primary">Get in Touch</a>
-                    <a href="#ai-projects" class="btn btn-secondary">View Work</a>
-                </div>
-                <div class="social-links">
-                    <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                    <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
-                    <a href="mailto:chaudharigaurav177@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
-                </div>
-            </div>
-            <div class="hero-image">
-                <img src="gaurav_photo.png" alt="Gaurav Vilas Chaudhari">
-            </div>
-        </div>
+        <nav class="nav-menu" id="nav-menu" aria-label="Mobile">
+            <a href="#about"><span>01</span>About</a>
+            <a href="#stack"><span>02</span>Stack</a>
+            <a href="#systems"><span>03</span>Systems</a>
+            <a href="#lab"><span>04</span>Lab</a>
+            <a href="#archive"><span>05</span>Archive</a>
+            <a href="#log"><span>06</span>Experience</a>
+            <a href="#contact"><span>07</span>Contact</a>
+        </nav>
     </header>
 
-    <section id="about" class="section">
-        <div class="container">
-            <h2 class="section-title">About <span>Me</span></h2>
-            <div class="about-grid">
-                <div class="about-text glass-card">
-                    <p>I am a motivated Computer Science student (BE, 2023-26, 8.6 SGPA) at SSGMCE, Shegaon with a
-                        Diploma in Computer Engineering (87.09%).</p>
-                    <p>My journey spans from building robust mobile applications in Android and Flutter, to crafting
-                        full-stack web solutions in PHP and Node, to architecting complex AI pipelines utilizing
-                        LangGraph, RAG, and Computer Vision.</p>
-                    <p>I thrive on bridging complex machine learning models with robust backend infrastructures to
-                        deliver scalable, high-impact enterprise solutions.</p>
-                </div>
-                <div class="about-stats glass-card">
-                    <div class="stat">
-                        <h3>Education</h3>
-                        <p>BE CSE, SSGMCE (8.6 SGPA)<br>Diploma CE, GPA (87.09%)</p>
-                    </div>
-                    <div class="stat">
-                        <h3>Certifications</h3>
-                        <p>IBM Machine Learning<br>Google Cloud Engineer<br>NPTEL DSA using Java</p>
-                    </div>
-                    <div class="stat">
-                        <h3>Location</h3>
-                        <p>Jalgaon, Maharashtra, India</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    <main id="main">
 
-    <section id="skills" class="section">
-        <div class="container">
-            <h2 class="section-title">Technical <span>Skills</span></h2>
-            <div class="skills-grid">
-                <div class="skill-category glass-card">
-                    <h3><i class="fas fa-brain"></i> AI & Machine Learning</h3>
-                    <div class="tech-icons">
-                        <div class="tech-item"><i class="fas fa-robot" style="color:#f59e0b;"></i><span>LLMs</span></div>
-                        <div class="tech-item"><i class="fas fa-link" style="color:#38bdf8;"></i><span>LangChain</span></div>
-                        <div class="tech-item"><i class="fas fa-project-diagram" style="color:#22c55e;"></i><span>LangGraph</span></div>
-                        <div class="tech-item"><i class="fas fa-search" style="color:#ef4444;"></i><span>RAG</span></div>
-                        <div class="tech-item"><i class="devicon-opencv-plain colored"></i><span>OpenCV</span></div>
-                        <div class="tech-item"><i class="devicon-pytorch-original colored"></i><span>PyTorch</span></div>
-                        <div class="tech-item"><i class="fas fa-language" style="color:#a855f7;"></i><span>NLP</span></div>
-                        <div class="tech-item"><i class="fas fa-file-alt" style="color:#94a3b8;"></i><span>OCR</span></div>
-                    </div>
+        <!-- ============ HERO ============ -->
+        <section class="hero" id="top">
+            <div class="wrap">
+                <div class="display-word hero-word" data-build="svg.display" aria-hidden="true">
+                    <svg viewBox="0 0 1000 232" preserveAspectRatio="xMidYMid meet">
+                        <defs>
+                            <linearGradient id="g-red" x1="0" y1="0" x2="0" y2="1">
+                                <stop offset="0" stop-color="#ff2a2a" stop-opacity="0.02" />
+                                <stop offset="1" stop-color="#ff2a2a" stop-opacity="0.22" />
+                            </linearGradient>
+                        </defs>
+                        <text x="0" y="222" textLength="1000" lengthAdjust="spacingAndGlyphs">PORTFOLIO</text>
+                    </svg>
                 </div>
-                <div class="skill-category glass-card">
-                    <h3><i class="fas fa-server"></i> Backend & Cloud</h3>
-                    <div class="tech-icons">
-                        <div class="tech-item"><i class="devicon-fastapi-plain colored"></i><span>FastAPI</span></div>
-                        <div class="tech-item"><i class="devicon-nextjs-plain" style="color:white;"></i><span>Next.js</span></div>
-                        <div class="tech-item"><i class="devicon-express-original" style="color:white;"></i><span>Express</span></div>
-                        <div class="tech-item"><i class="fas fa-leaf" style="color:#22c55e;"></i><span>Celery</span></div>
-                        <div class="tech-item"><i class="devicon-redis-plain colored"></i><span>Redis</span></div>
-                        <div class="tech-item"><i class="devicon-docker-plain colored"></i><span>Docker</span></div>
-                        <div class="tech-item"><i class="devicon-postgresql-plain colored"></i><span>PostgreSQL</span></div>
-                        <div class="tech-item"><i class="devicon-firebase-plain colored"></i><span>Firebase</span></div>
-                        <div class="tech-item"><i class="devicon-googlecloud-plain colored"></i><span>GCP</span></div>
+
+                <div class="hero-grid">
+                    <div class="hero-intro">
+                        <p class="hello" data-build="p.greeting">Hello, I'm</p>
+                        <h1 class="name-block" data-build="h1.name">Gaurav<span class="sr-only"> Vilas Chaudhari</span>.</h1>
+                        <p class="role mono" data-build="p.role"><span class="sq"></span>AI / ML Engineer · Systems Builder</p>
+                        <p class="lede" data-build="p.summary">
+                            Architecting <b>production-grade LLM orchestration</b>, <b>RAG pipelines</b> and
+                            <b>real-time computer vision</b>, from vector search and async inference queues
+                            down to models running at the edge.
+                        </p>
+                        <div class="hero-cta" data-build="div.cta">
+                            <a class="btn btn-red" href="#systems">Inspect the systems <span aria-hidden="true">→</span></a>
+                            <a class="btn btn-ghost" href="#contact">Open a channel</a>
+                        </div>
+                        <dl class="hero-stats" data-build="dl.stats">
+                            <div><dt>04</dt><dd>Production<br>AI systems</dd></div>
+                            <div><dt>06</dt><dd>Live demos<br>on this page</dd></div>
+                            <div><dt>~1s</dt><dd>Edge vision<br>latency</dd></div>
+                        </dl>
                     </div>
-                </div>
-                <div class="skill-category glass-card">
-                    <h3><i class="fas fa-mobile-alt"></i> Frontend & Mobile</h3>
-                    <div class="tech-icons">
-                        <div class="tech-item"><i class="devicon-react-original colored"></i><span>React Native</span></div>
-                        <div class="tech-item"><i class="devicon-flutter-plain colored"></i><span>Flutter</span></div>
-                        <div class="tech-item"><i class="devicon-react-original colored"></i><span>React</span></div>
-                        <div class="tech-item"><i class="devicon-androidstudio-plain colored"></i><span>Android</span></div>
-                        <div class="tech-item"><i class="devicon-tailwindcss-original colored"></i><span>Tailwind</span></div>
-                        <div class="tech-item"><i class="devicon-cplusplus-plain colored"></i><span>JSI (C++)</span></div>
-                    </div>
-                </div>
-                <div class="skill-category glass-card">
-                    <h3><i class="fas fa-code"></i> Languages</h3>
-                    <div class="tech-icons">
-                        <div class="tech-item"><i class="devicon-python-plain colored"></i><span>Python</span></div>
-                        <div class="tech-item"><i class="devicon-cplusplus-plain colored"></i><span>C++ / C</span></div>
-                        <div class="tech-item"><i class="devicon-java-plain colored"></i><span>Java</span></div>
-                        <div class="tech-item"><i class="devicon-javascript-plain colored"></i><span>JavaScript</span></div>
-                        <div class="tech-item"><i class="devicon-typescript-plain colored"></i><span>TypeScript</span></div>
-                        <div class="tech-item"><i class="devicon-dart-plain colored"></i><span>Dart</span></div>
-                        <div class="tech-item"><i class="devicon-php-plain colored"></i><span>PHP</span></div>
-                        <div class="tech-item"><i class="devicon-mysql-plain colored"></i><span>SQL</span></div>
+
+                    <figure class="portrait" data-build="figure.portrait">
+                        <div class="portrait-frame">
+                            <img src="assets/portrait.webp" alt="Portrait of Gaurav Vilas Chaudhari" width="720" height="960">
+                        </div>
+                        <figcaption class="mono"><span class="sq"></span>Inference engine active</figcaption>
+                    </figure>
+
+                    <div class="caps">
+                        <article class="cap" data-build="card.cap-01">
+                            <div class="cap-top mono"><span class="cap-idx">01.</span><span>Orchestration</span></div>
+                            <h2 class="cap-title">Agentic LLM workflows</h2>
+                            <p>LangGraph · LangChain · OpenRouter · multi-LLM routing</p>
+                        </article>
+                        <article class="cap" data-build="card.cap-02">
+                            <div class="cap-top mono"><span class="cap-idx">02.</span><span>Retrieval</span></div>
+                            <h2 class="cap-title">Hybrid RAG &amp; vector search</h2>
+                            <p>pgvector · HyDE · multilingual query expansion</p>
+                        </article>
+                        <article class="cap" data-build="card.cap-03">
+                            <div class="cap-top mono"><span class="cap-idx">03.</span><span>Vision</span></div>
+                            <h2 class="cap-title">Real-time vision at the edge</h2>
+                            <p>YOLOv8 · OpenCV · Gemini Nano · WebSockets</p>
+                        </article>
+                        <ul class="hero-links mono" data-build="ul.links">
+                            <li><a href="https://github.com/Gaurav-Chaudhari-2003" target="_blank" rel="noopener">GitHub ↗</a></li>
+                            <li><a href="https://www.linkedin.com/in/gaurav-chaudhari-8129ab206" target="_blank" rel="noopener">LinkedIn ↗</a></li>
+                            <li><a href="mailto:chaudharigaurav177@gmail.com">Email ↗</a></li>
+                        </ul>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section id="ai-projects" class="section">
-        <div class="container">
-            <h2 class="section-title">Enterprise <span>AI/ML Projects</span></h2>
-            <div class="project-showcase-grid">
-
-                <!-- 1. PMRDA & PMC DB Analytics Chatbot (Vanna 2.0) -->
-                <div class="project-showcase-card glass-card">
-                    <div class="showcase-details">
-                        <div>
-                            <div class="showcase-badge"><i class="fas fa-database"></i> Natural Language to SQL</div>
-                            <h3>PMRDA & PMC DB Analytics Chatbot (Vanna 2.0)</h3>
-                            <p>Enterprise Natural Language to SQL Analytics Engine & Streaming Assistant built for Pune Metropolitan Region Development Authority (PMRDA) & PMC RTS database (PostgreSQL 16). Resolves user permissions, performs dynamic schema filtering, generates safe PostgreSQL queries, and streams live tables, charts, & executive summaries.</p>
-                            <ul class="showcase-features">
-                                <li><i class="fas fa-check-circle"></i> Live PostgreSQL 16 dynamic schema discovery (excl. bak_* tables)</li>
-                                <li><i class="fas fa-check-circle"></i> User-aware RBAC & Row-Level Security (RLS) enforcement</li>
-                                <li><i class="fas fa-check-circle"></i> Real-time SSE streaming for SQL, data tables, Plotly charts, & summary</li>
-                                <li><i class="fas fa-check-circle"></i> Multi-lingual support (English, Marathi, Hinglish)</li>
+        <!-- ============ 01 ABOUT ============ -->
+        <section class="section" id="about">
+            <div class="wrap">
+                <div class="sec-index mono" data-build="div.index"><span class="sec-num">// 01.00</span> SEC_ABOUT <span class="sec-count">INDEX [01 / 07]</span></div>
+                <header class="sec-head" data-build="h2.about">
+                    <p class="eyebrow mono">Engineer profile</p>
+                    <h2>Background &amp; Philosophy</h2>
+                </header>
+                <div class="about-grid">
+                    <div class="about-copy">
+                        <p data-build="p.bio">
+                            I'm Gaurav Vilas Chaudhari, an <b>AI Engineer at Stark Digital, Pune</b>. I build retrieval
+                            pipelines, natural-language analytics engines, vision telemetry and edge-AI systems for
+                            enterprise and public-sector clients.
+                        </p>
+                        <p data-build="p.path">
+                            I got here through the whole stack: a <b>Diploma in Computer Engineering</b> at Government
+                            Polytechnic, Achalpur, then a <b>B.E. in Computer Science &amp; Engineering</b> at SSGMCE,
+                            Shegaon. Alongside it I spent a year as an engineering apprentice at <b>CMPDI RI-4, Nagpur</b>,
+                            building backend automation and SQL data-access layers for enterprise web apps.
+                        </p>
+                        <blockquote data-build="blockquote.creed">
+                            Models are the easy part. I engineer what surrounds them (retrieval, orchestration, queues
+                            and telemetry) so they hold up in production.
+                        </blockquote>
+                    </div>
+                    <aside class="about-side">
+                        <div class="kv" data-build="card.now">
+                            <span class="kv-k mono">Currently</span>
+                            <span class="kv-v">AI Engineer · Stark Digital</span>
+                            <span class="kv-s mono">Jun 2026 → present</span>
+                        </div>
+                        <div class="kv" data-build="card.base">
+                            <span class="kv-k mono">Base</span>
+                            <span class="kv-v">Pune, Maharashtra</span>
+                            <span class="kv-s mono">411045 · IN</span>
+                        </div>
+                        <div class="kv" data-build="card.edu">
+                            <span class="kv-k mono">Education</span>
+                            <span class="kv-v">B.E. Computer Science &amp; Engineering</span>
+                            <span class="kv-s mono">SSGMCE, Shegaon · 2023–26 · 8.6 SGPA</span>
+                            <span class="kv-v">Diploma in Computer Engineering</span>
+                            <span class="kv-s mono">Govt. Polytechnic, Achalpur · 2020–23 · 87.09%</span>
+                        </div>
+                        <div class="kv" data-build="card.certs">
+                            <span class="kv-k mono">Certifications</span>
+                            <ul class="cert-list">
+                                <li><a href="https://www.linkedin.com/posts/gaurav-chaudhari-8129ab206_deep-learning-certificate-activity-7484975415321755648-uZLq" target="_blank" rel="noopener">Deep Learning <span class="mono">IIT Ropar ↗</span></a></li>
+                                <li>Machine Learning with Python <span class="mono">IBM</span></li>
+                                <li>DSA using Java <span class="mono">NPTEL</span></li>
+                                <li>Introduction to Git &amp; GitHub <span class="mono">Google</span></li>
+                                <li>Building Web Applications in PHP <span class="mono">U. Michigan</span></li>
                             </ul>
                         </div>
-                        <div class="project-tags" style="margin-top: auto;">
-                            <span><i class="devicon-fastapi-plain colored"></i> FastAPI</span>
-                            <span><i class="devicon-postgresql-plain colored"></i> PostgreSQL 16</span>
-                            <span><i class="fas fa-robot" style="color:#f59e0b;"></i> Vanna 2.0</span>
-                            <span><i class="fas fa-brain" style="color:#a855f7;"></i> OpenRouter</span>
-                            <span><i class="devicon-typescript-plain colored"></i> Web Component</span>
-                            <span><i class="fas fa-chart-bar" style="color:#38bdf8;"></i> Plotly</span>
-                        </div>
-                    </div>
-                    <div class="showcase-demo-container">
-                        <div id="demo-pmrda" class="demo-container">
-                            <div class="pmrda-demo-wrapper" style="display:flex; flex-direction:column; gap:0.8rem; width:100%;">
-                                <!-- User & Auth Header Bar -->
-                                <div style="display:flex; justify-content:space-between; align-items:center; background:#1e293b; padding:0.5rem 0.8rem; border-radius:6px; font-size:0.75rem; border:1px solid #334155;">
-                                    <span style="color:#22c55e; display:flex; align-items:center; gap:0.4rem; font-weight:600;">
-                                        <i class="fas fa-database"></i> PostgreSQL 16: Active (pmrda_rts_prod)
-                                    </span>
-                                    <span style="color:#38bdf8; display:flex; align-items:center; gap:0.4rem; font-weight:600;">
-                                        <i class="fas fa-user-shield"></i> Role: Town Planner (Admin)
-                                    </span>
-                                </div>
-
-                                <!-- Quick Query Pill Buttons -->
-                                <div style="display:flex; flex-wrap:wrap; gap:0.4rem; align-items:center;">
-                                    <span style="font-size:0.75rem; color:var(--text-muted); font-weight:bold;">Presets:</span>
-                                    <button class="btn btn-secondary pmrda-preset-btn" data-query="Show me the monthly application submission trend for the last 12 months" style="padding:0.3rem 0.6rem; font-size:0.7rem;">
-                                        📊 Monthly Submission Trend
-                                    </button>
-                                    <button class="btn btn-secondary pmrda-preset-btn" data-query="What are the total application counts grouped by application status?" style="padding:0.3rem 0.6rem; font-size:0.7rem;">
-                                        📋 Status Breakdown
-                                    </button>
-                                    <button class="btn btn-secondary pmrda-preset-btn" data-query="एकूण किती नागरिक अर्ज दाखल झाले आहेत?" style="padding:0.3rem 0.6rem; font-size:0.7rem;">
-                                        🇮🇳 एकूण अर्ज (Marathi)
-                                    </button>
-                                </div>
-
-                                <!-- Input Box -->
-                                <div style="display:flex; gap:0.5rem; align-items:center;">
-                                    <input type="text" id="pmrda-query-input" placeholder="Ask any question about PMRDA RTS applications or fees..." value="Show me the monthly application submission trend for the last 12 months" style="flex:1; padding:0.6rem; border-radius:6px; border:1px solid var(--border); background:var(--bg-main); color:var(--text-main); font-size:0.85rem;">
-                                    <button id="btn-pmrda-run" class="btn btn-primary" style="padding:0.6rem 1.2rem; white-space:nowrap; font-size:0.85rem;">
-                                        <i class="fas fa-paper-plane"></i> Run Query
-                                    </button>
-                                </div>
-
-                                <!-- Progress Log Bar -->
-                                <div id="pmrda-progress-area" class="hidden" style="background:#0f172a; padding:0.6rem 0.8rem; border-radius:6px; border:1px solid #38bdf8; font-family:monospace; font-size:0.75rem; color:#38bdf8;">
-                                    <div style="display:flex; align-items:center; gap:0.4rem; margin-bottom:0.3rem;">
-                                        <i class="fas fa-spinner fa-spin" id="pmrda-spinner"></i>
-                                        <span id="pmrda-progress-step">Initializing Vanna Agent...</span>
-                                    </div>
-                                    <div style="width:100%; background:#1e293b; height:4px; border-radius:2px; overflow:hidden;">
-                                        <div id="pmrda-progress-bar" style="width:15%; height:100%; background:#38bdf8; transition:width 0.3s ease;"></div>
-                                    </div>
-                                </div>
-
-                                <!-- Output Results Area -->
-                                <div id="pmrda-results-area" class="hidden" style="display:flex; flex-direction:column; gap:0.8rem; animation:fadeInModal 0.4s ease;">
-                                    
-                                    <!-- Generated SQL Card (Gated) -->
-                                    <div style="background:#0f172a; border-radius:6px; border:1px solid #334155; overflow:hidden;">
-                                        <div style="background:#1e293b; padding:0.4rem 0.8rem; display:flex; justify-content:space-between; align-items:center; font-size:0.75rem; border-bottom:1px solid #334155;">
-                                            <span style="color:#22c55e; font-weight:bold;"><i class="fas fa-code"></i> Generated PostgreSQL 16 Query</span>
-                                            <span style="background:rgba(34,197,94,0.15); color:#22c55e; padding:2px 6px; border-radius:4px; font-size:0.65rem; font-weight:bold;">RLS Filtered</span>
-                                        </div>
-                                        <pre id="pmrda-sql-code" style="padding:0.8rem; color:#a78bfa; font-family:monospace; font-size:0.75rem; margin:0; overflow-x:auto; white-space:pre-wrap; line-height:1.4;"></pre>
-                                    </div>
-
-                                    <!-- Data Table & Chart Split Layout -->
-                                    <div class="demo-layout" style="margin:0; min-height:auto; gap:0.8rem;">
-                                        <!-- Data Table -->
-                                        <div style="flex:1; background:#0f172a; border-radius:6px; border:1px solid #334155; padding:0.8rem; overflow-x:auto;">
-                                            <div style="font-weight:bold; color:var(--text-main); font-size:0.8rem; margin-bottom:0.5rem; display:flex; align-items:center; gap:0.4rem;">
-                                                <i class="fas fa-table" style="color:#38bdf8;"></i> Streamed Recordset
-                                            </div>
-                                            <div id="pmrda-table-container"></div>
-                                        </div>
-
-                                        <!-- Plotly SVG Visual Chart -->
-                                        <div style="flex:1; background:#0f172a; border-radius:6px; border:1px solid #334155; padding:0.8rem; display:flex; flex-direction:column;">
-                                            <div style="font-weight:bold; color:var(--text-main); font-size:0.8rem; margin-bottom:0.5rem; display:flex; align-items:center; gap:0.4rem;">
-                                                <i class="fas fa-chart-bar" style="color:#f59e0b;"></i> Plotly Visualization
-                                            </div>
-                                            <div id="pmrda-chart-container" style="flex:1; min-height:140px; display:flex; justify-content:center; align-items:center;"></div>
-                                        </div>
-                                    </div>
-
-                                    <!-- Executive AI Summary Box -->
-                                    <div style="background:var(--bg-card); padding:0.8rem 1rem; border-radius:6px; border:1px solid var(--border); border-left:4px solid var(--primary);">
-                                        <div style="font-weight:bold; color:var(--text-main); font-size:0.8rem; margin-bottom:0.3rem; display:flex; align-items:center; gap:0.4rem;">
-                                            <i class="fas fa-robot" style="color:var(--primary);"></i> AI Executive Summary
-                                        </div>
-                                        <p id="pmrda-summary-text" style="font-size:0.82rem; color:var(--text-main); line-height:1.4; margin:0;"></p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    </aside>
                 </div>
+            </div>
+        </section>
 
-                <!-- 2. Multi-Tenant AI Document Search Engine (RAG) -->
-                <div class="project-showcase-card glass-card">
-                    <div class="showcase-details">
-                        <div>
-                            <div class="showcase-badge"><i class="fas fa-search"></i> Hybrid RAG Engine</div>
-                            <h3>Multi-Tenant AI Document Search Engine</h3>
-                            <p>Architected a production-ready enterprise RAG platform utilizing pgvector and hybrid search (HyDE fallback). Built a scalable pipeline with Celery workers for asynchronous document processing, AI provider hot-swapping (Anthropic/OpenAI) using singleton caching, and strict RLS tenant isolation.</p>
-                            <ul class="showcase-features">
-                                <li><i class="fas fa-check-circle"></i> pgvector hybrid vector search with HyDE fallback</li>
-                                <li><i class="fas fa-check-circle"></i> Asynchronous document processing via Celery workers</li>
-                                <li><i class="fas fa-check-circle"></i> Multi-tenant RLS isolation & provider hot-swapping</li>
-                            </ul>
-                        </div>
-                        <div style="display: flex; gap: 0.5rem; margin-top: 1.5rem; align-items: center;">
-                            <div class="project-tags" style="flex: 1;">
-                                <span><i class="devicon-fastapi-plain colored"></i> FastAPI</span>
-                                <span><i class="devicon-nextjs-plain" style="color:white;"></i> Next.js</span>
-                                <span><i class="devicon-postgresql-plain colored"></i> PostgreSQL</span>
-                                <span><i class="fas fa-leaf" style="color:#22c55e;"></i> Celery</span>
-                            </div>
-                            <a href="https://www.linkedin.com/posts/stark-digital-media-services-pvt%2E-ltd%2E_stark-digitals-ai-team-solved-enterprise-activity-7492924379610222592-JgkU?utm_source=share&utm_medium=member_desktop&rcm=ACoAADR5BM4BNOk_qcR19XcLoumGvK3htznfn10"
-                                target="_blank" class="btn btn-secondary"
-                                style="display: flex; align-items: center; justify-content: center; padding: 0.5rem 1rem;"
-                                title="View Proof on LinkedIn">
-                                <i class="fab fa-linkedin" style="font-size: 1.2rem; color: #38bdf8;"></i>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="showcase-demo-container">
-                        <div id="demo-rag" class="demo-container">
-                            <div class="rag-interactive-demo" style="width:100%;">
-                                <!-- Search Bar -->
-                                <div class="rag-search-container">
-                                    <input type="text" id="rag-query-input" placeholder="Ask a question..." value="What is our Q3 revenue?">
-                                    <button id="rag-search-btn" class="btn btn-primary"><i class="fas fa-search"></i> Search</button>
-                                </div>
-
-                                <!-- Scanning Animation Area -->
-                                <div id="rag-scanning-area" class="hidden">
-                                    <div class="scanning-title">Scanning Vector Database...</div>
-                                    <div class="vector-grid"></div>
-                                    <div class="scan-line"></div>
-                                </div>
-
-                                <!-- Results Area -->
-                                <div id="rag-results-area" class="hidden">
-                                    <div class="rag-facts">
-                                        <h4><i class="fas fa-file-alt"></i> Retrieved Facts</h4>
-                                        <ul id="rag-facts-list"></ul>
-                                    </div>
-                                    <div class="rag-summary">
-                                        <h4><i class="fas fa-robot"></i> AI Summary</h4>
-                                        <p id="rag-summary-text" class="typing-text"></p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+        <!-- ============ 02 STACK ============ -->
+        <section class="section" id="stack">
+            <div class="wrap">
+                <div class="sec-index mono" data-build="div.index"><span class="sec-num">// 02.00</span> SEC_STACK <span class="sec-count">INDEX [02 / 07]</span></div>
+                <header class="sec-head" data-build="h2.stack">
+                    <p class="eyebrow mono">Toolchain</p>
+                    <h2>The stack I ship with</h2>
+                </header>
+                <div class="stack-grid">
+                    <article class="stack-card" data-build="card.ai">
+                        <header><span class="mono">A /</span>
+                            <h3>AI, LLMs &amp; Vision</h3>
+                        </header>
+                        <ul class="chips">
+                            <li>RAG pipelines</li><li>LLM orchestration</li><li>LangGraph</li><li>LangChain</li>
+                            <li>Hybrid search</li><li>HyDE</li><li>YOLOv8</li><li>OpenCV</li><li>Gemini Nano</li>
+                            <li>PyTorch</li><li>TensorFlow</li>
+                        </ul>
+                    </article>
+                    <article class="stack-card" data-build="card.mlops">
+                        <header><span class="mono">B /</span>
+                            <h3>MLOps &amp; Data</h3>
+                        </header>
+                        <ul class="chips">
+                            <li>Vector search</li><li>pgvector</li><li>Distributed inference</li><li>Celery</li>
+                            <li>Redis</li><li>PostgreSQL</li><li>Docker</li><li>Git / GitHub</li>
+                        </ul>
+                    </article>
+                    <article class="stack-card" data-build="card.lang">
+                        <header><span class="mono">C /</span>
+                            <h3>Languages &amp; Frameworks</h3>
+                        </header>
+                        <ul class="chips">
+                            <li>Python</li><li>C++</li><li>FastAPI</li><li>React Native</li><li>Next.js</li>
+                            <li>REST APIs</li><li>WebSockets</li>
+                        </ul>
+                    </article>
+                    <article class="stack-card" data-build="card.arch">
+                        <header><span class="mono">D /</span>
+                            <h3>Domains &amp; Architecture</h3>
+                        </header>
+                        <ul class="chips">
+                            <li>Edge AI</li><li>RAG engines</li><li>Distributed systems</li><li>Vision telemetry</li>
+                            <li>Agentic workflows</li>
+                        </ul>
+                    </article>
                 </div>
-
-                <!-- 3. Project Iris: Edge AI Office Telemetry -->
-                <div class="project-showcase-card glass-card">
-                    <div class="showcase-details">
-                        <div>
-                            <div class="showcase-badge"><i class="fas fa-eye"></i> Edge Computer Vision</div>
-                            <h3>Project Iris: Edge AI Office Telemetry & Automation</h3>
-                            <p>Engineered an intelligent commercial office energy automation system replacing motion sensors with real-time PyTorch YOLO person detection (1-sec latency). Developed a custom OpenCV spatial motion engine to map bounding boxes to a 2D floorplan, triggering IoT relays (AZIOT, Broadlink IR) for HVAC optimization.</p>
-                            <ul class="showcase-features">
-                                <li><i class="fas fa-check-circle"></i> Real-time 1-sec latency PyTorch YOLO person detection</li>
-                                <li><i class="fas fa-check-circle"></i> OpenCV spatial bounding-box to 2D floorplan mapping</li>
-                                <li><i class="fas fa-check-circle"></i> Automated IoT relay triggers for HVAC & commercial lighting</li>
-                            </ul>
-                        </div>
-                        <div style="display: flex; gap: 0.5rem; margin-top: 1.5rem; align-items: center;">
-                            <div class="project-tags" style="flex: 1;">
-                                <span><i class="devicon-pytorch-original colored"></i> PyTorch</span>
-                                <span><i class="fas fa-eye" style="color:#38bdf8;"></i> YOLO</span>
-                                <span><i class="devicon-opencv-plain colored"></i> OpenCV</span>
-                                <span><i class="fas fa-network-wired" style="color:#94a3b8;"></i> IoT</span>
-                            </div>
-                            <a href="https://www.linkedin.com/posts/stark-digital-media-services-pvt%2E-ltd%2E_the-smarter-way-to-automate-commercial-energy-activity-7495097882304454656-rLDQ?utm_source=share&utm_medium=member_desktop&rcm=ACoAADR5BM4BNOk_qcR19XcLoumGvK3htznfn10"
-                                target="_blank" class="btn btn-secondary"
-                                style="display: flex; align-items: center; justify-content: center; padding: 0.5rem 1rem;"
-                                title="View Proof on LinkedIn">
-                                <i class="fab fa-linkedin" style="font-size: 1.2rem; color: #38bdf8;"></i>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="showcase-demo-container">
-                        <div id="demo-iris" class="demo-container">
-                            <div class="iris-interactive-demo" style="width:100%;">
-                                <div class="cctv-feed" id="iris-cctv">
-                                    <div class="room-overlay dark" id="iris-room-darkness"></div>
-                                    <div class="camera-ui">REC <span>🔴</span> | CH01: OFFICE MAIN</div>
-
-                                    <!-- Persons -->
-                                    <div class="cctv-person p1 hidden" id="cctv-p1">
-                                        <div class="yolo-bbox"><span>Person 0.98</span></div>
-                                    </div>
-                                    <div class="cctv-person p2 hidden" id="cctv-p2">
-                                        <div class="yolo-bbox"><span>Person 0.95</span></div>
-                                    </div>
-                                    <div class="cctv-person p3 hidden" id="cctv-p3">
-                                        <div class="yolo-bbox"><span>Person 0.91</span></div>
-                                    </div>
-                                    <div class="cctv-person p4 hidden" id="cctv-p4">
-                                        <div class="yolo-bbox"><span>Person 0.99</span></div>
-                                    </div>
-                                </div>
-                                <div class="iris-dashboard" style="margin-top:0.8rem;">
-                                    <div class="iris-stat">
-                                        <i class="fas fa-users"></i> Occupants: <span id="iris-occ">0</span>
-                                    </div>
-                                    <div class="iris-stat">
-                                        <i class="fas fa-lightbulb"></i> Lighting: <span id="iris-light">OFF</span>
-                                    </div>
-                                    <button id="iris-simulate-btn" class="btn btn-primary run-demo-btn" style="width: auto;">Start CCTV Feed</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+            </div>
+            <div class="ticker" data-build="div.ticker" aria-hidden="true">
+                <div class="ticker-track">
+                    <span>LangGraph</span><i>■</i><span>pgvector</span><i>■</i><span>YOLOv8</span><i>■</i><span>FastAPI</span><i>■</i><span>Celery</span><i>■</i><span>HyDE</span><i>■</i><span>OpenCV</span><i>■</i><span>Gemini Nano</span><i>■</i>
+                    <span>LangGraph</span><i>■</i><span>pgvector</span><i>■</i><span>YOLOv8</span><i>■</i><span>FastAPI</span><i>■</i><span>Celery</span><i>■</i><span>HyDE</span><i>■</i><span>OpenCV</span><i>■</i><span>Gemini Nano</span><i>■</i>
                 </div>
+            </div>
+        </section>
 
-                <!-- 4. Enterprise Intent Detection Engine -->
-                <div class="project-showcase-card glass-card">
-                    <div class="showcase-details">
-                        <div>
-                            <div class="showcase-badge"><i class="fas fa-project-diagram"></i> Multi-Agent NLP</div>
-                            <h3>Enterprise Intent Detection Engine</h3>
-                            <p>Automated investor inquiry classification and routing system leveraging LangGraph and LangChain for multi-agent workflows. Integrated PostgreSQL with pgvector for semantic matching, coupled with a FastAPI backend, RBAC, and Redis caching.</p>
-                            <ul class="showcase-features">
-                                <li><i class="fas fa-check-circle"></i> LangGraph multi-agent DAG orchestration</li>
-                                <li><i class="fas fa-check-circle"></i> pgvector semantic similarity intent classifier</li>
-                                <li><i class="fas fa-check-circle"></i> Automated routing to FAQ bots or department human officers</li>
-                            </ul>
+        <!-- ============ 03 SYSTEMS ============ -->
+        <section class="section" id="systems">
+            <div class="wrap">
+                <div class="sec-index mono" data-build="div.index"><span class="sec-num">// 03.00</span> SEC_SYSTEMS <span class="sec-count">INDEX [03 / 07]</span></div>
+                <header class="sec-head sec-head-split" data-build="h2.systems">
+                    <div>
+                        <p class="eyebrow mono">Enterprise AI</p>
+                        <h2>Systems I've built. Run them.</h2>
+                    </div>
+                    <p class="sec-note">Each panel is an interactive simulation of the real system's flow, with sample
+                        data. Pick a preset, type your own input, or break it.</p>
+                </header>
+
+                <!-- SYS_01 · NL → SQL -->
+                <article class="sys" id="sys-01">
+                    <div class="sys-info">
+                        <div class="sys-head" data-build="div.sys-head">
+                            <div class="sys-meta mono"><span class="sys-id">SYS_01</span><span>Natural language → SQL</span><span class="sys-client">PMRDA · PMC</span></div>
+                            <h3>Natural-Language to SQL Analytics Engine</h3>
                         </div>
-                        <div class="project-tags" style="margin-top: auto;">
-                            <span><i class="fas fa-project-diagram" style="color:#22c55e;"></i> LangGraph</span>
-                            <span><i class="fas fa-robot" style="color:#f59e0b;"></i> OpenAI</span>
-                            <span><i class="devicon-fastapi-plain colored"></i> FastAPI</span>
-                            <span><i class="devicon-postgresql-plain colored"></i> pgvector</span>
+                        <p data-build="p.desc">An enterprise text-to-SQL assistant for the Pune Metropolitan Region
+                            Development Authority and Pune Municipal Corporation RTS databases. It resolves who is
+                            asking, filters the live schema to what they may see, generates safe PostgreSQL and streams
+                            back tables, charts and an executive summary.</p>
+                        <ul class="ticks" data-build="ul.features">
+                            <li>Live PostgreSQL 16 schema discovery with semantic filtering (bak_* snapshots excluded)</li>
+                            <li>User-aware RBAC and row-level security on every generated query</li>
+                            <li>SSE streaming of SQL, recordset, Plotly chart and summary</li>
+                            <li>Questions in English, Marathi and Hinglish</li>
+                        </ul>
+                        <div class="sys-foot" data-build="div.stack">
+                            <ul class="stack-line mono"><li>FastAPI</li><li>PostgreSQL 16</li><li>Vanna 2.0</li><li>OpenRouter</li><li>Plotly</li></ul>
                         </div>
                     </div>
-                    <div class="showcase-demo-container">
-                        <div id="demo-intent" class="demo-container">
-                            <div class="intent-graph-panel" style="width:100%; height:260px; background:#1e293b; border-radius:8px; border:1px solid #334155; position:relative; overflow:hidden;">
-                                <div class="svg-container">
-                                    <svg width="100%" height="260" viewBox="0 0 600 260" preserveAspectRatio="xMidYMid meet">
-                                        <!-- Base Paths -->
-                                        <path d="M 100 130 L 250 130" stroke="#334155" stroke-width="4" fill="none" />
-                                        <path d="M 250 130 C 350 130 350 60 450 60" stroke="#334155" stroke-width="4" fill="none" />
-                                        <path d="M 250 130 C 350 130 350 200 450 200" stroke="#334155" stroke-width="4" fill="none" />
-
-                                        <!-- Animated Data Streams -->
-                                        <path id="stream-input-cls" d="M 100 130 L 250 130" stroke="#38bdf8" stroke-width="4" fill="none" class="data-stream hidden" />
-                                        <path id="stream-cls-faq" d="M 250 130 C 350 130 350 60 450 60" stroke="#22c55e" stroke-width="4" fill="none" class="data-stream hidden" />
-                                        <path id="stream-cls-midc" d="M 250 130 C 350 130 350 200 450 200" stroke="#ef4444" stroke-width="4" fill="none" class="data-stream hidden" />
-                                    </svg>
-                                </div>
-
-                                <div class="graph-nodes" style="position:absolute; width:100%; height:100%; top:0; left:0; pointer-events:none;">
-                                    <!-- Sender -->
-                                    <div class="server-node" id="node-in" style="left: 6%; top: 38%;">
-                                        <i class="fas fa-user"></i><span>User</span>
-                                    </div>
-
-                                    <!-- NLP Classifier -->
-                                    <div class="server-node" id="node-cls" style="left: 32%; top: 38%;">
-                                        <i class="fas fa-brain"></i><span>NLP Engine</span>
-                                        <div class="node-status" id="cls-status">Idle</div>
-                                    </div>
-
-                                    <!-- Tooltip above NLP Engine -->
-                                    <div id="cls-tooltip" class="gui-tooltip hidden" style="left:38%; top:15%;">Processing...</div>
-
-                                    <!-- FAQ Agent -->
-                                    <div class="server-node" id="node-faq" style="left: 65%; top: 10%;">
-                                        <i class="fas fa-robot"></i><span>FAQ Bot</span>
-                                    </div>
-                                    <!-- Tooltip/Bubble next to FAQ Agent -->
-                                    <div id="faq-bubble" class="gui-bubble hidden" style="left:auto; right:2%; top:5%;">
-                                        <p><strong>Response:</strong> For handmill, land title required.</p>
-                                    </div>
-
-                                    <!-- MIDC Officer -->
-                                    <div class="server-node" id="node-midc" style="left: 65%; top: 62%;">
-                                        <i class="fas fa-user-tie"></i><span>Officer</span>
-                                    </div>
-                                    <!-- Tooltip/Bubble next to MIDC -->
-                                    <div id="midc-bubble" class="gui-bubble hidden" style="left:auto; right:2%; top:55%; border-left-color:#ef4444;">
-                                        <p><strong><i class="fas fa-file-invoice"></i> Proposal Received</strong><br />Priority: High</p>
-                                    </div>
-                                </div>
+                    <div class="demo" data-build="div.demo">
+                        <div class="demo-bar mono"><span class="demo-dots"><i></i><i></i><i></i></span><span class="demo-title">vanna-agent · pmrda_rts_prod</span><span class="demo-flag">Simulation</span></div>
+                        <div class="demo-body">
+                            <div class="status-row mono"><span class="ok">● PostgreSQL 16 · connected</span><span class="info">Role: Town Planner · RLS on</span></div>
+                            <div class="preset-row">
+                                <span class="mono muted">Try</span>
+                                <button type="button" class="chip-btn" data-sql="Show me the monthly application submission trend for the last 12 months">Monthly trend</button>
+                                <button type="button" class="chip-btn" data-sql="What are the total application counts grouped by application status?">Status breakdown</button>
+                                <button type="button" class="chip-btn" data-sql="एकूण किती नागरिक अर्ज दाखल झाले आहेत?" lang="mr">एकूण अर्ज · Marathi</button>
                             </div>
-
-                            <div class="intent-controls" style="display:flex; flex-direction:column; gap:0.6rem; margin-top:0.8rem;">
-                                <div style="display:flex; gap:0.5rem; align-items:center;">
-                                    <input type="text" id="intent-custom-input" placeholder="Type a message to test the NLP router..." style="flex:1; padding:0.6rem; border-radius:4px; border:1px solid var(--border); background:var(--bg-main); color:var(--text-main); font-size:0.85rem;">
-                                    <button id="btn-intent-send" class="btn btn-primary" style="padding:0.6rem 1.2rem; font-size:0.85rem;">Send</button>
+                            <form class="demo-input" id="sql-form">
+                                <input id="sql-input" type="text" autocomplete="off" aria-label="Ask a question about PMRDA applications" value="Show me the monthly application submission trend for the last 12 months">
+                                <button class="btn btn-red btn-sm" type="submit">Run</button>
+                            </form>
+                            <p class="demo-idle mono" id="sql-idle">› Pick a preset or type a question, then Run.</p>
+                            <div class="progress" id="sql-progress" hidden>
+                                <div class="progress-step mono" id="sql-step"></div>
+                                <div class="progress-track"><div class="progress-fill" id="sql-bar"></div></div>
+                            </div>
+                            <div class="demo-results" id="sql-results" hidden>
+                                <div class="panel">
+                                    <div class="panel-head mono"><span>Generated SQL</span><span class="pill pill-ok">read-only · RLS</span></div>
+                                    <pre class="code" id="sql-code"></pre>
                                 </div>
-                                <div style="display:flex; gap:0.5rem; align-items:center;">
-                                    <span style="font-size:0.75rem; color:var(--text-muted); font-weight:bold;">Quick Tests:</span>
-                                    <button id="btn-intent-faq" class="btn btn-secondary" style="padding:0.3rem 0.6rem; font-size:0.75rem;">FAQ Query</button>
-                                    <button id="btn-intent-inv" class="btn btn-secondary" style="padding:0.3rem 0.6rem; font-size:0.75rem;">Investment Query</button>
+                                <div class="split">
+                                    <div class="panel">
+                                        <div class="panel-head mono"><span>Recordset</span><span id="sql-rows"></span></div>
+                                        <div class="panel-body" id="sql-table"></div>
+                                    </div>
+                                    <div class="panel">
+                                        <div class="panel-head mono"><span>Chart</span><span>plotly</span></div>
+                                        <div class="panel-body chart" id="sql-chart"></div>
+                                    </div>
+                                </div>
+                                <div class="summary">
+                                    <div class="summary-head mono">AI summary</div>
+                                    <p id="sql-summary"></p>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </article>
 
-                <!-- 5. AI FinTech Auto-Reconciler -->
-                <div class="project-showcase-card glass-card">
-                    <div class="showcase-details">
-                        <div>
-                            <div class="showcase-badge"><i class="fas fa-mobile-alt"></i> On-Device AI</div>
-                            <h3>AI FinTech Auto-Reconciler</h3>
-                            <p>Android-first React Native AI application running edge inference via native Gemini Nano (AICore) with Google ML Kit fallback for receipt OCR. Developed a 3-tier fuzzy merchant matching algorithm mapped through a custom JSI C++ bridge.</p>
-                            <ul class="showcase-features">
-                                <li><i class="fas fa-check-circle"></i> On-device Gemini Nano (AICore) edge vision inference</li>
-                                <li><i class="fas fa-check-circle"></i> ML Kit OCR fallback for expense scanning</li>
-                                <li><i class="fas fa-check-circle"></i> High-performance 3-tier merchant matching via C++ JSI</li>
-                            </ul>
+                <!-- SYS_02 · DMS RAG -->
+                <article class="sys" id="sys-02">
+                    <div class="sys-info">
+                        <div class="sys-head" data-build="div.sys-head">
+                            <div class="sys-meta mono"><span class="sys-id">SYS_02</span><span>Hybrid RAG</span><span class="sys-client">Multi-tenant</span></div>
+                            <h3>DMS: Enterprise AI Document Search</h3>
                         </div>
-                        <div class="project-tags" style="margin-top: auto;">
-                            <span><i class="devicon-react-original colored"></i> React Native</span>
-                            <span><i class="fas fa-brain" style="color:#a855f7;"></i> Gemini</span>
-                            <span><i class="devicon-kotlin-plain colored"></i> Kotlin</span>
-                            <span><i class="devicon-cplusplus-plain colored"></i> JSI (C++)</span>
+                        <p data-build="p.desc">A production RAG platform for searching an organisation's documents in
+                            plain language. Ingestion runs on asynchronous Celery workers. Retrieval combines semantic
+                            and keyword search, falls back to HyDE when similarity is low, expands queries across
+                            languages and orchestrates several LLM providers behind one interface.</p>
+                        <ul class="ticks" data-build="ul.features">
+                            <li>Hybrid pgvector + keyword search with HyDE fallback</li>
+                            <li>Multilingual query expansion (Marathi ↔ English)</li>
+                            <li>Asynchronous document processing on Celery + Redis</li>
+                            <li>Multi-LLM provider hot-swapping with strict tenant isolation (RLS)</li>
+                        </ul>
+                        <div class="sys-foot" data-build="div.stack">
+                            <ul class="stack-line mono"><li>Next.js</li><li>FastAPI</li><li>PostgreSQL</li><li>pgvector</li><li>Redis</li><li>Celery</li></ul>
+                            <a class="proof mono" href="https://www.linkedin.com/posts/stark-digital-media-services-pvt%2E-ltd%2E_stark-digitals-ai-team-solved-enterprise-activity-7492924379610222592-JgkU" target="_blank" rel="noopener">Proof on LinkedIn ↗</a>
                         </div>
                     </div>
-                    <div class="showcase-demo-container">
-                        <div id="demo-recon" class="demo-container">
-                            <div class="demo-layout" style="gap:1rem; margin:0; min-height:auto;">
-                                <!-- Left: Receipt Scanner -->
-                                <div class="recon-camera-panel" style="flex:1; background:#1e293b; border-radius:8px; border:2px solid #334155; position:relative; overflow:hidden; display:flex; justify-content:center; align-items:center; height:280px;">
-                                    <div style="position:absolute; top:8px; left:8px; color:#fff; font-size:0.75rem;"><i class="fas fa-camera"></i> SCAN RECEIPT</div>
-
-                                    <!-- Receipt -->
-                                    <div class="recon-receipt" style="background:#fff; color:#000; padding:1rem; border-radius:4px; width:85%; font-family:monospace; box-shadow:0 10px 25px rgba(0,0,0,0.5); font-size:0.75rem; position:relative;">
-                                        <div style="text-align:center; font-weight:bold; font-size:0.95rem; border-bottom:1px dashed #ccc; padding-bottom:0.3rem; margin-bottom:0.3rem;">
-                                            <span id="ext-merchant" class="ext-span">STARBUCKS COFFEE</span>
-                                        </div>
-                                        <div><span id="ext-date" class="ext-span">Date: 21-Aug-2026</span></div>
-                                        <div>Time: 09:14 AM</div>
-                                        <div style="margin-top:0.5rem;">1x Caramel Macchiato &nbsp;$5.50</div>
-                                        <div>1x Avocado Toast &nbsp;&nbsp;&nbsp;&nbsp;$7.00</div>
-                                        <div style="border-top:1px dashed #ccc; padding-top:0.3rem; margin-top:0.3rem; font-weight:bold; font-size:0.95rem;">
-                                            <span id="ext-total" class="ext-span">TOTAL: $12.50</span>
-                                        </div>
-                                    </div>
-
-                                    <!-- Scanner Line -->
-                                    <div id="recon-scanner" class="hidden" style="position:absolute; top:0; left:0; width:100%; height:5px; background:#38bdf8; box-shadow:0 0 15px #38bdf8; z-index:10;"></div>
+                    <div class="demo" data-build="div.demo">
+                        <div class="demo-bar mono"><span class="demo-dots"><i></i><i></i><i></i></span><span class="demo-title">dms · tenant: acme-corp</span><span class="demo-flag">Simulation</span></div>
+                        <div class="demo-body">
+                            <div class="preset-row">
+                                <span class="mono muted">Try</span>
+                                <button type="button" class="chip-btn" data-rag="What is our Q3 revenue?">Q3 revenue</button>
+                                <button type="button" class="chip-btn" data-rag="What is the leave policy for contract staff?">Leave policy</button>
+                                <button type="button" class="chip-btn" data-rag="कंत्राटी कर्मचाऱ्यांसाठी रजा धोरण काय आहे?" lang="mr">रजा धोरण · Marathi</button>
+                            </div>
+                            <form class="demo-input" id="rag-form">
+                                <input id="rag-input" type="text" autocomplete="off" aria-label="Ask the document search engine" value="What is our Q3 revenue?">
+                                <button class="btn btn-red btn-sm" type="submit">Search</button>
+                            </form>
+                            <ol class="steps mono" id="rag-steps">
+                                <li data-step="embed">Embed</li>
+                                <li data-step="expand">Expand</li>
+                                <li data-step="hybrid">Hybrid search</li>
+                                <li data-step="hyde">HyDE</li>
+                                <li data-step="rerank">Rerank</li>
+                                <li data-step="answer">Answer</li>
+                            </ol>
+                            <div class="vscan" id="rag-scan">
+                                <div class="vscan-title mono" id="rag-scan-title">pgvector index · 1,024 chunks · idle</div>
+                                <div class="vgrid" id="rag-grid"></div>
+                                <div class="scanline" hidden></div>
+                            </div>
+                            <div class="demo-results" id="rag-results" hidden>
+                                <div class="panel">
+                                    <div class="panel-head mono"><span>Retrieved chunks</span><span id="rag-k"></span></div>
+                                    <ol class="facts" id="rag-facts"></ol>
                                 </div>
-
-                                <!-- Right: Bank Statements -->
-                                <div class="recon-bank-panel" style="flex:1.1; background:#0f172a; border-radius:8px; border:1px solid #1e293b; display:flex; flex-direction:column; overflow:hidden; height:280px;">
-                                    <div style="background:#1e293b; padding:0.6rem 0.8rem; font-weight:bold; font-size:0.8rem; border-bottom:1px solid #334155;">
-                                        <i class="fas fa-university" style="color:#38bdf8;"></i> Bank Statement (Aug 21)
-                                    </div>
-                                    <div style="padding:0.6rem; display:flex; flex-direction:column; gap:0.4rem; overflow-y:auto;">
-                                        <div class="recon-tx" id="recon-tx-1" style="background:#1e293b; padding:0.6rem; border-radius:4px; display:flex; justify-content:space-between; align-items:center; border:1px solid transparent; font-size:0.75rem;">
-                                            <div>
-                                                <div style="font-weight:bold; color:#f8fafc;">Uber Rides</div>
-                                                <div style="font-size:0.65rem; color:#94a3b8;">21-Aug-2026 08:30 AM</div>
-                                            </div>
-                                            <div style="font-weight:bold; color:#ef4444;">-$24.00</div>
-                                        </div>
-
-                                        <div class="recon-tx" id="recon-tx-2" style="background:#1e293b; padding:0.6rem; border-radius:4px; display:flex; justify-content:space-between; align-items:center; border:1px solid transparent; font-size:0.75rem;">
-                                            <div>
-                                                <div style="font-weight:bold; color:#f8fafc;">Starbucks Coffee</div>
-                                                <div style="font-size:0.65rem; color:#94a3b8;">21-Aug-2026 09:16 AM</div>
-                                            </div>
-                                            <div style="display:flex; align-items:center; gap:0.5rem;">
-                                                <div class="tx-badge" id="recon-badge-2" style="opacity:0;"><i class="fas fa-check-circle" style="color:#22c55e;"></i> MATCHED</div>
-                                                <div style="font-weight:bold; color:#ef4444;">-$12.50</div>
-                                            </div>
-                                        </div>
-
-                                        <div class="recon-tx" id="recon-tx-3" style="background:#1e293b; padding:0.6rem; border-radius:4px; display:flex; justify-content:space-between; align-items:center; border:1px solid transparent; font-size:0.75rem;">
-                                            <div>
-                                                <div style="font-weight:bold; color:#f8fafc;">Amazon AWS</div>
-                                                <div style="font-size:0.65rem; color:#94a3b8;">20-Aug-2026 11:45 PM</div>
-                                            </div>
-                                            <div style="font-weight:bold; color:#ef4444;">-$85.00</div>
-                                        </div>
-                                    </div>
-
-                                    <div id="recon-status" style="margin-top:auto; padding:0.5rem; background:#1e293b; font-size:0.75rem; color:#38bdf8; text-align:center; border-top:1px solid #334155;">
-                                        Awaiting receipt scan...
-                                    </div>
+                                <div class="summary">
+                                    <div class="summary-head mono" id="rag-answer-head">Grounded answer</div>
+                                    <p id="rag-answer"></p>
                                 </div>
                             </div>
-                            <button id="btn-recon-start" class="btn btn-primary run-demo-btn" style="margin-top:0.8rem; padding:0.6rem; font-size:0.8rem;">Start Auto-Reconciler</button>
                         </div>
                     </div>
-                </div>
+                </article>
 
-                <!-- 6. AI-Powered Pothole Analytics Platform -->
-                <div class="project-showcase-card glass-card">
-                    <div class="showcase-details">
-                        <div>
-                            <div class="showcase-badge"><i class="fas fa-map-marker-alt"></i> Smart Municipal AI</div>
-                            <h3>AI-Powered Pothole Analytics Platform</h3>
-                            <p>Hybrid React Native mobile client and web dashboard for automated infrastructure monitoring. Leveraged YOLO object detection and Gemini vision models to analyze user-uploaded images, automatically detecting potholes and calculating severity scores.</p>
-                            <ul class="showcase-features">
-                                <li><i class="fas fa-check-circle"></i> Automated road defect detection via YOLO & Gemini Vision</li>
-                                <li><i class="fas fa-check-circle"></i> Real-time severity scoring & false-positive filtering</li>
-                                <li><i class="fas fa-check-circle"></i> PMC Officer interactive GIS map dashboard & work orders</li>
-                            </ul>
+                <!-- SYS_03 · IRIS -->
+                <article class="sys" id="sys-03">
+                    <div class="sys-info">
+                        <div class="sys-head" data-build="div.sys-head">
+                            <div class="sys-meta mono"><span class="sys-id">SYS_03</span><span>Vision telemetry</span><span class="sys-client">Commercial office</span></div>
+                            <h3>Project Iris: AI Vision Telemetry &amp; Automation</h3>
                         </div>
-                        <div class="project-tags" style="margin-top: auto;">
-                            <span><i class="devicon-react-original colored"></i> React Native</span>
-                            <span><i class="fas fa-eye" style="color:#38bdf8;"></i> YOLO</span>
-                            <span><i class="fas fa-brain" style="color:#a855f7;"></i> Gemini</span>
-                            <span><i class="fas fa-map-marker-alt" style="color:#ef4444;"></i> Geolocation</span>
+                        <p data-build="p.desc">Replaces motion sensors with real-time person detection. YOLOv8 inference
+                            runs across multiple CCTV cameras, an OpenCV spatial engine maps each detection onto the floor
+                            plan, and occupancy telemetry streams over WebSockets to IoT controllers that switch lighting
+                            and HVAC zone by zone.</p>
+                        <ul class="ticks" data-build="ul.features">
+                            <li>Multi-camera YOLOv8 occupancy tracking at ~1 s latency</li>
+                            <li>OpenCV mapping of bounding boxes onto a 2D floor plan</li>
+                            <li>WebSocket telemetry driving IoT relays (AZIOT, Broadlink IR) for lights and HVAC</li>
+                        </ul>
+                        <div class="sys-foot" data-build="div.stack">
+                            <ul class="stack-line mono"><li>FastAPI</li><li>React</li><li>YOLOv8</li><li>OpenCV</li><li>WebSockets</li><li>IoT</li></ul>
+                            <a class="proof mono" href="https://www.linkedin.com/posts/stark-digital-media-services-pvt%2E-ltd%2E_the-smarter-way-to-automate-commercial-energy-activity-7495097882304454656-rLDQ" target="_blank" rel="noopener">Proof on LinkedIn ↗</a>
                         </div>
                     </div>
-                    <div class="showcase-demo-container">
-                        <div id="demo-pothole" class="demo-container">
-                            <div class="demo-layout" style="gap:1rem; margin:0; min-height:auto;">
-                                <!-- Left: AI Vision Scanner -->
-                                <div class="pothole-vision-panel" style="flex:1; background:#1e293b; border-radius:8px; border:2px solid #334155; position:relative; overflow:hidden; display:flex; flex-direction:column; height:280px;">
-                                    <div style="background:#0f172a; padding:0.5rem 0.8rem; font-weight:bold; font-size:0.75rem; border-bottom:1px solid #334155; display:flex; justify-content:space-between;">
-                                        <span><i class="fas fa-camera"></i> Citizen Upload</span>
-                                        <span id="ph-ai-status" style="color:#94a3b8;">Awaiting Image...</span>
-                                    </div>
+                    <div class="demo" data-build="div.demo">
+                        <div class="demo-bar mono"><span class="demo-dots"><i></i><i></i><i></i></span><span class="demo-title">iris · ch01 office_main</span><span class="demo-flag">Simulation</span></div>
+                        <div class="demo-body">
+                            <div class="cctv" id="iris-feed">
+                                <div class="cctv-zone za mono">ZONE A</div>
+                                <div class="cctv-zone zb mono">ZONE B</div>
+                                <div class="person" data-person="0"><span class="bbox mono"><b>person 0.98</b></span></div>
+                                <div class="person" data-person="1"><span class="bbox mono"><b>person 0.95</b></span></div>
+                                <div class="person" data-person="2"><span class="bbox mono"><b>person 0.91</b></span></div>
+                                <div class="person" data-person="3"><span class="bbox mono"><b>person 0.99</b></span></div>
+                                <div class="cctv-dark" id="iris-dark"></div>
+                                <div class="cctv-hud mono"><span class="rec">● REC</span> CH01 · YOLOv8n · <span id="iris-fps">idle</span></div>
+                            </div>
+                            <div class="iris-stats">
+                                <div class="stat-cell"><span class="mono">Occupants</span><b id="iris-occ">0</b></div>
+                                <div class="stat-cell"><span class="mono">Lighting</span><b id="iris-light">OFF</b></div>
+                                <div class="stat-cell"><span class="mono">HVAC</span><b id="iris-hvac">Standby</b></div>
+                                <button type="button" class="btn btn-red btn-sm" id="iris-toggle">Start feed</button>
+                            </div>
+                            <p class="log mono" id="iris-log">› relay bus idle · waiting for camera stream</p>
+                        </div>
+                    </div>
+                </article>
 
-                                    <div style="flex:1; display:flex; justify-content:center; align-items:center; position:relative; background:#334155;">
-                                        <div id="ph-image-view" style="width:100%; height:100%; position:relative; background-position:center;">
-                                            <div id="ph-scanner" class="hidden" style="position:absolute; top:0; left:0; width:5px; height:100%; background:#38bdf8; box-shadow:0 0 15px #38bdf8;"></div>
-                                            <div id="ph-bbox" class="hidden" style="position:absolute; top:35%; left:30%; width:40%; height:35%; border:3px solid #ef4444; background:rgba(239,68,68,0.2);">
-                                                <span style="position:absolute; top:-22px; left:-3px; background:#ef4444; color:white; font-size:0.65rem; padding:2px 4px; font-weight:bold;">Pothole 98%</span>
-                                            </div>
-                                        </div>
+                <!-- SYS_04 · POTHOLE -->
+                <article class="sys" id="sys-04">
+                    <div class="sys-info">
+                        <div class="sys-head" data-build="div.sys-head">
+                            <div class="sys-meta mono"><span class="sys-id">SYS_04</span><span>Edge AI · multimodal</span><span class="sys-client">MIDC</span></div>
+                            <h3>MIDC Pothole Detection</h3>
+                        </div>
+                        <p data-build="p.desc">An end-to-end mobile vision pipeline for road-infrastructure reporting.
+                            A citizen photographs a road; YOLO detects defects, a multimodal Gemini pass grades severity
+                            and filters false positives, and confirmed reports land on an officer dashboard as geotagged
+                            work orders.</p>
+                        <ul class="ticks" data-build="ul.features">
+                            <li>YOLO object detection combined with Gemini multimodal analysis</li>
+                            <li>Automated severity scoring and false-positive filtering</li>
+                            <li>Geotagged reports on an officer map dashboard, with work orders</li>
+                        </ul>
+                        <div class="sys-foot" data-build="div.stack">
+                            <ul class="stack-line mono"><li>React Native</li><li>FastAPI</li><li>YOLO</li><li>Gemini</li><li>Edge AI</li></ul>
+                        </div>
+                    </div>
+                    <div class="demo" data-build="div.demo">
+                        <div class="demo-bar mono"><span class="demo-dots"><i></i><i></i><i></i></span><span class="demo-title">midc-roads · field reports</span><span class="demo-flag">Simulation</span></div>
+                        <div class="demo-body">
+                            <div class="two-up">
+                                <div class="panel">
+                                    <div class="panel-head mono"><span>Citizen upload</span><span id="ph-status">Awaiting image</span></div>
+                                    <div class="ph-view" id="ph-view">
+                                        <span class="ph-empty mono" id="ph-empty">Choose an upload below ↓</span>
+                                        <div class="ph-scan" id="ph-scan" hidden></div>
+                                        <div class="ph-bbox mono" id="ph-bbox" hidden><b>pothole 0.98</b></div>
                                     </div>
-
-                                    <div style="padding:0.6rem; display:flex; gap:0.5rem; justify-content:center; background:#1e293b; border-top:1px solid #334155;">
-                                        <button id="btn-ph-real" class="btn btn-secondary" style="font-size:0.75rem; padding:0.3rem 0.6rem;"><i class="fas fa-exclamation-triangle"></i> Real Pothole</button>
-                                        <button id="btn-ph-fake" class="btn btn-secondary" style="font-size:0.75rem; padding:0.3rem 0.6rem;"><i class="fas fa-road"></i> Clean Road</button>
+                                    <div class="panel-actions">
+                                        <button type="button" class="chip-btn" id="ph-real">Upload: pothole</button>
+                                        <button type="button" class="chip-btn" id="ph-clean">Upload: clean road</button>
                                     </div>
                                 </div>
-
-                                <!-- Right: PMC Map Dashboard -->
-                                <div class="pothole-map-panel" style="flex:1.1; background:#0f172a; border-radius:8px; border:1px solid #1e293b; display:flex; flex-direction:column; overflow:hidden; height:280px;">
-                                    <div style="background:#1e293b; padding:0.5rem 0.8rem; font-weight:bold; font-size:0.75rem; border-bottom:1px solid #334155;">
-                                        <i class="fas fa-map-marked-alt" style="color:#38bdf8;"></i> PMC Dashboard Map
-                                    </div>
-
-                                    <div style="flex:1; position:relative; background:#1e293b; overflow:hidden;">
-                                        <svg width="100%" height="100%" viewBox="0 0 400 300" preserveAspectRatio="none">
-                                            <path d="M 50 -10 L 150 310 M -10 150 L 410 100 M 300 -10 L 250 310" stroke="#334155" stroke-width="25" fill="none" />
-                                            <path d="M 50 -10 L 150 310 M -10 150 L 410 100 M 300 -10 L 250 310" stroke="#475569" stroke-width="2" stroke-dasharray="15 15" fill="none" />
+                                <div class="panel">
+                                    <div class="panel-head mono"><span>MIDC dashboard</span><span>work orders</span></div>
+                                    <div class="map">
+                                        <svg viewBox="0 0 400 240" preserveAspectRatio="none" aria-hidden="true">
+                                            <path d="M60 -10 L150 250 M-10 130 L410 90 M300 -10 L250 250" class="road" />
+                                            <path d="M60 -10 L150 250 M-10 130 L410 90 M300 -10 L250 250" class="road-dash" />
                                         </svg>
-
-                                        <div class="map-dot completed" style="top:60px; left:290px;" title="Completed"><i class="fas fa-check"></i></div>
-                                        <div class="map-dot in-work" style="top:180px; left:120px;" title="In Work"><i class="fas fa-hard-hat"></i></div>
-                                        <div id="ph-new-marker" class="map-dot reported hidden" style="top:125px; left:240px;"><i class="fas fa-exclamation"></i></div>
+                                        <span class="pin pin-done" style="--x:74%;--y:22%" title="Repaired">✓</span>
+                                        <span class="pin pin-work" style="--x:30%;--y:66%" title="In progress">⚒</span>
+                                        <span class="pin pin-new" id="ph-pin" style="--x:58%;--y:44%" title="New report" hidden>!</span>
                                     </div>
-
-                                    <div id="ph-log" style="padding:0.5rem 0.8rem; background:#1e293b; font-size:0.75rem; color:#f8fafc; border-top:1px solid #334155; font-family:monospace; line-height:1.4;">
-                                        > System Ready. Awaiting citizen reports.
-                                    </div>
+                                    <p class="log mono" id="ph-log">› System ready. Awaiting citizen reports.</p>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </article>
 
+                <!-- SYS_05 · INTENT ENGINE -->
+                <article class="sys" id="sys-05">
+                    <div class="sys-info">
+                        <div class="sys-head" data-build="div.sys-head">
+                            <div class="sys-meta mono"><span class="sys-id">SYS_05</span><span>Multi-agent NLP</span><span class="sys-client">Investor desk</span></div>
+                            <h3>Enterprise Intent Detection Engine</h3>
+                        </div>
+                        <p data-build="p.desc">Classifies and routes investor enquiries automatically. A LangGraph
+                            workflow embeds each message, matches it against known intents in pgvector, then either
+                            answers from the FAQ knowledge base or escalates investment proposals to a human officer.
+                            It runs behind a FastAPI service with RBAC and Redis caching.</p>
+                        <ul class="ticks" data-build="ul.features">
+                            <li>LangGraph multi-agent routing graph</li>
+                            <li>pgvector semantic intent classifier</li>
+                            <li>FAQ auto-answer or human escalation, with priority</li>
+                        </ul>
+                        <div class="sys-foot" data-build="div.stack">
+                            <ul class="stack-line mono"><li>LangGraph</li><li>LangChain</li><li>OpenAI</li><li>FastAPI</li><li>pgvector</li><li>Redis</li></ul>
+                        </div>
+                    </div>
+                    <div class="demo" data-build="div.demo">
+                        <div class="demo-bar mono"><span class="demo-dots"><i></i><i></i><i></i></span><span class="demo-title">intent-router · langgraph</span><span class="demo-flag">Simulation</span></div>
+                        <div class="demo-body">
+                            <div class="panel intent-panel">
+                                <svg class="intent-svg" viewBox="0 0 460 220" role="img" aria-label="Routing graph: user to NLP router, then to FAQ bot or MIDC officer">
+                                    <path class="edge" d="M90 110 H170" />
+                                    <path class="edge" d="M280 110 C320 110 320 45 360 45" />
+                                    <path class="edge" d="M280 110 C320 110 320 175 360 175" />
+                                    <path class="flow flow-blue" id="f-in" d="M90 110 H170" />
+                                    <path class="flow flow-green" id="f-faq" d="M280 110 C320 110 320 45 360 45" />
+                                    <path class="flow flow-red" id="f-off" d="M280 110 C320 110 320 175 360 175" />
+                                    <g class="node" id="n-user" transform="translate(10 85)"><rect width="80" height="50" rx="5" /><text x="40" y="22">USER</text><text class="sub" x="40" y="38">message</text></g>
+                                    <g class="node" id="n-router" transform="translate(170 80)"><rect width="110" height="60" rx="5" /><text x="55" y="26">NLP ROUTER</text><text class="sub" id="router-state" x="55" y="44">idle</text></g>
+                                    <g class="node" id="n-faq" transform="translate(360 20)"><rect width="90" height="50" rx="5" /><text x="45" y="22">FAQ BOT</text><text class="sub" x="45" y="38">auto-answer</text></g>
+                                    <g class="node" id="n-off" transform="translate(360 150)"><rect width="90" height="50" rx="5" /><text x="45" y="22">OFFICER</text><text class="sub" x="45" y="38">escalate</text></g>
+                                    <text class="intent-label" id="intent-label" x="225" y="64"></text>
+                                </svg>
+                            </div>
+                            <p class="log mono" id="intent-log">› Waiting for a message…</p>
+                            <form class="demo-input" id="intent-form">
+                                <input id="intent-input" type="text" autocomplete="off" aria-label="Type a message for the NLP router" placeholder="Type a message to route…">
+                                <button class="btn btn-red btn-sm" type="submit">Send</button>
+                            </form>
+                            <div class="preset-row">
+                                <span class="mono muted">Try</span>
+                                <button type="button" class="chip-btn" data-intent="What documents are required to set up a handmill?">FAQ query</button>
+                                <button type="button" class="chip-btn" data-intent="I want to set up a handmill plant in Pune with a 5 crore investment plan.">Investment proposal</button>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- SYS_06 · RECONCILER -->
+                <article class="sys" id="sys-06">
+                    <div class="sys-info">
+                        <div class="sys-head" data-build="div.sys-head">
+                            <div class="sys-meta mono"><span class="sys-id">SYS_06</span><span>On-device AI</span><span class="sys-client">Android</span></div>
+                            <h3>AI FinTech Auto-Reconciler</h3>
+                        </div>
+                        <p data-build="p.desc">An Android-first React Native app that reconciles receipts against bank
+                            statements. Gemini Nano (AICore) reads the receipt on-device, with ML Kit OCR as a fallback,
+                            and a three-tier merchant-matching algorithm runs in C++ through a custom JSI bridge.</p>
+                        <ul class="ticks" data-build="ul.features">
+                            <li>On-device Gemini Nano vision with ML Kit OCR fallback</li>
+                            <li>Three-tier matching: amount, time window, fuzzy merchant name</li>
+                            <li>Hot path in C++ through a custom JSI bridge</li>
+                        </ul>
+                        <div class="sys-foot" data-build="div.stack">
+                            <ul class="stack-line mono"><li>React Native</li><li>Kotlin</li><li>Gemini Nano</li><li>ML Kit</li><li>C++ · JSI</li></ul>
+                        </div>
+                    </div>
+                    <div class="demo" data-build="div.demo">
+                        <div class="demo-bar mono"><span class="demo-dots"><i></i><i></i><i></i></span><span class="demo-title">reconciler · on-device</span><span class="demo-flag">Simulation</span></div>
+                        <div class="demo-body">
+                            <div class="two-up">
+                                <div class="panel recon-cam">
+                                    <div class="panel-head mono"><span>Scan receipt</span><span>gemini-nano</span></div>
+                                    <div class="recon-stage">
+                                        <div class="receipt mono">
+                                            <div class="r-merchant"><span class="ext">STARBUCKS COFFEE</span></div>
+                                            <div><span class="ext">21-Aug-2026</span> · 09:14 AM</div>
+                                            <div class="r-line"><span>1× Caramel Macchiato</span><span>$5.50</span></div>
+                                            <div class="r-line"><span>1× Avocado Toast</span><span>$7.00</span></div>
+                                            <div class="r-total"><span class="ext">TOTAL $12.50</span></div>
+                                        </div>
+                                        <div class="recon-scan" id="recon-scan" hidden></div>
+                                    </div>
+                                </div>
+                                <div class="panel">
+                                    <div class="panel-head mono"><span>Bank statement</span><span>21 Aug</span></div>
+                                    <ul class="tx-list">
+                                        <li class="tx" id="tx-1"><div><b>Uber Rides</b><small class="mono">21-Aug · 08:30</small></div><span class="amt mono">−$24.00</span></li>
+                                        <li class="tx" id="tx-2"><div><b>Starbucks Coffee</b><small class="mono">21-Aug · 09:16</small></div><span class="tx-badge mono" id="tx-badge">✓ matched</span><span class="amt mono">−$12.50</span></li>
+                                        <li class="tx" id="tx-3"><div><b>Amazon AWS</b><small class="mono">20-Aug · 23:45</small></div><span class="amt mono">−$85.00</span></li>
+                                    </ul>
+                                    <p class="log mono" id="recon-log">› Awaiting receipt scan…</p>
+                                </div>
+                            </div>
+                            <button type="button" class="btn btn-red btn-sm btn-block" id="recon-run">Run auto-reconciler</button>
+                        </div>
+                    </div>
+                </article>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section id="other-projects" class="section">
-        <div class="container">
-            <h2 class="section-title">Mobile & Web <span>Projects</span></h2>
-            <div class="project-grid">
-                <div class="project-card glass-card">
-                    <div class="project-content">
-                        <h3>SCADA Simulation</h3>
-                        <p>Cross-platform Flutter application sponsored by Indian Railways (Central Railway, Bhusawal
-                            Division) to train employees. Simulates SCADA systems with an interactive UI and circuit
-                            components for voltage visualization.</p>
-                        <div class="project-tags">
-                            <span><i class="devicon-flutter-plain colored"></i> Flutter</span>
-                            <span><i class="devicon-dart-plain colored"></i> Dart</span>
-                            <span><i class="fas fa-paint-brush" style="color:#a855f7;"></i> UI/UX</span>
+        <!-- ============ 04 ARCHIVE ============ -->
+        <section class="section" id="archive">
+            <div class="wrap">
+                <div class="sec-index mono" data-build="div.index"><span class="sec-num">// 05.00</span> SEC_ARCHIVE <span class="sec-count">INDEX [05 / 07]</span></div>
+                <header class="sec-head" data-build="h2.archive">
+                    <p class="eyebrow mono">Earlier builds</p>
+                    <h2>Mobile &amp; web, before the AI focus</h2>
+                </header>
+                <ol class="archive">
+                    <li data-build="li.row">
+                        <span class="a-idx mono">A.01</span>
+                        <a class="a-name" href="https://github.com/Gaurav-Chaudhari-2003/VehicleBooking" target="_blank" rel="noopener">Vehicle Booking System <span aria-hidden="true">↗</span></a>
+                        <span class="a-ctx">Built for CMPDI RI-4, Nagpur. Official vehicle bookings with login, availability checks and an admin approval panel.</span>
+                        <span class="a-stack mono">PHP · SQL</span>
+                    </li>
+                    <li data-build="li.row">
+                        <span class="a-idx mono">A.02</span>
+                        <span class="a-name">GPA Achalpur App</span>
+                        <span class="a-ctx">Android app for Government Polytechnic, Achalpur: attendance, notices, study material, library management and college details.</span>
+                        <span class="a-stack mono">Java · Android</span>
+                    </li>
+                    <li data-build="li.row">
+                        <span class="a-idx mono">A.03</span>
+                        <span class="a-name">Your Notes</span>
+                        <span class="a-ctx">Cross-platform notes app with cloud sync, user authentication and persistent storage.</span>
+                        <span class="a-stack mono">Flutter · Firebase</span>
+                    </li>
+                </ol>
+            </div>
+        </section>
+
+        <!-- ============ 05 EXPERIENCE ============ -->
+        <section class="section" id="log">
+            <div class="wrap">
+                <div class="sec-index mono" data-build="div.index"><span class="sec-num">// 06.00</span> SEC_LOG <span class="sec-count">INDEX [06 / 07]</span></div>
+                <header class="sec-head" data-build="h2.log">
+                    <p class="eyebrow mono">Experience</p>
+                    <h2>Commit history</h2>
+                </header>
+                <ol class="log-list">
+                    <li class="log-item" data-build="li.entry">
+                        <div class="log-when mono">Jun 2026 → now</div>
+                        <div class="log-what">
+                            <h3>AI Engineer</h3>
+                            <p class="log-org mono">Stark Digital · Pune</p>
+                            <p>Engineering RAG pipelines, natural-language-to-analytics engines, vision telemetry systems
+                                and edge-AI solutions.</p>
                         </div>
-                    </div>
+                        <span class="log-state mono is-active">Active</span>
+                    </li>
+                    <li class="log-item" data-build="li.entry">
+                        <div class="log-when mono">Feb 2025 → Feb 2026</div>
+                        <div class="log-what">
+                            <h3>Engineering Apprentice</h3>
+                            <p class="log-org mono">CMPDI RI-4 · Nagpur</p>
+                            <p>Engineered backend automation workflows and SQL data-access layers for enterprise web
+                                applications, including the Vehicle Booking System.</p>
+                        </div>
+                        <span class="log-state mono">Merged</span>
+                    </li>
+                    <li class="log-item" data-build="li.entry">
+                        <div class="log-when mono">Jun 2022 → Aug 2022</div>
+                        <div class="log-what">
+                            <h3>Python &amp; ML Intern</h3>
+                            <p class="log-org mono">MDB Electrosoft · Amravati</p>
+                            <p>Developed foundational Python scripts for data processing and predictive ML prototypes.</p>
+                        </div>
+                        <span class="log-state mono">Merged</span>
+                    </li>
+                </ol>
+            </div>
+        </section>
+
+        <!-- ============ 06 CONTACT ============ -->
+        <section class="section contact" id="contact">
+            <div class="wrap">
+                <div class="sec-index mono" data-build="div.index"><span class="sec-num">// 07.00</span> SEC_CONTACT <span class="sec-count">INDEX [07 / 07]</span></div>
+                <div class="display-word contact-word" data-build="svg.display" aria-hidden="true">
+                    <svg viewBox="0 0 1000 232" preserveAspectRatio="xMidYMid meet">
+                        <text x="0" y="222" textLength="1000" lengthAdjust="spacingAndGlyphs">LET'S BUILD</text>
+                    </svg>
                 </div>
-
-                <div class="project-card glass-card">
-                    <div class="project-content">
-                        <h3>Vehicle Booking System</h3>
-                        <p>Built for CMPDI RI-4, Nagpur. A full-stack web application that manages official vehicle
-                            bookings with secure login, dynamic availability checks, and a comprehensive admin panel for
-                            approvals.</p>
-                        <div class="project-tags">
-                            <span><i class="devicon-php-plain colored"></i> PHP</span>
-                            <span><i class="devicon-mysql-plain colored"></i> SQL</span>
-                            <span><i class="fas fa-globe" style="color:#38bdf8;"></i> Web</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="project-card glass-card">
-                    <div class="project-content">
-                        <h3>COVID-19 Vaccination Tracker</h3>
-                        <p>Android application built to track vaccination status with real-time updates and
-                            synchronization using Firebase Firestore backend.</p>
-                        <div class="project-tags">
-                            <span><i class="devicon-java-plain colored"></i> Java</span>
-                            <span><i class="devicon-androidstudio-plain colored"></i> Android Studio</span>
-                            <span><i class="devicon-firebase-plain colored"></i> Firebase</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="project-card glass-card">
-                    <div class="project-content">
-                        <h3>Your Notes App</h3>
-                        <p>Cross-platform note-taking app with Firebase integration for real-time cloud sync, secure
-                            user authentication, and persistent data storage.</p>
-                        <div class="project-tags">
-                            <span><i class="devicon-flutter-plain colored"></i> Flutter</span>
-                            <span><i class="devicon-firebase-plain colored"></i> Firebase Auth</span>
-                            <span><i class="devicon-firebase-plain colored"></i> Firestore</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="project-card glass-card">
-                    <div class="project-content">
-                        <h3>GPA Achalpur App</h3>
-                        <p>Comprehensive Android app developed for Government Polytechnic, Achalpur; featuring
-                            attendance tracking, digital notices, study material repository, library management, and
-                            college details.</p>
-                        <div class="project-tags">
-                            <span><i class="devicon-java-plain colored"></i> Java</span>
-                            <span><i class="devicon-android-plain colored"></i> Android SDK</span>
-                            <span><i class="fas fa-mobile-alt" style="color:#94a3b8;"></i> Mobile</span>
-                        </div>
-                    </div>
+                <h2 class="sr-only">Contact</h2>
+                <div class="contact-grid">
+                    <p class="lede" data-build="p.contact">Building something with LLMs, retrieval or computer vision?
+                        Send a message and tell me what you're working on.</p>
+                    <a class="contact-mail" href="mailto:chaudharigaurav177@gmail.com" data-build="a.mail">chaudharigaurav177@gmail.com <span aria-hidden="true">↗</span></a>
+                    <ul class="contact-links mono" data-build="ul.links">
+                        <li><span>GitHub</span><a href="https://github.com/Gaurav-Chaudhari-2003" target="_blank" rel="noopener">Gaurav-Chaudhari-2003 ↗</a></li>
+                        <li><span>LinkedIn</span><a href="https://www.linkedin.com/in/gaurav-chaudhari-8129ab206" target="_blank" rel="noopener">gaurav-chaudhari-8129ab206 ↗</a></li>
+                        <li><span>Location</span><span class="v">Pune, Maharashtra, IN</span></li>
+                    </ul>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    </main>
 
-    <section id="experience" class="section">
-        <div class="container">
-            <h2 class="section-title">Professional <span>Experience</span></h2>
-            <div class="timeline">
-                <div class="timeline-item glass-card">
-                    <div class="timeline-date">Jul 2026 – Present</div>
-                    <h3>AI Engineer</h3>
-                    <h4>Stark Digital Media Services</h4>
-                    <p>Spearheading enterprise AI initiatives including the development of multi-tenant RAG search
-                        engines and Edge AI telemetry systems. Leveraging computer vision and LLM agents to deliver
-                        robust automated solutions.</p>
-                </div>
-
-                <div class="timeline-item glass-card">
-                    <div class="timeline-date">Feb 2025 – Feb 2026</div>
-                    <h3>Apprentice</h3>
-                    <h4>CMPDI RI-4, Nagpur</h4>
-                    <p>Engaged in enterprise-level software development and process optimization workflows. Developed
-                        internal tools like the Vehicle Booking System to streamline operations.</p>
-                </div>
-
-                <div class="timeline-item glass-card">
-                    <div class="timeline-date">May 2024 – Oct 2024</div>
-                    <h3>Android Intern</h3>
-                    <h4>Plasma Corporation, Pune</h4>
-                    <p>Developed mobile applications and integrated robust backend services leveraging Firebase. Created
-                        applications like the COVID-19 Vaccination Tracker ensuring real-time data sync.</p>
-                </div>
-
-                <div class="timeline-item glass-card">
-                    <div class="timeline-date">Jun 2022 - Aug 2022</div>
-                    <h3>Python Intern</h3>
-                    <h4>MDB Electrosoft, Amravati</h4>
-                    <p>Built foundational Python scripts and collaborated on backend logic, laying the groundwork for
-                        complex AI and automation pipelines.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="contact" class="section">
-        <div class="container text-center">
-            <h2 class="section-title">Let's <span>Connect</span></h2>
-            <p
-                style="margin-bottom: 2rem; color: var(--text-muted); max-width: 600px; margin-left: auto; margin-right: auto;">
-                I'm currently looking for new opportunities in Software Engineering, AI/ML, and Full-Stack development.
-                My inbox is always open.</p>
-            <a href="mailto:chaudharigaurav177@gmail.com" class="btn btn-primary"
-                style="padding: 1rem 3rem; font-size: 1.2rem;">Say Hello</a>
-        </div>
-    </section>
-
-    <footer>
-        <div class="container text-center">
-            <p>&copy; 2026 Gaurav Vilas Chaudhari. Built with HTML, CSS, and JS.</p>
+    <footer class="foot">
+        <div class="wrap foot-inner" data-build="footer">
+            <span class="mono">© 2026 Gaurav Vilas Chaudhari</span>
+            <span class="mono foot-mid">Assembled live by an agent swarm · plain HTML, CSS &amp; JS</span>
+            <button type="button" class="replay mono" id="replay">↻ Replay build</button>
         </div>
     </footer>
 
-    <script src="script.js"></script>
+    <script src="script.js?v=4"></script>
 </body>
 
 </html>
