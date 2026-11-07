@@ -36,10 +36,11 @@ HEADLINE = 'AI/ML Engineer | LLMs, RAG, Agentic AI and Computer Vision'
 CONTACT = [  # (visible text, link or None)
     [('Pune, Maharashtra, India', None),
      ('+91 96653 05197', 'tel:+919665305197'),
-     ('chaudharigaurav177@gmail.com', 'mailto:chaudharigaurav177@gmail.com')],
+     ('chaudharigaurav177@gmail.com', 'mailto:chaudharigaurav177@gmail.com'),
+     ('gaurav-chaudhari-2003.github.io', 'https://gaurav-chaudhari-2003.github.io/')],
     [('linkedin.com/in/gaurav-chaudhari-8129ab206', 'https://www.linkedin.com/in/gaurav-chaudhari-8129ab206'),
      ('github.com/Gaurav-Chaudhari-2003', 'https://github.com/Gaurav-Chaudhari-2003'),
-     ('gaurav-chaudhari-2003.github.io', 'https://gaurav-chaudhari-2003.github.io/')],
+     ('leetcode.com/u/Gaurav-Chaudhari-2003', 'https://leetcode.com/u/Gaurav-Chaudhari-2003/')],
 ]
 
 SUMMARY = ('AI/ML Engineer at Stark Digital building production LLM systems for government and enterprise clients: '
