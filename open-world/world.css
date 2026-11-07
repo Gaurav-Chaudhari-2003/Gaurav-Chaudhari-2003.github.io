@@ -950,7 +950,9 @@ kbd {
 }
 
 .briefing {
-    position: relative;
+    position: sticky;
+    top: 84px;
+    align-self: start;
     display: flex;
     flex-direction: column;
     gap: 16px;
@@ -2918,6 +2920,11 @@ kbd {
 
     .mission {
         grid-template-columns: minmax(0, 1fr);
+    }
+
+    .briefing {
+        position: relative;
+        top: auto;
     }
 
     .quests,

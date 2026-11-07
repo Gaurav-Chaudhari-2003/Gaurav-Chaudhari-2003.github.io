@@ -17,8 +17,8 @@
         href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow+Condensed:wght@500;600;700;800&family=Barlow:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&family=Neonderthaw&display=swap"
         rel="stylesheet">
     <!-- Base styles and the six demo components come from the classic site. -->
-    <link rel="stylesheet" href="../styles.css?v=8">
-    <link rel="stylesheet" href="world.css?v=4">
+    <link rel="stylesheet" href="../styles.css?v=10">
+    <link rel="stylesheet" href="world.css?v=5">
 
     <!-- Intro plays once per tab; skipped for reduced motion and deep links.
          If world.js never boots, a watchdog reveals the page after 5s. -->
@@ -207,8 +207,7 @@
                         <p class="ow-kicker">Fast travel</p>
                         <h2 class="ow-h2">City map</h2>
                     </div>
-                    <p class="ow-note">Every pin is a stop on this page. Pick one to fast-travel there: missions,
-                        side quests, flashbacks, stats and the phone.</p>
+                    <p class="ow-note">Every pin fast-travels to a stop on this page.</p>
                 </header>
                 <div class="map-box" id="city-map"></div>
                 <ul class="map-legend ui">
@@ -228,8 +227,7 @@
                         <p class="ow-kicker">Main story · 6 missions</p>
                         <h2 class="ow-h2">Story missions</h2>
                     </div>
-                    <p class="ow-note">Each mission is an interactive simulation of a real system, with sample data.
-                        Press <b>Start mission</b>, or take the controls yourself.</p>
+                    <p class="ow-note">Simulations of real systems with sample data. Press <b>Start mission</b>.</p>
                 </header>
 
                 <article class="mission" id="m1" data-num="01" data-district="sql-docks" data-skills="llm sql">
@@ -242,14 +240,7 @@
                             </div>
                         </div>
                         <div class="m-contacts"><span class="avatar" style="--c:#2de2e6">PMRDA</span><span class="avatar" style="--c:#ff8a3d">PMC</span><span>Contacts</span></div>
-                        <p class="m-obj"><b>Objective</b>Let officials question two government databases in plain
-                            language (PMRDA's Right-to-Service applications and PMC's citizen complaints) without
-                            ever seeing what they shouldn't.</p>
-                        <ul class="intel">
-                            <li>Live PostgreSQL 16 schema discovery with semantic filtering</li>
-                            <li>SQL guard: one read-only SELECT, sensitive columns blocked, read-only role</li>
-                            <li>English, Marathi, Hinglish and Marathi typed in Latin script</li>
-                        </ul>
+                        <p class="m-obj"><b>Objective</b>Let officials query government databases in plain language, safely.</p>
                         <div class="loadout"><span class="lbl">Loadout</span>
                             <ul class="slots"><li>FastAPI</li><li>PostgreSQL 16</li><li>Vanna 2.0</li><li>OpenRouter</li><li>Plotly</li></ul>
                         </div>
@@ -310,13 +301,7 @@
                             </div>
                         </div>
                         <div class="m-contacts"><span class="avatar" style="--c:#b18cff">Multi-tenant</span><span>Contact</span></div>
-                        <p class="m-obj"><b>Objective</b>Find the answer buried in an organisation's documents, in
-                            plain language, without one tenant ever seeing another's files.</p>
-                        <ul class="intel">
-                            <li>Hybrid pgvector + keyword search with a HyDE fallback</li>
-                            <li>Marathi ↔ English query expansion</li>
-                            <li>Async ingestion on Celery + Redis; tenant isolation with row-level security</li>
-                        </ul>
+                        <p class="m-obj"><b>Objective</b>Find answers buried in an organisation&#39;s documents, tenant by tenant.</p>
                         <div class="loadout"><span class="lbl">Loadout</span>
                             <ul class="slots"><li>Next.js</li><li>FastAPI</li><li>PostgreSQL</li><li>pgvector</li><li>Redis</li><li>Celery</li></ul>
                         </div>
@@ -374,13 +359,7 @@
                             </div>
                         </div>
                         <div class="m-contacts"><span class="avatar" style="--c:#ffcf4d">Commercial office</span><span>Contact</span></div>
-                        <p class="m-obj"><b>Objective</b>Retire the motion sensors: watch the cameras, count people per
-                            zone, and switch lights and HVAC to match.</p>
-                        <ul class="intel">
-                            <li>Multi-camera YOLOv8 occupancy tracking at ~1 s latency</li>
-                            <li>OpenCV mapping of detections onto the floor plan</li>
-                            <li>WebSocket telemetry to IoT relays for lights and HVAC</li>
-                        </ul>
+                        <p class="m-obj"><b>Objective</b>Switch lights and HVAC from live CCTV person counts.</p>
                         <div class="loadout"><span class="lbl">Loadout</span>
                             <ul class="slots"><li>FastAPI</li><li>React</li><li>YOLOv8</li><li>OpenCV</li><li>WebSockets</li><li>IoT</li></ul>
                         </div>
@@ -422,13 +401,7 @@
                             </div>
                         </div>
                         <div class="m-contacts"><span class="avatar" style="--c:#ff8a3d">MIDC</span><span>Contact</span></div>
-                        <p class="m-obj"><b>Objective</b>Turn a citizen's road photo into a graded, geotagged work
-                            order, and throw out the false alarms.</p>
-                        <ul class="intel">
-                            <li>YOLO detection plus a Gemini multimodal check</li>
-                            <li>Severity scoring and false-positive filtering</li>
-                            <li>Officer map dashboard with work orders</li>
-                        </ul>
+                        <p class="m-obj"><b>Objective</b>Turn a road photo into a graded, geotagged work order.</p>
                         <div class="loadout"><span class="lbl">Loadout</span>
                             <ul class="slots"><li>React Native</li><li>FastAPI</li><li>YOLO</li><li>Gemini</li><li>Edge AI</li></ul>
                         </div>
@@ -480,13 +453,7 @@
                             </div>
                         </div>
                         <div class="m-contacts"><span class="avatar" style="--c:#3ddc84">Investor desk</span><span>Contact</span></div>
-                        <p class="m-obj"><b>Objective</b>Read every investor enquiry, answer the routine ones, and put
-                            real investment proposals in front of an officer fast.</p>
-                        <ul class="intel">
-                            <li>LangGraph multi-agent routing graph</li>
-                            <li>pgvector semantic intent classifier</li>
-                            <li>FAQ auto-answer or human escalation, with priority</li>
-                        </ul>
+                        <p class="m-obj"><b>Objective</b>Answer routine investor questions and escalate real proposals fast.</p>
                         <div class="loadout"><span class="lbl">Loadout</span>
                             <ul class="slots"><li>LangGraph</li><li>LangChain</li><li>OpenAI</li><li>FastAPI</li><li>pgvector</li><li>Redis</li></ul>
                         </div>
@@ -536,13 +503,7 @@
                             </div>
                         </div>
                         <div class="m-contacts"><span class="avatar" style="--c:#2de2e6">Android</span><span>Platform</span></div>
-                        <p class="m-obj"><b>Objective</b>Match a paper receipt to its bank transaction, on the phone
-                            itself.</p>
-                        <ul class="intel">
-                            <li>On-device Gemini Nano with ML Kit OCR fallback</li>
-                            <li>Three-tier matching: amount, time window, fuzzy merchant name</li>
-                            <li>Hot path in C++ through a custom JSI bridge</li>
-                        </ul>
+                        <p class="m-obj"><b>Objective</b>Match a paper receipt to its bank transaction, on the phone.</p>
                         <div class="loadout"><span class="lbl">Loadout</span>
                             <ul class="slots"><li>React Native</li><li>Kotlin</li><li>Gemini Nano</li><li>ML Kit</li><li>C++ · JSI</li></ul>
                         </div>
@@ -592,44 +553,25 @@
                         <p class="ow-kicker">The Lab · optional</p>
                         <h2 class="ow-h2">Side quests</h2>
                     </div>
-                    <p class="ow-note">Prototypes, a team sprint, a talk and a side project: the work around the main
-                        story.</p>
+                    <p class="ow-note">Prototypes, a team sprint, a talk and a side project.</p>
                 </header>
                 <div class="quests">
                     <article class="quest" id="q1" data-skills="rag llm ml">
                         <div class="q-top"><span class="q-mark" aria-hidden="true">?</span><span class="q-kind">AI library</span><span class="q-status">Prototype</span></div>
                         <h3>Pustakosh</h3>
-                        <p>Upload books, search them in English, Hindi or Marathi, and get answers that cite the page.
-                            Built on the DMS engine.</p>
-                        <ul class="intel">
-                            <li>Hybrid pgvector + full-text search, reranked, with a HyDE fallback</li>
-                            <li>Answers open the PDF at the cited page</li>
-                            <li>Swappable LLM and embedding providers, including local BGE-M3</li>
-                        </ul>
+                        <p>An AI library: search your books in English, Hindi or Marathi and get answers that cite the page.</p>
                         <div class="q-foot"><ul class="rewards"><li>FastAPI</li><li>pgvector</li><li>Celery</li><li>Next.js</li><li>Tauri</li></ul></div>
                     </article>
                     <article class="quest" id="q2" data-skills="llm sql">
                         <div class="q-top"><span class="q-mark" aria-hidden="true">?</span><span class="q-kind">Multi-agent · MCP</span><span class="q-status">Prototype</span></div>
-                        <h3>PMC Officer Assistant v1</h3>
-                        <p>An earlier, MCP-based take on the PMC complaints assistant: officers ask in English or
-                            Marathi, and a team of agents finds the right query and runs it safely.</p>
-                        <ul class="intel">
-                            <li>Five-agent orchestrator with OpenRouter tool-calling and model fallback</li>
-                            <li>FastMCP tool server: LIMIT 50, 8-second timeout, no write statements</li>
-                            <li>Query templates retrieved with e5 embeddings + keyword scores (RRF)</li>
-                        </ul>
+                        <h3>Multi-Agent PMC Officer Assistant</h3>
+                        <p>Five agents and a guarded MCP tool server that turn officers&#39; questions into safe SQL.</p>
                         <div class="q-foot"><ul class="rewards"><li>FastAPI</li><li>FastMCP</li><li>PostgreSQL</li><li>sentence-transformers</li><li>React</li></ul></div>
                     </article>
                     <article class="quest" id="q3" data-skills="llm vision">
                         <div class="q-top"><span class="q-mark" aria-hidden="true">?</span><span class="q-kind">Healthcare AI</span><span class="q-status">Team sprint</span></div>
                         <h3>Edge–Cloud Agentic Triage</h3>
-                        <p>Built in a six-day team sprint: patient text or images are scrubbed of personal data, then
-                            routed to a small or a larger local model.</p>
-                        <ul class="intel">
-                            <li>Redacts phones, emails, dates of birth, Aadhaar and PAN first</li>
-                            <li>OCR in English, Hindi and Marathi</li>
-                            <li>My part: agent restructure, OCR stage, domain-classifier rewrite</li>
-                        </ul>
+                        <p>Patient text and images scrubbed of personal data, then routed to a small or a large model. My part: agents, OCR, classifier.</p>
                         <div class="q-foot">
                             <ul class="rewards"><li>FastAPI</li><li>Celery</li><li>Redis</li><li>Ollama</li><li>EasyOCR</li><li>Flutter</li></ul>
                             <a class="q-link" href="https://github.com/gaurav-chaudhari-sdms-493/edge-cloud-agentic-triage" target="_blank" rel="noopener">GitHub ↗</a>
@@ -638,37 +580,19 @@
                     <article class="quest" id="q4" data-skills="ml">
                         <div class="q-top"><span class="q-mark" aria-hidden="true">?</span><span class="q-kind">Classical ML</span><span class="q-status">ML project</span></div>
                         <h3>Credit-Card Fraud Detection</h3>
-                        <p>A fraud classifier for a highly imbalanced dataset, tuned for the real cost of a mistake
-                            rather than for accuracy.</p>
-                        <ul class="intel">
-                            <li>Logistic Regression vs Random Forest: ROC-AUC 0.98 on held-out data</li>
-                            <li>Threshold chosen by cost: a missed fraud costs 100× a false alarm</li>
-                            <li>SHAP explanations and a FastAPI /predict endpoint</li>
-                        </ul>
+                        <p>ROC-AUC 0.98 on held-out data, with the threshold tuned to the cost of a missed fraud.</p>
                         <div class="q-foot"><ul class="rewards"><li>scikit-learn</li><li>pandas</li><li>SHAP</li><li>FastAPI</li></ul></div>
                     </article>
                     <article class="quest" id="q5" data-skills="">
                         <div class="q-top"><span class="q-mark" aria-hidden="true">?</span><span class="q-kind">Talk · mentoring</span><span class="q-status">Interactive deck</span></div>
                         <h3>Demystifying Git &amp; GitHub</h3>
-                        <p>A hands-on session for 2nd- and 3rd-year interns, built as an interactive web deck instead
-                            of slides.</p>
-                        <ul class="intel">
-                            <li>Live Git graph with a terminal and a merge-conflict resolver</li>
-                            <li>Rebase-vs-merge and pull-request simulators</li>
-                            <li>Presenter tools, speaker notes and a closing quiz</li>
-                        </ul>
+                        <p>An interactive web deck for interns, with a live Git graph and merge-conflict simulators.</p>
                         <div class="q-foot"><ul class="rewards"><li>React</li><li>Vite</li><li>Tailwind</li></ul></div>
                     </article>
                     <article class="quest" id="q6" data-skills="">
                         <div class="q-top"><span class="q-mark" aria-hidden="true">?</span><span class="q-kind">Side project</span><span class="q-status">Prototype</span></div>
                         <h3>Baby Name Battle</h3>
-                        <p>A mobile-first Marathi/English game: family members suggest baby names, then vote them down
-                            through elimination rounds to a winner.</p>
-                        <ul class="intel">
-                            <li>Round engine with a top-5 final and joint winners, covered by tests</li>
-                            <li>Duplicate-name merging and phone-number normalisation</li>
-                            <li>PIN-protected admin dashboard with an audit log</li>
-                        </ul>
+                        <p>A Marathi/English family game that votes baby names down to a winner.</p>
                         <div class="q-foot"><ul class="rewards"><li>Next.js</li><li>React</li><li>TypeScript</li><li>Tailwind</li></ul></div>
                     </article>
                 </div>
@@ -688,22 +612,20 @@
                     <article class="vhs" id="f1" data-skills="sql">
                         <div class="vhs-label"><span>▶ Play</span>2025–26</div>
                         <h3>Vehicle Booking System</h3>
-                        <p>Built for CMPDI RI-4, Nagpur: official vehicle bookings with login, availability checks and
-                            an admin approval panel.</p>
+                        <p>Official vehicle bookings for CMPDI RI-4, with admin approvals.</p>
                         <p class="vhs-stack">PHP · SQL</p>
                         <a class="q-link" href="https://github.com/Gaurav-Chaudhari-2003/VehicleBooking" target="_blank" rel="noopener">GitHub ↗</a>
                     </article>
                     <article class="vhs" id="f2" data-skills="edge">
                         <div class="vhs-label"><span>▶ Play</span>Diploma era</div>
                         <h3>GPA Achalpur App</h3>
-                        <p>Android app for Government Polytechnic, Achalpur: attendance, notices, study material,
-                            library management and college details.</p>
+                        <p>College app: attendance, notices, study material and library.</p>
                         <p class="vhs-stack">Java · Android</p>
                     </article>
                     <article class="vhs" id="f3" data-skills="edge">
                         <div class="vhs-label"><span>▶ Play</span>2024</div>
                         <h3>Your Notes</h3>
-                        <p>Cross-platform notes app with cloud sync, sign-in, search and a dark mode.</p>
+                        <p>Cross-platform notes with cloud sync and sign-in.</p>
                         <p class="vhs-stack">Flutter · Firebase</p>
                     </article>
                 </div>
@@ -718,8 +640,7 @@
                         <p class="ow-kicker">Training Grounds</p>
                         <h2 class="ow-h2">Player stats</h2>
                     </div>
-                    <p class="ow-note">Each bar counts the missions, side quests and flashbacks on this page that use
-                        the skill. No made-up percentages.</p>
+                    <p class="ow-note">Bars count the projects on this page that use each skill.</p>
                 </header>
                 <div class="stats-grid">
                     <div class="panel-ow">
@@ -770,7 +691,7 @@
                         <p class="ch-kicker">Chapter 2 <span>Jul–Aug 2022</span></p>
                         <h3>Python Intern</h3>
                         <p class="ch-org">MDB Electrosoft · Amravati</p>
-                        <p>Six-week internship (1 Jul – 14 Aug 2022) in Python programming and GUI development; delivered the projects on time.</p>
+                        <p>Six-week internship in Python programming and GUI development.</p>
                         <a class="q-link" href="https://photos.app.goo.gl/87jyKpqd8yQv7u2EA" target="_blank" rel="noopener">Internship certificate ↗</a>
                     </li>
                     <li class="chapter">
@@ -783,16 +704,14 @@
                         <p class="ch-kicker">Chapter 4 <span>Feb 2025 – Feb 2026</span></p>
                         <h3>Engineering Apprentice</h3>
                         <p class="ch-org">CMPDI RI-4 · Nagpur</p>
-                        <p>Backend automation workflows and SQL data-access layers for enterprise web apps, including
-                            the Vehicle Booking System.</p>
+                        <p>Backend automation and SQL data-access layers; built the Vehicle Booking System.</p>
                         <a class="q-link" href="https://photos.app.goo.gl/cXYuocPE2nUkgQCb9" target="_blank" rel="noopener">Apprenticeship certificate ↗</a>
                     </li>
                     <li class="chapter now">
                         <p class="ch-kicker">Chapter 5 <span>Jun 2026 → now</span><em class="here-tag">You are here</em></p>
                         <h3>AI Engineer</h3>
                         <p class="ch-org">Stark Digital · Pune</p>
-                        <p>RAG pipelines, natural-language analytics engines, vision telemetry systems and edge-AI
-                            solutions.</p>
+                        <p>RAG, text-to-SQL, multi-agent and computer-vision systems for government and enterprise clients.</p>
                     </li>
                 </ol>
             </div>
@@ -804,8 +723,7 @@
                 <div class="cta">
                     <p class="ow-kicker">Signal Point</p>
                     <h2 class="cta-title">Got a mission for me?</h2>
-                    <p class="ow-note">Building something with LLMs, retrieval or computer vision? Use the phone, or
-                        write directly.</p>
+                    <p class="ow-note">Building with LLMs, retrieval or vision? Use the phone, or write directly.</p>
                     <a class="cta-mail" href="mailto:chaudharigaurav177@gmail.com">chaudharigaurav177@gmail.com ↗</a>
                     <a class="cta-phone" href="tel:+919665305197">+91 96653 05197</a>
                     <div class="cta-links">
@@ -873,7 +791,7 @@
     </footer>
 
     <script src="../script.js?v=7"></script>
-    <script src="world.js?v=3"></script>
+    <script src="world.js?v=4"></script>
 </body>
 
 </html>

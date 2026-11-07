@@ -46,7 +46,7 @@
         { id: 'm5', type: 'mission', kind: 'Mission 05', title: 'Intent Detection Engine', d: 'agent-alley', glyph: '5' },
         { id: 'm6', type: 'mission', kind: 'Mission 06', title: 'AI FinTech Auto-Reconciler', d: 'edge-quarter', glyph: '6' },
         { id: 'q1', type: 'quest', kind: 'Side quest', title: 'Pustakosh', d: 'the-lab', glyph: '?', dx: -46, dy: -26 },
-        { id: 'q2', type: 'quest', kind: 'Side quest', title: 'PMC Officer Assistant v1', d: 'the-lab', glyph: '?', dx: 0, dy: -26 },
+        { id: 'q2', type: 'quest', kind: 'Side quest', title: 'Multi-Agent PMC Officer Assistant', d: 'the-lab', glyph: '?', dx: 0, dy: -26 },
         { id: 'q3', type: 'quest', kind: 'Side quest', title: 'Edge–Cloud Agentic Triage', d: 'the-lab', glyph: '?', dx: 46, dy: -26 },
         { id: 'q4', type: 'quest', kind: 'Side quest', title: 'Credit-Card Fraud Detection', d: 'the-lab', glyph: '?', dx: -46, dy: 4 },
         { id: 'q5', type: 'quest', kind: 'Side quest', title: 'Demystifying Git & GitHub', d: 'the-lab', glyph: '?', dx: 0, dy: 4 },

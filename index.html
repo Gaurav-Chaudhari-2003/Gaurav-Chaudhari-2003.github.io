@@ -23,7 +23,7 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Anton&family=Caveat:wght@600&family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@400;500;700&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="styles.css?v=8">
+    <link rel="stylesheet" href="styles.css?v=10">
 
     <!-- Decide before first paint whether the agent swarm assembles the page.
          Skipped for reduced-motion users, deep links, and after "Skip" in this tab.
@@ -63,6 +63,7 @@
                 <a href="#contact">Contact</a>
             </nav>
             <div class="nav-status"><span class="pulse"></span>Online · Pune, IN</div>
+            <a class="nav-ow" href="open-world/" title="The same portfolio, as an open-world game">Open world ▸</a>
             <a class="nav-cv" href="assets/Gaurav%20Chaudhari%20AI%20CV.pdf" target="_blank" rel="noopener" type="application/pdf">Résumé ↗</a>
             <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-menu">Menu</button>
         </div>
@@ -74,6 +75,7 @@
             <a href="#archive"><span>05</span>Archive</a>
             <a href="#log"><span>06</span>Experience</a>
             <a href="#contact"><span>07</span>Contact</a>
+            <a href="open-world/" class="menu-ow"><span>▸</span>Open-world edition</a>
         </nav>
     </header>
 
@@ -98,12 +100,8 @@
                     <div class="hero-intro">
                         <p class="hello" data-build="p.greeting">Hello, I'm</p>
                         <h1 class="name-block" data-build="h1.name">Gaurav<span class="sr-only"> Vilas Chaudhari</span>.</h1>
-                        <p class="role mono" data-build="p.role"><span class="sq"></span>AI / ML Engineer · Systems Builder</p>
-                        <p class="lede" data-build="p.summary">
-                            Architecting <b>production-grade LLM orchestration</b>, <b>RAG pipelines</b> and
-                            <b>real-time computer vision</b>, from vector search and async inference queues
-                            down to models running at the edge.
-                        </p>
+                        <p class="role mono" data-build="p.role"><span class="sq"></span>AI/ML Engineer · LLMs · RAG · Agentic AI · Vision</p>
+                        <p class="lede" data-build="p.summary">I build <b>production LLM systems</b> (RAG, text-to-SQL, multi-agent workflows) and <b>real-time computer vision</b> for government and enterprise clients.</p>
                         <div class="hero-cta" data-build="div.cta">
                             <a class="btn btn-red" href="#systems">Inspect the systems <span aria-hidden="true">→</span></a>
                             <a class="btn btn-ghost" href="#contact">Open a channel</a>
@@ -161,32 +159,17 @@
                 </header>
                 <div class="about-grid">
                     <div class="about-copy">
-                        <p data-build="p.bio">
-                            I'm Gaurav Vilas Chaudhari, an <b>AI Engineer at Stark Digital, Pune</b>. I build retrieval
-                            pipelines, natural-language analytics engines, vision telemetry and edge-AI systems for
-                            enterprise and public-sector clients.
-                        </p>
-                        <p data-build="p.path">
-                            I got here through the whole stack: a <b>Diploma in Computer Engineering</b> at Government
-                            Polytechnic, Achalpur, then a <b>B.E. in Computer Science &amp; Engineering</b> at SSGMCE,
-                            Shegaon. Alongside it I spent a year as an engineering apprentice at <b>CMPDI RI-4, Nagpur</b>,
-                            building backend automation and SQL data-access layers for enterprise web apps.
-                        </p>
-                        <blockquote data-build="blockquote.creed">
-                            Models are the easy part. I engineer what surrounds them (retrieval, orchestration, queues
-                            and telemetry) so they hold up in production.
-                        </blockquote>
+                        <p data-build="p.bio">AI Engineer at <b>Stark Digital, Pune</b>. Before that: a <b>B.E. in Computer
+                            Science</b> (SSGMCE, 8.6 SGPA), a Diploma in Computer Engineering and a year as an
+                            engineering apprentice at <b>CMPDI</b>.</p>
+                        <blockquote data-build="blockquote.creed">Models are the easy part. I engineer what surrounds
+                            them.</blockquote>
                     </div>
                     <aside class="about-side">
                         <div class="kv" data-build="card.now">
                             <span class="kv-k mono">Currently</span>
                             <span class="kv-v">AI Engineer · Stark Digital</span>
-                            <span class="kv-s mono">Jun 2026 → present</span>
-                        </div>
-                        <div class="kv" data-build="card.base">
-                            <span class="kv-k mono">Base</span>
-                            <span class="kv-v">Pune, Maharashtra</span>
-                            <span class="kv-s mono">411045 · IN</span>
+                            <span class="kv-s mono">Pune · since Jun 2026</span>
                         </div>
                         <div class="kv" data-build="card.edu">
                             <span class="kv-k mono">Education</span>
@@ -222,39 +205,40 @@
                 <div class="stack-grid">
                     <article class="stack-card" data-build="card.ai">
                         <header><span class="mono">A /</span>
-                            <h3>AI, LLMs &amp; Vision</h3>
+                            <h3>Generative AI &amp; LLMs</h3>
                         </header>
                         <ul class="chips">
-                            <li>RAG pipelines</li><li>LLM orchestration</li><li>LangGraph</li><li>LangChain</li>
-                            <li>Hybrid search</li><li>HyDE</li><li>YOLOv8</li><li>OpenCV</li><li>Gemini Nano</li>
-                            <li>PyTorch</li><li>TensorFlow</li>
+                            <li>LLMs</li><li>RAG</li><li>Prompt engineering</li><li>LLM orchestration</li><li>LangGraph</li>
+                            <li>LangChain</li><li>Multi-agent systems</li><li>MCP</li><li>Text-to-SQL</li><li>Embeddings</li>
+                            <li>Hybrid search</li><li>HyDE</li><li>Gemini</li>
                         </ul>
                     </article>
-                    <article class="stack-card" data-build="card.mlops">
+                    <article class="stack-card" data-build="card.ml">
                         <header><span class="mono">B /</span>
-                            <h3>MLOps &amp; Data</h3>
+                            <h3>ML &amp; Computer Vision</h3>
                         </header>
                         <ul class="chips">
-                            <li>Vector search</li><li>pgvector</li><li>Distributed inference</li><li>Celery</li>
-                            <li>Redis</li><li>PostgreSQL</li><li>Docker</li><li>Git / GitHub</li>
+                            <li>PyTorch</li><li>TensorFlow</li><li>scikit-learn</li><li>YOLOv8</li><li>OpenCV</li>
+                            <li>OCR</li><li>NLP</li><li>SHAP</li>
+                        </ul>
+                    </article>
+                    <article class="stack-card" data-build="card.backend">
+                        <header><span class="mono">C /</span>
+                            <h3>Backend, Data &amp; MLOps</h3>
+                        </header>
+                        <ul class="chips">
+                            <li>FastAPI</li><li>REST APIs</li><li>WebSockets</li><li>PostgreSQL</li><li>pgvector</li>
+                            <li>Vector search</li><li>Redis</li><li>Celery</li><li>Distributed inference</li><li>Docker</li>
+                            <li>Git / GitHub</li><li>LangSmith</li>
                         </ul>
                     </article>
                     <article class="stack-card" data-build="card.lang">
-                        <header><span class="mono">C /</span>
+                        <header><span class="mono">D /</span>
                             <h3>Languages &amp; Frameworks</h3>
                         </header>
                         <ul class="chips">
-                            <li>Python</li><li>C++</li><li>FastAPI</li><li>React Native</li><li>Next.js</li>
-                            <li>REST APIs</li><li>WebSockets</li>
-                        </ul>
-                    </article>
-                    <article class="stack-card" data-build="card.arch">
-                        <header><span class="mono">D /</span>
-                            <h3>Domains &amp; Architecture</h3>
-                        </header>
-                        <ul class="chips">
-                            <li>Edge AI</li><li>RAG engines</li><li>Distributed systems</li><li>Vision telemetry</li>
-                            <li>Agentic workflows</li>
+                            <li>Python</li><li>C++</li><li>Java</li><li>JavaScript</li><li>TypeScript</li><li>SQL</li>
+                            <li>React</li><li>Next.js</li><li>React Native</li><li>Flutter</li>
                         </ul>
                     </article>
                 </div>
@@ -276,8 +260,7 @@
                         <p class="eyebrow mono">Enterprise AI</p>
                         <h2>Systems I've built. Run them.</h2>
                     </div>
-                    <p class="sec-note">Each panel is an interactive simulation of the real system's flow, with sample
-                        data. Pick a preset, type your own input, or break it.</p>
+                    <p class="sec-note">Interactive simulations with sample data. Press a preset or type your own.</p>
                 </header>
 
                 <!-- SYS_01 · NL → SQL -->
@@ -287,18 +270,7 @@
                             <div class="sys-meta mono"><span class="sys-id">SYS_01</span><span>Natural language → SQL</span><span class="sys-client">PMRDA · PMC</span></div>
                             <h3>Natural-Language to SQL Analytics Engine</h3>
                         </div>
-                        <p data-build="p.desc">An enterprise text-to-SQL assistant over two government databases:
-                            Right-to-Service applications at the Pune Metropolitan Region Development Authority, and
-                            citizen complaints at the Pune Municipal Corporation. It resolves who is asking, filters the
-                            live schema to what they may see, generates safe PostgreSQL and streams back tables, charts
-                            and an executive summary.</p>
-                        <ul class="ticks" data-build="ul.features">
-                            <li>Live PostgreSQL 16 schema discovery with semantic filtering (bak_* snapshots excluded)</li>
-                            <li>SQL guard: one read-only SELECT per answer, sensitive columns blocked, read-only database role</li>
-                            <li>User-aware RBAC and row-level security on every generated query</li>
-                            <li>SSE streaming of SQL, recordset, Plotly chart and summary</li>
-                            <li>Questions in English, Marathi, Hinglish and Marathi typed in Latin script</li>
-                        </ul>
+                        <p data-build="p.desc">Officials at PMRDA and PMC ask questions in English, Marathi or Hinglish and get safe, role-filtered SQL, tables and charts.</p>
                         <div class="sys-foot" data-build="div.stack">
                             <ul class="stack-line mono"><li>FastAPI</li><li>PostgreSQL 16</li><li>Vanna 2.0</li><li>OpenRouter</li><li>Plotly</li></ul>
                         </div>
@@ -353,16 +325,7 @@
                             <div class="sys-meta mono"><span class="sys-id">SYS_02</span><span>Hybrid RAG</span><span class="sys-client">Multi-tenant</span></div>
                             <h3>DMS: Enterprise AI Document Search</h3>
                         </div>
-                        <p data-build="p.desc">A production RAG platform for searching an organisation's documents in
-                            plain language. Ingestion runs on asynchronous Celery workers. Retrieval combines semantic
-                            and keyword search, falls back to HyDE when similarity is low, expands queries across
-                            languages and orchestrates several LLM providers behind one interface.</p>
-                        <ul class="ticks" data-build="ul.features">
-                            <li>Hybrid pgvector + keyword search with HyDE fallback</li>
-                            <li>Multilingual query expansion (Marathi ↔ English)</li>
-                            <li>Asynchronous document processing on Celery + Redis</li>
-                            <li>Multi-LLM provider hot-swapping with strict tenant isolation (RLS)</li>
-                        </ul>
+                        <p data-build="p.desc">Multi-tenant document search: hybrid pgvector and keyword retrieval, a HyDE fallback and async ingestion on Celery and Redis.</p>
                         <div class="sys-foot" data-build="div.stack">
                             <ul class="stack-line mono"><li>Next.js</li><li>FastAPI</li><li>PostgreSQL</li><li>pgvector</li><li>Redis</li><li>Celery</li></ul>
                             <a class="proof mono" href="https://www.linkedin.com/posts/stark-digital-media-services-pvt%2E-ltd%2E_stark-digitals-ai-team-solved-enterprise-activity-7492924379610222592-JgkU" target="_blank" rel="noopener">Proof on LinkedIn ↗</a>
@@ -415,15 +378,7 @@
                             <div class="sys-meta mono"><span class="sys-id">SYS_03</span><span>Vision telemetry</span><span class="sys-client">Commercial office</span></div>
                             <h3>Project Iris: AI Vision Telemetry &amp; Automation</h3>
                         </div>
-                        <p data-build="p.desc">Replaces motion sensors with real-time person detection. YOLOv8 inference
-                            runs across multiple CCTV cameras, an OpenCV spatial engine maps each detection onto the floor
-                            plan, and occupancy telemetry streams over WebSockets to IoT controllers that switch lighting
-                            and HVAC zone by zone.</p>
-                        <ul class="ticks" data-build="ul.features">
-                            <li>Multi-camera YOLOv8 occupancy tracking at ~1 s latency</li>
-                            <li>OpenCV mapping of bounding boxes onto a 2D floor plan</li>
-                            <li>WebSocket telemetry driving IoT relays (AZIOT, Broadlink IR) for lights and HVAC</li>
-                        </ul>
+                        <p data-build="p.desc">CCTV person detection with YOLOv8 and OpenCV that switches office lighting and HVAC by zone in about a second.</p>
                         <div class="sys-foot" data-build="div.stack">
                             <ul class="stack-line mono"><li>FastAPI</li><li>React</li><li>YOLOv8</li><li>OpenCV</li><li>WebSockets</li><li>IoT</li></ul>
                             <a class="proof mono" href="https://www.linkedin.com/posts/stark-digital-media-services-pvt%2E-ltd%2E_the-smarter-way-to-automate-commercial-energy-activity-7495097882304454656-rLDQ" target="_blank" rel="noopener">Proof on LinkedIn ↗</a>
@@ -460,15 +415,7 @@
                             <div class="sys-meta mono"><span class="sys-id">SYS_04</span><span>Edge AI · multimodal</span><span class="sys-client">MIDC</span></div>
                             <h3>MIDC Pothole Detection</h3>
                         </div>
-                        <p data-build="p.desc">An end-to-end mobile vision pipeline for road-infrastructure reporting.
-                            A citizen photographs a road; YOLO detects defects, a multimodal Gemini pass grades severity
-                            and filters false positives, and confirmed reports land on an officer dashboard as geotagged
-                            work orders.</p>
-                        <ul class="ticks" data-build="ul.features">
-                            <li>YOLO object detection combined with Gemini multimodal analysis</li>
-                            <li>Automated severity scoring and false-positive filtering</li>
-                            <li>Geotagged reports on an officer map dashboard, with work orders</li>
-                        </ul>
+                        <p data-build="p.desc">A citizen photographs a road; YOLO and Gemini grade the damage and file a geotagged work order for MIDC.</p>
                         <div class="sys-foot" data-build="div.stack">
                             <ul class="stack-line mono"><li>React Native</li><li>FastAPI</li><li>YOLO</li><li>Gemini</li><li>Edge AI</li></ul>
                         </div>
@@ -514,15 +461,7 @@
                             <div class="sys-meta mono"><span class="sys-id">SYS_05</span><span>Multi-agent NLP</span><span class="sys-client">Investor desk</span></div>
                             <h3>Enterprise Intent Detection Engine</h3>
                         </div>
-                        <p data-build="p.desc">Classifies and routes investor enquiries automatically. A LangGraph
-                            workflow embeds each message, matches it against known intents in pgvector, then either
-                            answers from the FAQ knowledge base or escalates investment proposals to a human officer.
-                            It runs behind a FastAPI service with RBAC and Redis caching.</p>
-                        <ul class="ticks" data-build="ul.features">
-                            <li>LangGraph multi-agent routing graph</li>
-                            <li>pgvector semantic intent classifier</li>
-                            <li>FAQ auto-answer or human escalation, with priority</li>
-                        </ul>
+                        <p data-build="p.desc">A LangGraph router that auto-answers routine investor questions and escalates real investment proposals to an officer.</p>
                         <div class="sys-foot" data-build="div.stack">
                             <ul class="stack-line mono"><li>LangGraph</li><li>LangChain</li><li>OpenAI</li><li>FastAPI</li><li>pgvector</li><li>Redis</li></ul>
                         </div>
@@ -566,14 +505,7 @@
                             <div class="sys-meta mono"><span class="sys-id">SYS_06</span><span>On-device AI</span><span class="sys-client">Android</span></div>
                             <h3>AI FinTech Auto-Reconciler</h3>
                         </div>
-                        <p data-build="p.desc">An Android-first React Native app that reconciles receipts against bank
-                            statements. Gemini Nano (AICore) reads the receipt on-device, with ML Kit OCR as a fallback,
-                            and a three-tier merchant-matching algorithm runs in C++ through a custom JSI bridge.</p>
-                        <ul class="ticks" data-build="ul.features">
-                            <li>On-device Gemini Nano vision with ML Kit OCR fallback</li>
-                            <li>Three-tier matching: amount, time window, fuzzy merchant name</li>
-                            <li>Hot path in C++ through a custom JSI bridge</li>
-                        </ul>
+                        <p data-build="p.desc">Reads a receipt on the phone with Gemini Nano and matches it to the right bank transaction in three tiers.</p>
                         <div class="sys-foot" data-build="div.stack">
                             <ul class="stack-line mono"><li>React Native</li><li>Kotlin</li><li>Gemini Nano</li><li>ML Kit</li><li>C++ · JSI</li></ul>
                         </div>
@@ -621,32 +553,21 @@
                         <p class="eyebrow mono">R&amp;D · side projects</p>
                         <h2>More from the lab</h2>
                     </div>
-                    <p class="sec-note">Prototypes, a team sprint, a talk and a side project: the work around the six
-                        systems above.</p>
+                    <p class="sec-note">Prototypes, a team sprint, a talk and a side project.</p>
                 </header>
                 <div class="lab-grid">
                     <article class="lab-card" data-build="card.lab">
                         <div class="lab-top mono"><span><span class="lab-idx">L.01</span> · AI library</span><span class="lab-status">Prototype</span></div>
                         <h3>Pustakosh</h3>
-                        <p>An AI library for students and researchers: upload books, search them in English, Hindi or Marathi, and get answers that cite the page. Built on the DMS engine (SYS_02).</p>
-                        <ul class="ticks">
-                            <li>Hybrid pgvector + full-text search, fused with reciprocal rank fusion, reranked, with a HyDE fallback</li>
-                            <li>Answers open the PDF at the cited page</li>
-                            <li>Swappable LLM and embedding providers with fallbacks, including local BGE-M3; offline sync and desktop builds</li>
-                        </ul>
+                        <p>An AI library: search your books in English, Hindi or Marathi and get answers that cite the page.</p>
                         <div class="lab-foot">
                             <ul class="stack-line mono"><li>FastAPI</li><li>pgvector</li><li>Celery</li><li>Next.js</li><li>Tauri</li></ul>
                         </div>
                     </article>
                     <article class="lab-card" data-build="card.lab">
                         <div class="lab-top mono"><span><span class="lab-idx">L.02</span> · Multi-agent · MCP</span><span class="lab-status">Prototype</span></div>
-                        <h3>PMC Officer Assistant v1</h3>
-                        <p>An earlier, MCP-based take on the PMC complaints assistant: officers ask in English or Marathi, and a team of agents finds the right query and runs it safely.</p>
-                        <ul class="ticks">
-                            <li>Five-agent orchestrator with OpenRouter tool-calling and model fallback</li>
-                            <li>FastMCP tool server enforcing LIMIT 50, an 8-second timeout and a write-statement blacklist</li>
-                            <li>Query-template retrieval: e5 embeddings and keyword scores fused with reciprocal rank fusion, plus a Top-1/Top-3 evaluation script</li>
-                        </ul>
+                        <h3>Multi-Agent PMC Officer Assistant</h3>
+                        <p>Five agents and a guarded MCP tool server that turn officers&#39; questions into safe SQL.</p>
                         <div class="lab-foot">
                             <ul class="stack-line mono"><li>FastAPI</li><li>FastMCP</li><li>PostgreSQL</li><li>sentence-transformers</li><li>React</li></ul>
                         </div>
@@ -654,12 +575,7 @@
                     <article class="lab-card" data-build="card.lab">
                         <div class="lab-top mono"><span><span class="lab-idx">L.03</span> · Healthcare AI</span><span class="lab-status">Team sprint</span></div>
                         <h3>Edge–Cloud Agentic Triage</h3>
-                        <p>A privacy-first triage pipeline built in a six-day team sprint: patient text or images are scrubbed of personal data, then routed to a small or a larger local model.</p>
-                        <ul class="ticks">
-                            <li>Redacts phone numbers, emails, dates of birth, Aadhaar and PAN before any model sees the text</li>
-                            <li>OCR in English, Hindi and Marathi</li>
-                            <li>My part: the agent restructure, the OCR stage and the domain-classifier rewrite</li>
-                        </ul>
+                        <p>Patient text and images are scrubbed of personal data, then routed to a small or a large model. My part: agents, OCR and the classifier.</p>
                         <div class="lab-foot">
                             <ul class="stack-line mono"><li>FastAPI</li><li>Celery</li><li>Redis</li><li>Ollama</li><li>EasyOCR</li><li>Flutter</li></ul>
                             <a class="proof mono" href="https://github.com/gaurav-chaudhari-sdms-493/edge-cloud-agentic-triage" target="_blank" rel="noopener">GitHub ↗</a>
@@ -668,12 +584,7 @@
                     <article class="lab-card" data-build="card.lab">
                         <div class="lab-top mono"><span><span class="lab-idx">L.04</span> · Classical ML</span><span class="lab-status">ML project</span></div>
                         <h3>Credit-Card Fraud Detection</h3>
-                        <p>A fraud classifier for a highly imbalanced dataset, tuned for the real cost of a mistake rather than for accuracy.</p>
-                        <ul class="ticks">
-                            <li>Logistic Regression vs Random Forest with balanced class weights: ROC-AUC 0.98 on held-out data</li>
-                            <li>Decision threshold chosen by cost: a missed fraud costs 100× a false alarm</li>
-                            <li>SHAP explanations and a FastAPI /predict endpoint</li>
-                        </ul>
+                        <p>ROC-AUC 0.98 on held-out data, with the decision threshold tuned to the cost of a missed fraud.</p>
                         <div class="lab-foot">
                             <ul class="stack-line mono"><li>scikit-learn</li><li>pandas</li><li>SHAP</li><li>FastAPI</li></ul>
                         </div>
@@ -681,12 +592,7 @@
                     <article class="lab-card" data-build="card.lab">
                         <div class="lab-top mono"><span><span class="lab-idx">L.05</span> · Talk · mentoring</span><span class="lab-status">Interactive deck</span></div>
                         <h3>Demystifying Git &amp; GitHub</h3>
-                        <p>A hands-on session for 2nd- and 3rd-year interns, built as an interactive web deck instead of slides.</p>
-                        <ul class="ticks">
-                            <li>Live widgets: a Git graph with a terminal, a merge-conflict resolver, and rebase-vs-merge and pull-request simulators</li>
-                            <li>Presenter tools: laser pointer, drawing, speaker notes and a timer</li>
-                            <li>Ends with a quiz</li>
-                        </ul>
+                        <p>An interactive web deck for interns, with a live Git graph and merge-conflict simulators.</p>
                         <div class="lab-foot">
                             <ul class="stack-line mono"><li>React</li><li>Vite</li><li>Tailwind</li></ul>
                         </div>
@@ -694,12 +600,7 @@
                     <article class="lab-card" data-build="card.lab">
                         <div class="lab-top mono"><span><span class="lab-idx">L.06</span> · Side project</span><span class="lab-status">Prototype</span></div>
                         <h3>Baby Name Battle</h3>
-                        <p>A mobile-first Marathi/English game: family members suggest baby names, then vote them down through elimination rounds to a winner.</p>
-                        <ul class="ticks">
-                            <li>Round engine with two elimination rounds, a top-5 final and joint winners on a tie, covered by tests</li>
-                            <li>Duplicate-name merging and phone-number normalisation</li>
-                            <li>PIN-protected admin dashboard with an audit log</li>
-                        </ul>
+                        <p>A Marathi/English family game that votes baby names down to a winner, round by round.</p>
                         <div class="lab-foot">
                             <ul class="stack-line mono"><li>Next.js</li><li>React</li><li>TypeScript</li><li>Tailwind</li></ul>
                         </div>
@@ -720,19 +621,19 @@
                     <li data-build="li.row">
                         <span class="a-idx mono">A.01</span>
                         <a class="a-name" href="https://github.com/Gaurav-Chaudhari-2003/VehicleBooking" target="_blank" rel="noopener">Vehicle Booking System <span aria-hidden="true">↗</span></a>
-                        <span class="a-ctx">Built for CMPDI RI-4, Nagpur. Official vehicle bookings with login, availability checks and an admin approval panel.</span>
+                        <span class="a-ctx">Official vehicle bookings for CMPDI RI-4, with admin approvals.</span>
                         <span class="a-stack mono">PHP · SQL</span>
                     </li>
                     <li data-build="li.row">
                         <span class="a-idx mono">A.02</span>
                         <span class="a-name">GPA Achalpur App</span>
-                        <span class="a-ctx">Android app for Government Polytechnic, Achalpur: attendance, notices, study material, library management and college details.</span>
+                        <span class="a-ctx">College app: attendance, notices, study material and library.</span>
                         <span class="a-stack mono">Java · Android</span>
                     </li>
                     <li data-build="li.row">
                         <span class="a-idx mono">A.03</span>
                         <span class="a-name">Your Notes</span>
-                        <span class="a-ctx">Cross-platform notes app with cloud sync, user authentication and persistent storage.</span>
+                        <span class="a-ctx">Cross-platform notes with cloud sync and sign-in.</span>
                         <span class="a-stack mono">Flutter · Firebase</span>
                     </li>
                 </ol>
@@ -753,8 +654,7 @@
                         <div class="log-what">
                             <h3>AI Engineer</h3>
                             <p class="log-org mono">Stark Digital · Pune</p>
-                            <p>Engineering RAG pipelines, natural-language-to-analytics engines, vision telemetry systems
-                                and edge-AI solutions.</p>
+                            <p>RAG, text-to-SQL, multi-agent and computer-vision systems for government and enterprise clients (SYS_01–05 above).</p>
                         </div>
                         <span class="log-state mono is-active">Active</span>
                     </li>
@@ -763,8 +663,7 @@
                         <div class="log-what">
                             <h3>Engineering Apprentice</h3>
                             <p class="log-org mono">CMPDI RI-4 · Nagpur</p>
-                            <p>Engineered backend automation workflows and SQL data-access layers for enterprise web
-                                applications, including the Vehicle Booking System.</p>
+                            <p>Backend automation and SQL data-access layers; built the Vehicle Booking System.</p>
                             <a class="proof mono log-cert" href="https://photos.app.goo.gl/cXYuocPE2nUkgQCb9" target="_blank" rel="noopener">Apprenticeship certificate ↗</a>
                         </div>
                         <span class="log-state mono">Merged</span>
@@ -774,7 +673,7 @@
                         <div class="log-what">
                             <h3>Python Intern</h3>
                             <p class="log-org mono">MDB Electrosoft · Amravati</p>
-                            <p>Six-week internship (1 Jul – 14 Aug 2022) in Python programming and GUI development; delivered the projects on time.</p>
+                            <p>Six-week internship in Python programming and GUI development.</p>
                             <a class="proof mono log-cert" href="https://photos.app.goo.gl/87jyKpqd8yQv7u2EA" target="_blank" rel="noopener">Internship certificate ↗</a>
                         </div>
                         <span class="log-state mono">Merged</span>
@@ -794,8 +693,7 @@
                 </div>
                 <h2 class="sr-only">Contact</h2>
                 <div class="contact-grid">
-                    <p class="lede" data-build="p.contact">Building something with LLMs, retrieval or computer vision?
-                        Send a message and tell me what you're working on.</p>
+                    <p class="lede" data-build="p.contact">Building with LLMs, retrieval or computer vision? Let&#39;s talk.</p>
                     <div class="contact-reach" data-build="div.reach">
                         <a class="contact-mail" href="mailto:chaudharigaurav177@gmail.com">chaudharigaurav177@gmail.com <span aria-hidden="true">↗</span></a>
                         <a class="contact-phone" href="tel:+919665305197">+91 96653 05197</a>
