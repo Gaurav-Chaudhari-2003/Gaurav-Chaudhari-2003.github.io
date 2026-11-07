@@ -34,17 +34,6 @@
     }
     const swallow = (e) => { if (e !== CANCELLED) throw e; };
 
-    async function typeText(el, text, sleep, speed = 12) {
-        const chars = Array.from(text);
-        el.textContent = '';
-        el.classList.add('caret');
-        for (let i = 0; i < chars.length; i += 2) {
-            el.textContent = chars.slice(0, i + 2).join('');
-            await sleep(speed);
-        }
-        el.classList.remove('caret');
-    }
-
     function restartAnim(el) {
         el.hidden = true;
         void el.offsetWidth;
@@ -491,8 +480,28 @@
         return { start, replay };
     }
 
-    /* ---------- 5a. NL → SQL ---------- */
-    const SQL_KW = /\b(SELECT|FROM|WHERE|AND|NOT|IN|GROUP BY|ORDER BY|COUNT|FILTER|AS|NOW|INTERVAL|IS|NULL|DATE_TRUNC|TO_CHAR|DESC)\b/g;
+    /* ---------- 5. demos ----------
+       All six follow one pattern, so a visitor learns it once:
+       examples → a 3-step tracker → one visual → a one-line result,
+       with the technical detail folded into "Under the hood".
+       Both pages only hold <div class="demo" data-sim="…"> placeholders;
+       this section is the single source of the demo markup. */
+    const ICONS = {
+        check: '<path d="M5 12.5l4.5 4.5L19 7.5"/>',
+        alert: '<path d="M12 3.5l9.5 16.5h-19z"/><path d="M12 10v4.5M12 17.5v.01"/>',
+        db: '<ellipse cx="12" cy="5.5" rx="7.5" ry="2.8"/><path d="M4.5 5.5v13c0 1.5 3.4 2.8 7.5 2.8s7.5-1.3 7.5-2.8v-13M4.5 12c0 1.5 3.4 2.8 7.5 2.8s7.5-1.3 7.5-2.8"/>',
+        chat: '<path d="M4 5h16v11h-9.5L5 20v-4H4z"/>',
+        spark: '<path d="M12 3.5l2 5.5 5.5 2-5.5 2-2 5.5-2-5.5-5.5-2 5.5-2z"/>',
+        bot: '<rect x="4.5" y="8" width="15" height="11" rx="3"/><path d="M12 4.5V8M9.5 12.5v2M14.5 12.5v2"/>',
+        person: '<circle cx="12" cy="8" r="3.8"/><path d="M4.5 20.5c.6-4 3.6-6.5 7.5-6.5s6.9 2.5 7.5 6.5"/>',
+        bulb: '<path d="M9.5 18h5M10.5 21h3M12 3a6 6 0 0 0-3.6 10.8c.7.6 1.1 1.4 1.1 2.2v.5h5V16c0-.8.4-1.6 1.1-2.2A6 6 0 0 0 12 3z"/>',
+        snow: '<path d="M12 3v18M4.2 7.5l15.6 9M19.8 7.5l-15.6 9M9.5 4.5L12 7l2.5-2.5M9.5 19.5L12 17l2.5 2.5"/>',
+        cam: '<path d="M3.5 8.5h3l1.8-2.5h7.4l1.8 2.5h3v11h-17z"/><circle cx="12" cy="13.5" r="3.4"/>',
+        pin: '<path d="M12 21.5s6.5-6.6 6.5-11.5a6.5 6.5 0 0 0-13 0c0 4.9 6.5 11.5 6.5 11.5z"/><circle cx="12" cy="10" r="2.3"/>',
+    };
+    const icon = (name) => `<svg class="ico" viewBox="0 0 24 24" aria-hidden="true">${ICONS[name]}</svg>`;
+
+    const SQL_KW = /\b(SELECT|FROM|WHERE|AND|NOT|IN|GROUP BY|ORDER BY|COUNT|FILTER|AS|NOW|INTERVAL|IS|NULL|DATE_TRUNC|DESC)\b/g;
     function highlightSql(sql) {
         return escapeHtml(sql)
             .replace(/'[^']*'/g, (m) => `<span class="str">${m}</span>`)
@@ -500,610 +509,568 @@
             .replace(/(?<![\w'])(\d+)(?![\w'])/g, '<span class="num">$1</span>');
     }
 
-    function renderTable(cols, rows, more) {
-        const head = cols.map((c, i) => `<th${i ? ' class="n"' : ''}>${c}</th>`).join('');
-        const body = rows.map((r) => `<tr>${r.map((c, i) => `<td${i ? ' class="n"' : ''}>${typeof c === 'number' ? fmt(c) : c}</td>`).join('')}</tr>`).join('');
-        return `<table class="tbl"><thead><tr>${head}</tr></thead><tbody>${body}</tbody></table>${more ? `<p class="tbl-more">${more}</p>` : ''}`;
-    }
+    // Charts are drawn at their container's real width (so text never shrinks)
+    // and coloured through CSS classes (so the open-world page can re-tint them).
+    const chartWidth = (w) => Math.max(280, Math.round(w) || 320);
 
-    function lineChart(labels, values) {
-        const W = 320, H = 170, L = 34, R = 14, T = 18, B = 26;
-        const max = Math.ceil(Math.max(...values) / 100) * 100;
-        const min = Math.floor(Math.min(...values) / 100) * 100;
-        const x = (i) => L + (i * (W - L - R)) / (values.length - 1);
-        const y = (v) => T + (1 - (v - min) / (max - min)) * (H - T - B);
-        const pts = values.map((v, i) => `${x(i).toFixed(1)},${y(v).toFixed(1)}`).join(' ');
+    function lineChart(labels, values, width) {
+        const W = chartWidth(width), H = 150, L = 10, R = 44, T = 18, B = 24;
+        const max = Math.max(...values);
+        const min = Math.min(...values);
+        const lo = min - (max - min) * 0.2;
         const n = values.length - 1;
-        const grid = [min, (min + max) / 2, max].map((v) =>
-            `<line x1="${L}" x2="${W - R}" y1="${y(v)}" y2="${y(v)}" stroke="rgba(255,255,255,.07)"/>` +
-            `<text x="${L - 6}" y="${y(v) + 3}" text-anchor="end" class="ax">${v}</text>`).join('');
-        const xl = [0, Math.floor(n / 2), n].map((i) => `<text x="${x(i)}" y="${H - 8}" text-anchor="middle" class="ax">${labels[i]}</text>`).join('');
-        const dots = values.map((v, i) => `<circle cx="${x(i)}" cy="${y(v)}" r="${i === n ? 4 : 2.2}" fill="${i === n ? '#fff' : '#ff2a2a'}"/>`).join('');
-        return `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Line chart of monthly submissions">${grid}${xl}` +
-            `<polygon points="${L},${H - B} ${pts} ${x(n)},${H - B}" fill="rgba(255,42,42,.12)"/>` +
-            `<polyline points="${pts}" fill="none" stroke="#ff2a2a" stroke-width="2"/>${dots}` +
-            `<text x="${x(n) - 8}" y="${y(values[n]) - 8}" text-anchor="end" class="ax ax-strong">${values[n]}</text></svg>`;
+        const x = (i) => L + (i * (W - L - R)) / n;
+        const y = (v) => T + (1 - (v - lo) / (max - lo)) * (H - T - B);
+        const pts = values.map((v, i) => `${x(i).toFixed(1)},${y(v).toFixed(1)}`);
+        return `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Applications per month, rising from ${values[0]} to ${values[n]}">` +
+            `<line class="ch-base" x1="${L}" x2="${x(n)}" y1="${H - B}" y2="${H - B}"/>` +
+            `<path class="ch-area" d="M${L},${H - B} L${pts.join(' L')} L${x(n)},${H - B} Z"/>` +
+            `<path class="ch-line" pathLength="1" d="M${pts.join(' L')}"/>` +
+            `<circle class="ch-dot" cx="${x(0)}" cy="${y(values[0]).toFixed(1)}" r="3.5"/>` +
+            `<circle class="ch-dot ch-end" cx="${x(n)}" cy="${y(values[n]).toFixed(1)}" r="5"/>` +
+            `<text class="ch-val" x="${x(0)}" y="${(y(values[0]) - 11).toFixed(1)}">${values[0]}</text>` +
+            `<text class="ch-val ch-strong" x="${x(n) + 11}" y="${(y(values[n]) + 4).toFixed(1)}">${values[n]}</text>` +
+            `<text class="ch-ax" x="${L}" y="${H - 6}">${labels[0]}</text>` +
+            `<text class="ch-ax" x="${x(n)}" y="${H - 6}" text-anchor="end">${labels[n]}</text></svg>`;
     }
 
-    function barChart(items) {
-        const W = 320, L = 108, R = 46, T = 12, rowH = 36;
+    function barChart(items, width) {
+        const W = chartWidth(width), L = 96, R = 56, T = 6, rowH = 38;
         const H = T * 2 + items.length * rowH;
-        const max = Math.max(...items.map((i) => i.value));
+        const max = Math.max(...items.map((it) => it.value));
         const rows = items.map((it, i) => {
             const y = T + i * rowH;
             const w = ((W - L - R) * it.value) / max;
-            return `<text x="${L - 8}" y="${y + 16}" text-anchor="end" class="ax">${it.label}</text>` +
-                `<rect x="${L}" y="${y + 5}" width="${w.toFixed(1)}" height="16" fill="${it.color}"/>` +
-                `<text x="${(L + w + 6).toFixed(1)}" y="${y + 16.5}" class="ax ax-strong">${fmt(it.value)}</text>`;
+            return `<text class="ch-lbl" x="${L - 10}" y="${y + 23}" text-anchor="end">${it.label}</text>` +
+                `<rect class="ch-bar ${it.cls}" x="${L}" y="${y + 9}" width="${w.toFixed(1)}" height="20" rx="3" style="animation-delay:${i * 0.12}s"/>` +
+                `<text class="ch-val ch-strong" x="${(L + w + 8).toFixed(1)}" y="${y + 23}">${fmt(it.value)}</text>`;
         }).join('');
-        return `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Bar chart of applications by status">${rows}</svg>`;
+        return `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${items.map((it) => `${it.label}: ${fmt(it.value)}`).join(', ')}">${rows}</svg>`;
     }
 
-    function donutChart(items, centerLabel) {
-        const total = items.reduce((s, i) => s + i.value, 0);
+    function donutChart(items, center, centerLabel, width) {
+        const W = chartWidth(width);
+        const sum = items.reduce((s, it) => s + it.value, 0);
         let off = 0;
         const arcs = items.map((it) => {
-            const p = (it.value / total) * 100;
-            const arc = `<circle cx="80" cy="85" r="52" fill="none" stroke="${it.color}" stroke-width="22" pathLength="100" ` +
-                `stroke-dasharray="${Math.max(p - 0.8, 0).toFixed(2)} ${(100 - p + 0.8).toFixed(2)}" stroke-dashoffset="${(-off).toFixed(2)}" transform="rotate(-90 80 85)"/>`;
+            const p = (it.value / sum) * 100;
+            const arc = `<circle class="ch-arc ${it.cls}" cx="70" cy="70" r="50" pathLength="100" ` +
+                `stroke-dasharray="${Math.max(p - 0.8, 0).toFixed(2)} ${(100 - p + 0.8).toFixed(2)}" stroke-dashoffset="${(-off).toFixed(2)}" transform="rotate(-90 70 70)"/>`;
             off += p;
             return arc;
         }).join('');
         const legend = items.map((it, i) =>
-            `<rect x="160" y="${50 + i * 26}" width="10" height="10" fill="${it.color}"/>` +
-            `<text x="177" y="${59 + i * 26}" class="ax">${it.label} · ${fmt(it.value)}</text>`).join('');
-        return `<svg viewBox="0 0 320 170" role="img" aria-label="Donut chart of applications">${arcs}` +
-            `<text x="80" y="88" text-anchor="middle" class="ax ax-strong" style="font-size:17px">${fmt(total)}</text>` +
-            `<text x="80" y="104" text-anchor="middle" class="ax">${centerLabel}</text>${legend}</svg>`;
+            `<rect class="ch-key ${it.cls}" x="152" y="${37 + i * 28}" width="11" height="11" rx="2"/>` +
+            `<text class="ch-lbl" x="171" y="${47 + i * 28}">${it.label} · ${fmt(it.value)}</text>`).join('');
+        // the donut + legend group is 300 wide; centre it in wider charts
+        return `<svg viewBox="0 0 ${W} 140" role="img" aria-label="${items.map((it) => `${it.label}: ${fmt(it.value)}`).join(', ')}">` +
+            `<g transform="translate(${Math.max(0, (W - 300) / 2).toFixed(1)} 0)"><g class="ch-arcs">${arcs}</g>` +
+            `<text class="ch-val ch-strong ch-center" x="70" y="72" text-anchor="middle">${center}</text>` +
+            `<text class="ch-ax" x="70" y="89" text-anchor="middle">${centerLabel}</text>${legend}</g></svg>`;
     }
 
+    // Shows the visitor's question as a chat bubble at the top of the stage.
+    function ask(ui, text, lang) {
+        const bubble = ui.$('.chat-q');
+        const p = bubble.firstElementChild;
+        p.textContent = text;
+        if (lang) p.lang = lang; else p.removeAttribute('lang');
+        restartAnim(bubble);
+    }
+
+    /* 5a · natural language → SQL */
     const MONTHS = ['Nov 25', 'Dec 25', 'Jan 26', 'Feb 26', 'Mar 26', 'Apr 26', 'May 26', 'Jun 26', 'Jul 26', 'Aug 26', 'Sep 26', 'Oct 26'];
     const TREND = [298, 310, 345, 372, 390, 412, 437, 455, 490, 512, 528, 561];
-    const GREEN = '#3ddc84', AMBER = '#ffb020', RED = '#ff2a2a', CYAN = '#3ec5ff';
-
-    const SQL_SCENARIOS = {
+    const SQL_PICKS = {
         trend: {
-            sql: `SELECT TO_CHAR(DATE_TRUNC('month', created_at), 'Mon YYYY') AS month,
-  COUNT(*)::int AS submissions
+            q: 'How many applications came in each month?',
+            big: '+88%',
+            note: 'more applications than a year ago',
+            chart: (w) => lineChart(MONTHS, TREND, w),
+            say: 'Applications rose month after month, from 298 to 561.',
+            sql: `SELECT DATE_TRUNC('month', created_at) AS month,
+  COUNT(*) AS applications
 FROM rts_citizen_applications
 WHERE created_at >= NOW() - INTERVAL '12 months'
-  AND status NOT IN ('deleted', 'started', 'draft')
-GROUP BY DATE_TRUNC('month', created_at)
-ORDER BY DATE_TRUNC('month', created_at);`,
-            table: () => renderTable(['Month', 'Submissions'], MONTHS.slice(-6).map((m, i) => [m, TREND[6 + i]]), '+ 6 earlier rows'),
-            rows: '12 rows',
-            chart: () => lineChart(MONTHS, TREND),
-            summary: 'Submissions grew steadily over the last 12 months, from 298 in Nov 2025 to a peak of 561 in Oct 2026 (+88%). Most of the growth came from Town Planning and Building Permission applications.',
+  AND status NOT IN ('deleted', 'draft')
+GROUP BY month
+ORDER BY month;`,
+            stat: '12 months charted',
         },
         status: {
-            sql: `SELECT status,
-  COUNT(*)::int AS applications
+            q: 'How many applications are approved?',
+            big: '73%',
+            note: 'of 4,276 applications approved',
+            chart: (w) => barChart([
+                { label: 'Approved', value: 3142, cls: 'c-ok' },
+                { label: 'In progress', value: 854, cls: 'c-mid' },
+                { label: 'Rejected', value: 280, cls: 'c-bad' },
+            ], w),
+            say: '3,142 approved, 854 still in progress and 280 rejected.',
+            sql: `SELECT status, COUNT(*) AS applications
 FROM rts_citizen_applications
 WHERE deleted_at IS NULL
-  AND status NOT IN ('deleted', 'started', 'draft')
+  AND status NOT IN ('deleted', 'draft')
 GROUP BY status
 ORDER BY applications DESC;`,
-            table: () => renderTable(['Status', 'Applications'], [
-                ['<span style="color:#3ddc84">Approved</span>', 3142],
-                ['<span style="color:#3ec5ff">Under review</span>', 612],
-                ['<span style="color:#ff2a2a">Rejected</span>', 280],
-                ['<span style="color:#ffb020">Payment pending</span>', 242],
-            ]),
-            rows: '4 rows',
-            chart: () => barChart([
-                { label: 'Approved', value: 3142, color: GREEN },
-                { label: 'Under review', value: 612, color: CYAN },
-                { label: 'Rejected', value: 280, color: RED },
-                { label: 'Payment pending', value: 242, color: AMBER },
-            ]),
-            summary: 'Of 4,276 applications, 3,142 are approved (73.5%), 612 are under desk review, 280 were rejected (mostly for incomplete documents) and 242 are waiting on payment.',
+            stat: '4,276 applications by status',
         },
         marathi: {
-            sql: `SELECT COUNT(*)::int AS total,
-  COUNT(*) FILTER (WHERE status = 'approved')::int AS approved,
-  COUNT(*) FILTER (WHERE status IN ('under_review', 'payment_pending'))::int AS pending,
-  COUNT(*) FILTER (WHERE status = 'rejected')::int AS rejected
+            q: 'एकूण किती नागरिक अर्ज दाखल झाले आहेत?',
+            lang: 'mr',
+            big: '4,276',
+            note: 'एकूण अर्ज (total applications)',
+            chart: (w) => donutChart([
+                { label: 'मंजूर', value: 3142, cls: 'c-ok' },
+                { label: 'प्रलंबित', value: 854, cls: 'c-mid' },
+                { label: 'नामंजूर', value: 280, cls: 'c-bad' },
+            ], '73%', 'मंजूर', w),
+            say: '<span lang="mr">एकूण 4,276 अर्ज प्राप्त झाले: 3,142 मंजूर, 854 प्रलंबित आणि 280 नामंजूर.</span>',
+            sql: `SELECT COUNT(*) AS total,
+  COUNT(*) FILTER (WHERE status = 'approved') AS approved,
+  COUNT(*) FILTER (WHERE status IN ('under_review', 'payment_pending')) AS pending,
+  COUNT(*) FILTER (WHERE status = 'rejected') AS rejected
 FROM rts_citizen_applications
-WHERE deleted_at IS NULL
-  AND status NOT IN ('deleted', 'started', 'draft');`,
-            table: () => renderTable(['वर्ग · Category', 'अर्ज'], [
-                ['<span style="color:#3ddc84">मंजूर · Approved</span>', 3142],
-                ['<span style="color:#ffb020">प्रलंबित · Pending</span>', 854],
-                ['<span style="color:#ff2a2a">नामंजूर · Rejected</span>', 280],
-            ]),
-            rows: '1 row · pivoted',
-            chart: () => donutChart([
-                { label: 'Approved', value: 3142, color: GREEN },
-                { label: 'Pending', value: 854, color: AMBER },
-                { label: 'Rejected', value: 280, color: RED },
-            ], 'एकूण अर्ज'),
-            summary: 'PMRDA प्रणाली सुरू झाल्यापासून आजपर्यंत एकूण 4,276 नागरिक अर्ज प्राप्त झाले आहेत. त्यापैकी 3,142 अर्ज मंजूर (73.5%), 854 अर्ज विविध टप्प्यांवर प्रलंबित (20%), तर 280 अर्ज नामंजूर करण्यात आले आहेत.',
+WHERE deleted_at IS NULL;`,
+            stat: 'answered in Marathi',
         },
     };
 
-    function initSql() {
-        const form = $('#sql-form');
-        if (!form) return;
-        const input = $('#sql-input');
-        const idle = $('#sql-idle');
-        const prog = $('#sql-progress');
-        const step = $('#sql-step');
-        const bar = $('#sql-bar');
-        const results = $('#sql-results');
-        const presets = $$('[data-sql]').map((b) => b.dataset.sql);
-        const seq = sequence();
-
-        async function run(q) {
-            const { sleep } = seq.start();
-            try {
-                input.value = q;
-                const isMr = /[\u0900-\u097F]/.test(q);
-                const key = isMr ? 'marathi' : /status|group|breakdown|approved|rejected|pending/i.test(q) ? 'status' : 'trend';
-                const sc = SQL_SCENARIOS[key];
-                const steps = [['Resolving user context · Town Planner · attaching RLS policy', 18, 450]];
-                if (!presets.includes(q)) steps.push(['Simulation: mapping your question to the closest sample query', 28, 650]);
-                if (isMr) steps.push(['Detected Marathi · will answer in Marathi', 32, 450]);
-                steps.push(
-                    ['Inspecting live schema · 38 tables (bak_* snapshots excluded)', 48, 550],
-                    ['Retrieving similar question → SQL pairs from agent memory', 68, 500],
-                    ['Generating PostgreSQL 16 · validating read-only', 86, 550],
-                    ['Executed in 142 ms · streaming rows, chart and summary', 100, 350],
-                );
-
-                idle.hidden = true;
-                results.hidden = true;
-                prog.hidden = false;
-                bar.style.width = '4%';
-                for (const [txt, pct, ms] of steps) {
-                    step.textContent = txt;
-                    bar.style.width = pct + '%';
-                    await sleep(ms);
-                }
-                prog.hidden = true;
-                $('#sql-code').innerHTML = highlightSql(sc.sql);
-                $('#sql-table').innerHTML = sc.table();
-                $('#sql-rows').textContent = sc.rows;
-                $('#sql-chart').innerHTML = sc.chart();
-                const summary = $('#sql-summary');
-                summary.textContent = '';
-                results.hidden = false;
-                await typeText(summary, sc.summary, sleep, 12);
-                emitDone('sql', `${sc.rows} · executed in 142 ms`);
-            } catch (e) { swallow(e); }
-        }
-
-        form.addEventListener('submit', (e) => {
-            e.preventDefault();
-            run(input.value.trim() || presets[0]);
-        });
-        $$('[data-sql]').forEach((b) => b.addEventListener('click', () => run(b.dataset.sql)));
-        autoplay(form.closest('.demo'), () => run(presets[0]));
-    }
-
-    /* ---------- 5b. RAG / DMS ---------- */
-    const POLICY_FACTS = [
-        { src: 'HR_Policy_2026.pdf · p.14', score: 0.93, text: 'Contract staff accrue 1.5 days of paid leave per completed month of service.' },
-        { src: 'Contract_Staff_Handbook.docx · §4.2', score: 0.88, text: 'Unused leave lapses when the contract ends and cannot be encashed.' },
-        { src: 'HR_Circular_2026-07.pdf', score: 0.81, text: 'Leave requests are approved by the reporting officer through the DMS portal.' },
+    /* 5b · document search (RAG) */
+    const FILES = [
+        ['pdf', 'Q3 report'], ['xls', 'Q3 sales'], ['ppt', 'Board update'], ['pdf', 'HR policy'],
+        ['doc', 'Staff handbook'], ['pdf', 'HR circular'], ['doc', 'Vendor SOP'], ['pdf', 'Board minutes'],
+        ['pdf', 'IT security'], ['doc', 'Travel rules'], ['xls', 'Budget 2027'], ['ppt', 'Onboarding'],
     ];
-    const RAG_SCENARIOS = {
+    // A source number stays glued to its word (and punctuation) when the line wraps.
+    const cite = (word, n, tail = '') => `<span class="cite-w">${word}<sup class="cite">${n}</sup>${tail}</span>`;
+    const RAG_PICKS = {
         revenue: {
-            matches: [17, 58, 93],
-            facts: [
-                { src: 'Q3_Financial_Report.pdf · p.4', score: 0.91, text: 'Q3 revenue closed at $4.2M, up 15% on Q2.' },
-                { src: 'Enterprise_Sales_Q3.xlsx · Summary', score: 0.87, text: 'Software licences contributed 75% of Q3 revenue.' },
-                { src: 'Board_Update_Oct.pptx · slide 6', score: 0.79, text: 'Growth was driven by three enterprise contracts signed in August.' },
-            ],
-            answer: 'Q3 revenue was $4.2M, a 15% increase over Q2 [1]. Software licences made up 75% of it [2], helped by three enterprise contracts signed in August [3].',
+            q: 'What was our Q3 revenue?',
+            hits: [0, 1, 2],
+            say: `Q3 revenue was $4.2M, up 15% on ${cite('Q2', 1, '.')} Software licences brought in ${cite('75%', 2, ',')} helped by three big deals in ${cite('August', 3, '.')}`,
+            stat: 'answer with 3 sources',
         },
-        policy: {
-            matches: [9, 46, 101],
-            facts: POLICY_FACTS,
-            answer: 'Contract staff earn 1.5 days of paid leave per month of service [1]. Unused leave lapses at the end of the contract and cannot be encashed [2]; requests go to the reporting officer through the DMS portal [3].',
+        leave: {
+            q: 'How much leave do contract staff get?',
+            hits: [3, 4, 5],
+            say: `1.5 paid days for every month ${cite('worked', 1, '.')} Unused leave lapses when the contract ${cite('ends', 2, ',')} and the reporting officer approves ${cite('requests', 3, '.')}`,
+            stat: 'answer with 3 sources',
         },
-        marathi: {
-            expandTo: 'leave policy for contract staff',
-            matches: [9, 46, 101],
-            facts: POLICY_FACTS,
-            answer: 'कंत्राटी कर्मचाऱ्यांना सेवेच्या प्रत्येक पूर्ण महिन्यासाठी 1.5 दिवसांची पगारी रजा मिळते [1]. करार संपल्यानंतर न वापरलेली रजा रद्द होते आणि तिचे रोखीकरण करता येत नाही [2]; रजेचे अर्ज DMS पोर्टलद्वारे रिपोर्टिंग अधिकाऱ्यांकडून मंजूर केले जातात [3].',
-        },
-        fallback: {
-            hyde: true,
-            withheld: true,
-            low: 0.41,
-            matches: [33, 70],
-            facts: [
-                { src: 'Board_Minutes_2026_Q2.pdf · p.2', score: 0.52, text: 'Agenda item 4 was deferred to the next meeting.' },
-                { src: 'Vendor_Onboarding_SOP.docx · §2', score: 0.47, text: 'New vendors submit KYC documents through the procurement desk.' },
-            ],
-            answer: 'No document in this tenant answers that with enough confidence (best match 0.52 after HyDE). Rather than guess, the engine returns the closest sources for a person to check.',
+        none: {
+            q: 'Will it rain tomorrow?',
+            hits: [],
+            say: 'None of these files covers that, so it says so instead of guessing.',
+            stat: 'no answer invented',
         },
     };
 
-    function initRag() {
-        const form = $('#rag-form');
-        if (!form) return;
-        const input = $('#rag-input');
-        const grid = $('#rag-grid');
-        const scan = $('#rag-scan');
-        const scanline = $('.scanline', scan);
-        const title = $('#rag-scan-title');
-        const results = $('#rag-results');
-        const facts = $('#rag-facts');
-        const answer = $('#rag-answer');
-        const answerHead = $('#rag-answer-head');
-        const steps = new Map($$('#rag-steps li').map((li) => [li.dataset.step, li]));
-        const seq = sequence();
-        let flicker = 0;
+    /* 5c · Project Iris: one workday, [left %, top %] per person (null = not in the office) */
+    const DAY = [
+        { t: '09:00', at: [[17, 50], [33, 72], null, null], lit: 'a', say: 'Two people arrive, so the desk area lights up.' },
+        { t: '11:00', at: [[17, 50], [33, 72], [65, 48], [82, 70]], lit: 'ab', say: 'A meeting starts, so the meeting room follows.' },
+        { t: '13:00', at: [[17, 50], [33, 72], null, null], lit: 'a', say: 'The meeting ends and that room switches off.' },
+        { t: '19:00', at: [null, null, null, null], lit: '', say: 'Everyone leaves. Everything goes off.' },
+    ];
 
-        grid.innerHTML = '<i></i>'.repeat(120);
-        const nodes = [...grid.children];
+    /* 5e · intent router */
+    const ROUTES = [['in', 'M13 50 H45'], ['faq', 'M45 50 C64 50 65 22 85 22'], ['off', 'M45 50 C64 50 65 78 85 78']];
+    const INTENT_PICKS = {
+        faq: {
+            q: 'What documents do I need to set up a handmill?',
+            to: 'faq',
+            tag: 'Routine · 88%',
+            tone: 'ok',
+            say: 'Routine question, answered instantly from the FAQ.',
+            stat: 'FAQ → auto-answered',
+        },
+        invest: {
+            q: 'I want to set up a handmill plant in Pune with a ₹5 crore investment.',
+            to: 'off',
+            tag: 'Investment · 97%',
+            tone: 'alert',
+            say: 'A real investment offer, sent straight to an MIDC officer as high priority.',
+            stat: 'investment → officer escalation',
+        },
+    };
 
-        const setStep = (name, state) => {
-            const li = steps.get(name);
-            li.className = state ? 'is-' + state : '';
-        };
-        const stopFlicker = () => { clearInterval(flicker); flicker = 0; };
+    /* 5f · receipt reconciler: [merchant, time, amount] */
+    const BANK = [['Uber', '08:30', '24.00'], ['Starbucks', '09:16', '12.50'], ['AWS', '11:02', '85.00']];
 
-        async function run(q) {
-            const { sleep } = seq.start();
-            stopFlicker();
-            try {
-                input.value = q;
-                const sc = /[\u0900-\u097F]/.test(q) ? RAG_SCENARIOS.marathi
-                    : /revenue|q3|sales|growth/i.test(q) ? RAG_SCENARIOS.revenue
-                        : /leave|policy|holiday|contract/i.test(q) ? RAG_SCENARIOS.policy
-                            : RAG_SCENARIOS.fallback;
+    const SIMS = {
+        sql: {
+            title: 'Ask the database',
+            picks: [
+                { id: 'trend', label: 'Applications per month' },
+                { id: 'status', label: 'How many approved?' },
+                { id: 'marathi', label: 'Ask in Marathi' },
+            ],
+            steps: ['Reads the question', 'Writes a safe query', 'Draws the answer'],
+            stage: `<div class="sim-idle">${icon('db')}</div>` +
+                '<div class="chat-q" hidden><p></p></div>' +
+                '<div class="sql-card" hidden><p class="sql-big"><b></b><span></span></p><div class="sql-chart"></div></div>',
+            more: '<p>Run a question to see the SQL it writes.</p>',
+            async play({ ui, pick, walk }) {
+                const p = SQL_PICKS[pick];
+                const card = ui.$('.sql-card');
+                ui.$('.sim-idle').hidden = true;
+                card.hidden = true;
+                ask(ui, p.q, p.lang);
+                ui.busy();
+                await walk(0, 700);
+                ui.more(`<pre class="code">${highlightSql(p.sql)}</pre><p>Read-only, and limited to the rows this officer may see.</p>`);
+                await walk(1, 900);
+                ui.$('.sql-big b').textContent = p.big;
+                ui.$('.sql-big span').textContent = p.note;
+                restartAnim(card);
+                const chart = ui.$('.sql-chart');
+                chart.innerHTML = p.chart(chart.clientWidth);
+                await walk(2, 500);
+                ui.say('ok', p.say);
+                return p.stat;
+            },
+        },
 
-                steps.forEach((li) => { li.className = ''; });
-                nodes.forEach((n) => { n.className = ''; });
-                results.hidden = true;
-                facts.innerHTML = '';
-                answer.textContent = '';
-                scan.classList.add('is-scanning');
-                scanline.hidden = false;
-
-                setStep('embed', 'on');
-                title.textContent = 'embedding query · 1024-d';
-                await sleep(450);
-                setStep('embed', 'done');
-
-                if (sc.expandTo) {
-                    setStep('expand', 'on');
-                    title.textContent = `query expansion · mr → en: "${sc.expandTo}"`;
-                    await sleep(800);
-                    setStep('expand', 'done');
-                } else {
-                    setStep('expand', 'skip');
+        rag: {
+            title: 'Search company files',
+            picks: [
+                { id: 'revenue', label: 'Q3 revenue' },
+                { id: 'leave', label: 'Leave policy' },
+                { id: 'none', label: 'Not in the files' },
+            ],
+            steps: ['Reads the question', 'Searches every file', 'Answers with sources'],
+            stage: '<div class="chat-q" hidden><p></p></div>' +
+                `<div class="rg-files">${FILES.map(([type, name]) =>
+                    `<div class="rg-file ft-${type}"><i class="mono">${type.toUpperCase()}</i><span>${name}</span></div>`).join('')}</div>`,
+            more: '<ul><li>Hybrid search: keywords plus meaning (pgvector)</li>' +
+                '<li>The best passages are reranked; a weak match gets a HyDE retry, then no answer</li>' +
+                '<li>Each company searches only its own files</li></ul>',
+            async play({ ui, pick, sleep, walk }) {
+                const p = RAG_PICKS[pick];
+                const files = ui.$$('.rg-file');
+                files.forEach((f) => {
+                    f.classList.remove('is-scan', 'is-hit', 'is-off');
+                    delete f.dataset.cite;
+                });
+                ask(ui, p.q);
+                ui.busy();
+                await walk(0, 600);
+                ui.step(1, 'on');
+                for (const f of files) {
+                    f.classList.add('is-scan');
+                    await sleep(70);
+                    f.classList.remove('is-scan');
                 }
-
-                setStep('hybrid', 'on');
-                title.textContent = 'hybrid search · BM25 + cosine over 1,024 chunks';
-                flicker = setInterval(() => {
-                    const n = nodes[(Math.random() * nodes.length) | 0];
-                    n.classList.add('hit');
-                    setTimeout(() => n.classList.remove('hit'), 260);
-                }, 30);
-                await sleep(1400);
-
-                if (sc.hyde) {
-                    setStep('hybrid', 'warn');
-                    setStep('hyde', 'on');
-                    title.textContent = `top similarity ${sc.low} < 0.60 · HyDE: drafting a hypothetical answer to search with`;
-                    await sleep(1300);
-                    setStep('hyde', 'warn');
-                } else {
-                    setStep('hybrid', 'done');
-                    setStep('hyde', 'skip');
+                files.forEach((f, i) => f.classList.toggle('is-off', !p.hits.includes(i)));
+                for (const [k, i] of p.hits.entries()) {
+                    files[i].dataset.cite = k + 1;
+                    files[i].classList.add('is-hit');
+                    await sleep(250);
                 }
+                const found = p.hits.length > 0;
+                ui.step(1, found ? 'done' : 'warn');
+                await walk(2, 450, found ? 'done' : 'warn');
+                ui.say(found ? 'ok' : 'warn', p.say);
+                return p.stat;
+            },
+        },
 
-                stopFlicker();
-                nodes.forEach((n) => n.classList.remove('hit'));
-                sc.matches.forEach((i) => nodes[i].classList.add('match'));
-                setStep('rerank', 'on');
-                title.textContent = 'cross-encoder rerank · keeping top results';
-                await sleep(600);
-                setStep('rerank', 'done');
+        iris: {
+            title: 'Smart office',
+            picks: [{ id: 'day', label: '▶ Play a workday', primary: true }],
+            steps: ['Camera spots people', 'AI counts each room', 'Lights & AC follow'],
+            stage: '<div class="office">' +
+                `<div class="room" data-room="a"><span class="room-gear">${icon('bulb')}${icon('snow')}</span><span class="room-name mono">Desks</span></div>` +
+                `<div class="room" data-room="b"><span class="room-gear">${icon('bulb')}${icon('snow')}</span><span class="room-name mono">Meeting room</span></div>` +
+                '<i class="ppl"></i><i class="ppl"></i><i class="ppl"></i><i class="ppl"></i>' +
+                '<div class="o-hud mono"><span class="o-cam">Camera</span><b class="o-clock">08:00</b><span class="o-count">0 people</span></div>' +
+                '<div class="o-day"><i></i></div></div>',
+            more: '<ul><li>YOLOv8 and OpenCV count people per zone about once a second</li>' +
+                '<li>FastAPI switches the light and HVAC relays; a React dashboard updates over WebSockets</li></ul>',
+            async play({ ui, sleep, walk }) {
+                const people = ui.$$('.ppl');
+                const rooms = ui.$$('.room');
+                const clock = ui.$('.o-clock');
+                const count = ui.$('.o-count');
+                const day = ui.$('.o-day i');
+                const place = (at) => people.forEach((el, i) => {
+                    // Off-camera people wait below the door of their own room.
+                    const [x, y] = at[i] || [i < 2 ? 26 : 74, 115];
+                    el.style.setProperty('--x', x + '%');
+                    el.style.setProperty('--y', y + '%');
+                    el.classList.toggle('is-in', !!at[i]);
+                    el.classList.remove('is-seen');
+                });
+                const light = (lit) => rooms.forEach((r) => r.classList.toggle('is-lit', lit.includes(r.dataset.room)));
 
-                scanline.hidden = true;
-                scan.classList.remove('is-scanning');
-                title.textContent = `pgvector index · 1,024 chunks · ${sc.facts.length} retrieved`;
-                $('#rag-k').textContent = `top-${sc.facts.length}`;
-                answerHead.textContent = sc.withheld ? 'Answer withheld · low confidence' : 'Grounded answer';
-                results.hidden = false;
-                for (const [i, f] of sc.facts.entries()) {
-                    const li = document.createElement('li');
-                    li.innerHTML = `<div class="src"><span>[${i + 1}] ${f.src}</span><span class="score">${f.score.toFixed(2)}</span></div>${f.text}`;
-                    facts.appendChild(li);
-                    await sleep(240);
-                }
-
-                setStep('answer', 'on');
-                await typeText(answer, sc.answer, sleep, 12);
-                setStep('answer', sc.withheld ? 'warn' : 'done');
-                emitDone('rag', `${sc.facts.length} chunks · ${sc.withheld ? 'answer withheld' : 'grounded answer'}`);
-            } catch (e) {
-                stopFlicker();
-                swallow(e);
-            }
-        }
-
-        form.addEventListener('submit', (e) => {
-            e.preventDefault();
-            run(input.value.trim() || 'What is our Q3 revenue?');
-        });
-        $$('[data-rag]').forEach((b) => b.addEventListener('click', () => run(b.dataset.rag)));
-        autoplay(form.closest('.demo'), () => run('What is our Q3 revenue?'));
-    }
-
-    /* ---------- 5c. Project Iris ---------- */
-    function initIris() {
-        const feed = $('#iris-feed');
-        if (!feed) return;
-        const people = $$('.person', feed);
-        const dark = $('#iris-dark');
-        const occ = $('#iris-occ');
-        const light = $('#iris-light');
-        const hvac = $('#iris-hvac');
-        const fps = $('#iris-fps');
-        const log = $('#iris-log');
-        const btn = $('#iris-toggle');
-        const seq = sequence();
-        let running = false;
-
-        // [left %, bottom %] per stage; null = off camera
-        const STAGES = {
-            enter: [[20, 12], [33, 20], null, null],
-            full: [[40, 34], [22, 44], [66, 14], [82, 26]],
-            roam: [[14, 40], [42, 22], [62, 48], [78, 34]],
-            half: [[20, 12], [33, 20], null, null],
-            empty: [null, null, null, null],
-        };
-        const place = (stage) => people.forEach((p, i) => {
-            const pos = STAGES[stage][i];
-            p.style.left = (pos ? pos[0] : (i % 2 ? 70 : 30)) + '%';
-            p.style.bottom = (pos ? pos[1] : -40) + '%';
-        });
-        const set = (o, l, lColor, h, room, msg) => {
-            occ.textContent = o;
-            light.textContent = l;
-            light.style.color = lColor;
-            hvac.textContent = h;
-            dark.className = 'cctv-dark' + (room ? ' ' + room : '');
-            if (msg) log.innerHTML = msg;
-        };
-        const reset = () => {
-            place('empty');
-            set('0', 'OFF', '', 'Standby', '', '› relay bus idle · waiting for camera stream');
-            fps.textContent = 'idle';
-        };
-
-        async function loop() {
-            const { sleep } = seq.start();
-            let reported = false;
-            try {
-                fps.textContent = '24 fps · 1.0 s';
-                for (; ;) {
-                    place('empty');
-                    set('0', 'OFF', '', 'Standby', '', '› stream live · room empty');
-                    await sleep(1200);
-                    place('enter');
-                    set('2', '50% · A', 'var(--amber)', 'Cool A', 'dim', '› 2 persons in Zone A → relay CH1 <span class="ok">ON</span> · lights 50% · HVAC zone A 24°C');
-                    await sleep(4200);
-                    place('full');
-                    set('4', '100%', 'var(--green)', 'Cool A+B', 'bright', '› 4 persons across A+B → relays CH1+CH2 <span class="ok">ON</span> · lights 100%');
-                    if (!reported) { reported = true; emitDone('iris', '4 occupants · lights 100%'); }
-                    await sleep(3800);
-                    place('roam');
-                    await sleep(3400);
-                    place('half');
-                    set('2', '50% · A', 'var(--amber)', 'Cool A', 'dim', '› Zone B empty → relay CH2 <span class="warn">OFF</span> · HVAC zone B standby');
-                    await sleep(4000);
-                    place('empty');
-                    set('0', 'OFF', '', 'Standby', '', '› room empty → all relays <span class="warn">OFF</span> · energy saved');
-                    await sleep(2600);
-                }
-            } catch (e) { swallow(e); }
-        }
-
-        let userStopped = false;
-        const start = () => {
-            if (running) return;
-            running = true;
-            btn.textContent = 'Stop feed';
-            loop();
-        };
-        const stop = () => {
-            if (!running) return;
-            running = false;
-            btn.textContent = 'Start feed';
-            seq.cancel();
-            reset();
-        };
-        btn.addEventListener('click', () => {
-            userStopped = running;
-            if (running) stop(); else start();
-        });
-        reset();
-        // The feed runs while it is on screen and pauses when scrolled away.
-        autoplay(feed.closest('.demo'), () => { if (!userStopped) start(); }, stop);
-    }
-
-    /* ---------- 5d. Pothole ---------- */
-    function initPothole() {
-        const view = $('#ph-view');
-        if (!view) return;
-        const scan = $('#ph-scan');
-        const bbox = $('#ph-bbox');
-        const status = $('#ph-status');
-        const pin = $('#ph-pin');
-        const log = $('#ph-log');
-        const seq = sequence();
-
-        async function run(real) {
-            const { sleep } = seq.start();
-            try {
-                $('#ph-empty').hidden = true;
-                view.className = 'ph-view ' + (real ? 'road-real' : 'road-clean');
-                bbox.hidden = true;
-                pin.hidden = true;
-                status.textContent = 'Scanning…';
-                status.style.color = 'var(--cyan)';
-                log.textContent = '› Photo received · GPS 18.6298° N, 73.8397° E · running YOLO on-device…';
-                restartAnim(scan);
-                await sleep(1450);
-                scan.hidden = true;
-                if (real) {
-                    bbox.hidden = false;
-                    status.textContent = 'Pothole 0.98';
-                    status.style.color = 'var(--red)';
-                    log.innerHTML = '› YOLO: pothole (0.98) · Gemini: deep, lane-blocking · <span class="err">severity 7.8/10</span>';
+                place([null, null, null, null]);
+                light('');
+                clock.textContent = '08:00';
+                count.textContent = '0 people';
+                day.style.width = '0%';
+                ui.say('info', '<b class="mono">08:00</b>Empty office: lights and AC are off.');
+                await sleep(1200);
+                for (const [k, ev] of DAY.entries()) {
+                    ui.resetSteps();
+                    clock.textContent = ev.t;
+                    day.style.width = ((k + 1) / DAY.length) * 100 + '%';
+                    place(ev.at);
+                    await walk(0, 900);
+                    const n = ev.at.filter(Boolean).length;
+                    people.forEach((el, i) => el.classList.toggle('is-seen', !!ev.at[i]));
+                    count.textContent = n + (n === 1 ? ' person' : ' people');
+                    await walk(1, 500);
+                    light(ev.lit);
+                    await walk(2, 300);
+                    ui.say('info', `<b class="mono">${ev.t}</b>${ev.say}`);
                     await sleep(1400);
-                    pin.hidden = false;
-                    log.innerHTML = '› Work order WO-2291 raised for MIDC road maintenance<br><span class="ok">✓ dashboard updated</span>';
-                    emitDone('pothole', 'severity 7.8/10 · work order raised');
-                } else {
-                    status.textContent = 'No defect';
-                    status.style.color = 'var(--green)';
-                    log.innerHTML = '› YOLO: no defect · Gemini confirms clean road<br><span class="ok">✓ report discarded, no officer time spent</span>';
-                    emitDone('pothole', 'clean road · report discarded');
                 }
-            } catch (e) { swallow(e); }
-        }
+                ui.say('ok', 'Lights and AC were on only where people were.');
+                return 'lights and AC followed people all day';
+            },
+        },
 
-        $('#ph-real').addEventListener('click', () => run(true));
-        $('#ph-clean').addEventListener('click', () => run(false));
-        autoplay(view.closest('.demo'), () => run(true));
-    }
-
-    /* ---------- 5e. Intent engine ---------- */
-    const INVEST = /\b(invest\w*|crores?|cr|lakhs?|capital|plant|factory|expan\w*|acres?|allotment|proposal)\b/i;
-
-    function initIntent() {
-        const form = $('#intent-form');
-        if (!form) return;
-        const input = $('#intent-input');
-        const log = $('#intent-log');
-        const label = $('#intent-label');
-        const state = $('#router-state');
-        const n = { user: $('#n-user'), router: $('#n-router'), faq: $('#n-faq'), off: $('#n-off') };
-        const f = { in: $('#f-in'), faq: $('#f-faq'), off: $('#f-off') };
-        const seq = sequence();
-
-        const clear = () => {
-            Object.values(n).forEach((g) => g.classList.remove('on-blue', 'on-green', 'on-red'));
-            Object.values(f).forEach((p) => p.classList.remove('is-on'));
-            label.textContent = '';
-            state.textContent = 'idle';
-        };
-
-        async function route(msg) {
-            const { sleep } = seq.start();
-            try {
-                clear();
-                msg = msg.trim() || 'Hello';
-                input.value = msg;
-                const shown = msg.length > 64 ? msg.slice(0, 64) + '…' : msg;
-                log.innerHTML = `› received: "${escapeHtml(shown)}"`;
-                n.user.classList.add('on-blue');
-                f.in.classList.add('is-on');
-                await sleep(700);
-
-                n.router.classList.add('on-blue');
-                state.textContent = 'embedding…';
-                label.style.fill = 'var(--cyan)';
-                label.textContent = 'tokenize → embed → pgvector kNN';
-                await sleep(1000);
-
-                const invest = INVEST.test(msg);
-                f.in.classList.remove('is-on');
-                n.user.classList.remove('on-blue');
-                n.router.classList.remove('on-blue');
-                if (invest) {
-                    n.router.classList.add('on-red');
-                    state.textContent = 'investment';
-                    label.style.fill = 'var(--red)';
-                    label.textContent = 'intent: investment · 0.97';
-                    f.off.classList.add('is-on');
-                    await sleep(850);
-                    n.off.classList.add('on-red');
-                    log.innerHTML = '› <span class="err">ESCALATED</span> to MIDC investment desk · priority HIGH · ticket INV-2026-0412';
-                    emitDone('intent', 'investment → officer escalation');
-                } else {
-                    n.router.classList.add('on-green');
-                    state.textContent = 'faq';
-                    label.style.fill = 'var(--green)';
-                    label.textContent = 'intent: general FAQ · 0.88';
-                    f.faq.classList.add('is-on');
-                    await sleep(850);
-                    n.faq.classList.add('on-green');
-                    log.innerHTML = '› <span class="ok">AUTO-ANSWERED</span> from the FAQ knowledge base · 3 sources cited';
-                    emitDone('intent', 'FAQ → auto-answered');
-                }
-            } catch (e) { swallow(e); }
-        }
-
-        form.addEventListener('submit', (e) => { e.preventDefault(); route(input.value); });
-        $$('[data-intent]').forEach((b) => b.addEventListener('click', () => route(b.dataset.intent)));
-        const proposal = $('[data-intent*="crore"]');
-        autoplay(form.closest('.demo'), () => route(proposal ? proposal.dataset.intent : 'I want to invest 5 crore'));
-    }
-
-    /* ---------- 5f. Reconciler ---------- */
-    function initRecon() {
-        const btn = $('#recon-run');
-        if (!btn) return;
-        const scan = $('#recon-scan');
-        const exts = $$('.receipt .ext');
-        const tx = [$('#tx-1'), $('#tx-2'), $('#tx-3')];
-        const log = $('#recon-log');
-        const seq = sequence();
-
-        async function run() {
-            const { sleep } = seq.start();
-            try {
-                exts.forEach((e) => e.classList.remove('is-on'));
-                tx.forEach((t) => t.classList.remove('is-scan', 'is-match'));
-                log.textContent = '› Gemini Nano (AICore) reading the receipt on-device…';
+        pothole: {
+            title: 'Report a pothole',
+            picks: [
+                { id: 'real', label: 'Road with a pothole' },
+                { id: 'clean', label: 'Smooth road' },
+            ],
+            steps: ['Citizen snaps a photo', 'AI checks the damage', 'Road team gets the job'],
+            stage: '<div class="ph">' +
+                `<div class="ph-phone"><div class="ph-photo">${icon('cam')}<i class="ph-scan" hidden></i>` +
+                '<span class="ph-box" hidden><b class="mono">Pothole 98%</b></span></div></div>' +
+                '<div class="ph-side">' +
+                '<div class="ph-meter"><span class="mono">Damage</span><span class="ph-bar"><i></i></span><b>–</b></div>' +
+                '<div class="ph-map"><svg viewBox="0 0 200 100" preserveAspectRatio="none" aria-hidden="true"><path d="M40 -5 L80 105 M-5 58 L205 40 M150 -5 L128 105"/></svg>' +
+                `<span class="ph-pin" hidden>${icon('pin')}</span></div>` +
+                '<div class="ph-ticket" hidden><b></b><span></span></div>' +
+                '</div></div>',
+            more: '<ul><li>YOLO finds the pothole on the phone itself (edge AI)</li>' +
+                '<li>Gemini grades how bad it is from the photo</li>' +
+                '<li>A geotagged work order lands on the MIDC dashboard</li></ul>',
+            async play({ ui, pick, sleep, walk }) {
+                const real = pick === 'real';
+                const photo = ui.$('.ph-photo');
+                const scan = ui.$('.ph-scan');
+                const box = ui.$('.ph-box');
+                const meter = ui.$('.ph-meter');
+                const level = ui.$('.ph-bar i');
+                const verdict = ui.$('.ph-meter b');
+                const pin = ui.$('.ph-pin');
+                const ticket = ui.$('.ph-ticket');
+                photo.className = 'ph-photo ' + (real ? 'is-pothole' : 'is-clean');
+                restartAnim(photo);
+                box.hidden = true;
+                pin.hidden = true;
+                ticket.hidden = true;
+                meter.className = 'ph-meter';
+                level.style.width = '0%';
+                verdict.textContent = '–';
+                ui.busy();
+                await walk(0, 700);
+                ui.step(1, 'on');
                 restartAnim(scan);
-                await sleep(1650);
+                await sleep(1300);
                 scan.hidden = true;
-                for (const e of exts) {
-                    e.classList.add('is-on');
-                    await sleep(220);
+                box.hidden = !real;
+                meter.classList.add(real ? 'is-bad' : 'is-good');
+                level.style.width = real ? '78%' : '4%';
+                verdict.textContent = real ? 'Severe · 7.8 / 10' : 'No damage';
+                await sleep(700);
+                ui.step(1, 'done');
+                ui.step(2, 'on');
+                ticket.firstElementChild.textContent = real ? 'Repair order #2291' : 'No repair needed';
+                ticket.lastElementChild.textContent = real ? 'Sent to the MIDC road team' : 'Report closed automatically';
+                ticket.className = 'ph-ticket ' + (real ? 'is-bad' : 'is-good');
+                ticket.hidden = false;
+                pin.hidden = !real;
+                await sleep(500);
+                ui.step(2, real ? 'done' : 'skip');
+                if (real) {
+                    ui.say('alert', 'Severe pothole found. A repair order went to the MIDC road team.');
+                    return 'severity 7.8/10 · work order raised';
                 }
-                log.textContent = '› Extracted { merchant: "STARBUCKS COFFEE", date: 21-Aug-2026, total: 12.50 }';
-                await sleep(1000);
+                ui.say('ok', 'No damage, so the report closed itself. No officer time spent.');
+                return 'clean road · report closed';
+            },
+        },
 
-                log.textContent = '› Tier 1 · exact amount 12.50';
-                for (const t of [tx[0], tx[2], tx[1]]) {
+        intent: {
+            title: 'Sort investor messages',
+            picks: [
+                { id: 'faq', label: 'Routine question' },
+                { id: 'invest', label: 'Investment offer' },
+            ],
+            auto: 'invest',
+            steps: ['Message arrives', 'AI reads the intent', 'Sent to the right desk'],
+            stage: '<div class="chat-q" hidden><p></p></div><div class="route">' +
+                '<svg class="route-lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">' +
+                ROUTES.map(([, d]) => `<path d="${d}"/>`).join('') +
+                ROUTES.map(([k, d]) => `<path class="flow" data-flow="${k}" d="${d}"/>`).join('') + '</svg>' +
+                `<div class="rn" data-node="msg" style="--x:13%;--y:50%">${icon('chat')}<span>Message</span></div>` +
+                `<div class="rn" data-node="ai" style="--x:45%;--y:50%">${icon('spark')}<span>AI sorter</span><em class="rn-tag mono"></em></div>` +
+                `<div class="rn" data-node="faq" style="--x:85%;--y:22%">${icon('bot')}<span>Instant reply</span></div>` +
+                `<div class="rn" data-node="off" style="--x:85%;--y:78%">${icon('person')}<span>Officer</span></div></div>`,
+            more: '<ul><li>A LangGraph router compares the message with past examples (embeddings in pgvector)</li>' +
+                '<li>A confident investment intent opens a priority ticket for an officer</li></ul>',
+            async play({ ui, pick, sleep, walk }) {
+                const p = INTENT_PICKS[pick];
+                const node = (k) => ui.$(`[data-node="${k}"]`);
+                const flow = (k) => ui.$(`[data-flow="${k}"]`);
+                const tone = p.to === 'off' ? 'is-bad' : 'is-ok';
+                const tag = ui.$('.rn-tag');
+                ui.$$('.rn').forEach((n) => n.classList.remove('is-on', 'is-ok', 'is-bad'));
+                ui.$$('.flow').forEach((f) => f.classList.remove('is-on'));
+                tag.textContent = '';
+                ask(ui, p.q);
+                ui.busy();
+                node('msg').classList.add('is-on');
+                flow('in').classList.add('is-on');
+                await walk(0, 800);
+                node('ai').classList.add('is-on');
+                await walk(1, 900);
+                node('msg').classList.remove('is-on');
+                flow('in').classList.remove('is-on');
+                node('ai').classList.replace('is-on', tone);
+                tag.textContent = p.tag;
+                flow(p.to).classList.add('is-on');
+                ui.step(2, 'on');
+                await sleep(700);
+                node(p.to).classList.add(tone);
+                ui.step(2, 'done');
+                ui.say(p.tone, p.say);
+                return p.stat;
+            },
+        },
+
+        recon: {
+            title: 'Match a receipt',
+            picks: [{ id: 'scan', label: '▶ Scan the receipt', primary: true }],
+            steps: ['Phone reads the receipt', 'Checks amount, time, shop', 'Payment matched'],
+            stage: '<div class="rc">' +
+                '<div class="rc-receipt mono">' +
+                '<b class="r-shop"><span class="ext">STARBUCKS COFFEE</span></b>' +
+                '<span class="r-date"><span class="ext">21 Aug · 09:14</span></span>' +
+                '<span class="r-line"><span>Coffee</span><span>$5.50</span></span>' +
+                '<span class="r-line"><span>Toast</span><span>$7.00</span></span>' +
+                '<b class="r-line r-total"><span>TOTAL</span><span class="ext">$12.50</span></b>' +
+                '<i class="rc-scan" hidden></i></div>' +
+                '<div class="rc-bank"><p class="rc-head mono">Bank · 21 Aug</p><ul>' +
+                BANK.map(([name, time, amt]) => `<li class="rc-tx"><b>${name}</b><small class="mono">${time}</small><span class="mono">−$${amt}</span></li>`).join('') +
+                '</ul></div>' +
+                `<div class="rc-checks">${['Same amount', '2 min apart', 'Same shop'].map((c) => `<span class="rc-chk">${icon('check')}${c}</span>`).join('')}</div>` +
+                '</div>',
+            more: '<ul><li>Gemini Nano reads the receipt on the phone (Android AICore), so nothing is uploaded</li>' +
+                '<li>Three-tier match: exact amount, then time window, then fuzzy shop name (0.96)</li></ul>',
+            async play({ ui, sleep }) {
+                const fields = ui.$$('.ext');
+                const txs = ui.$$('.rc-tx');
+                const checks = ui.$$('.rc-chk');
+                const scan = ui.$('.rc-scan');
+                const match = txs[1];
+                fields.forEach((f) => f.classList.remove('is-on'));
+                txs.forEach((t) => t.classList.remove('is-scan', 'is-off', 'is-match'));
+                checks.forEach((c) => c.classList.remove('is-on'));
+                ui.busy();
+                ui.step(0, 'on');
+                restartAnim(scan);
+                await sleep(1300);
+                scan.hidden = true;
+                for (const f of fields) {
+                    f.classList.add('is-on');
+                    await sleep(180);
+                }
+                ui.step(0, 'done');
+                ui.step(1, 'on');
+                for (const t of txs) {
                     t.classList.add('is-scan');
-                    await sleep(380);
-                    if (t !== tx[1]) t.classList.remove('is-scan');
+                    await sleep(260);
+                    t.classList.remove('is-scan');
                 }
-                log.textContent = '› Tier 1 ✓ 1 candidate · Tier 2 · time window 09:14 → 09:16 (Δ 2 min) ✓';
-                await sleep(900);
-                log.textContent = '› Tier 3 · fuzzy merchant "STARBUCKS COFFEE" ≈ "Starbucks Coffee" (0.96) ✓';
-                await sleep(900);
-                tx[1].classList.remove('is-scan');
-                tx[1].classList.add('is-match');
-                log.innerHTML = '› <span class="ok">Reconciled</span> · transaction marked verified';
-                emitDone('recon', 'merchant match 0.96 · reconciled');
-            } catch (e) { swallow(e); }
-        }
+                match.classList.add('is-scan');
+                for (const c of checks) {
+                    c.classList.add('is-on');
+                    await sleep(450);
+                }
+                ui.step(1, 'done');
+                ui.step(2, 'on');
+                match.classList.replace('is-scan', 'is-match');
+                txs.forEach((t) => { if (t !== match) t.classList.add('is-off'); });
+                await sleep(400);
+                ui.step(2, 'done');
+                ui.say('ok', 'Matched to the $12.50 Starbucks payment, all on the phone.');
+                return 'merchant match 0.96 · reconciled';
+            },
+        },
+    };
 
-        btn.addEventListener('click', run);
-        autoplay(btn.closest('.demo'), run);
+    // Builds a demo's shell and returns the handful of controls every demo uses.
+    function mountSim(el, def) {
+        el.innerHTML =
+            `<div class="demo-bar mono"><span class="demo-dots"><i></i><i></i><i></i></span><span class="demo-title">${def.title}</span><span class="demo-flag">Simulation</span></div>` +
+            '<div class="sim">' +
+            `<div class="sim-try" role="group" aria-label="Examples">${def.picks.map((p) =>
+                `<button type="button" class="sim-chip${p.primary ? ' is-primary' : ''}" data-pick="${p.id}">${p.label}</button>`).join('')}</div>` +
+            `<ol class="sim-steps">${def.steps.map((s, i) => `<li><i data-n="${i + 1}"></i><span>${s}</span></li>`).join('')}</ol>` +
+            `<div class="sim-stage">${def.stage}</div>` +
+            '<p class="sim-out" aria-live="polite"><span>Press a button above to watch it work.</span></p>' +
+            `<details class="sim-more"><summary class="mono">Under the hood</summary><div class="sim-more-body">${def.more}</div></details>` +
+            '</div>';
+        const steps = $$('.sim-steps li', el);
+        const out = $('.sim-out', el);
+        const OUT_ICON = { ok: 'check', warn: 'alert', alert: 'alert' };
+        return {
+            $: (s) => $(s, el),
+            $$: (s) => $$(s, el),
+            step(i, state) { steps[i].className = state ? 'is-' + state : ''; },
+            resetSteps() { steps.forEach((li) => { li.className = ''; }); },
+            say(state, html) {
+                out.className = 'sim-out' + (state ? ' is-' + state : '');
+                out.innerHTML = (OUT_ICON[state] ? icon(OUT_ICON[state]) : '') + `<span>${html}</span>`;
+            },
+            busy() { this.say('busy', 'Working…'); },
+            more(html) { $('.sim-more-body', el).innerHTML = html; },
+            pick(id) { $$('.sim-chip', el).forEach((c) => c.classList.toggle('is-on', c.dataset.pick === id)); },
+        };
+    }
+
+    function initSims() {
+        $$('[data-sim]').forEach((el) => {
+            const id = el.dataset.sim;
+            const def = SIMS[id];
+            if (!def) return;
+            const ui = mountSim(el, def);
+            const seq = sequence();
+            const first = def.auto || def.picks[0].id;
+
+            async function run(pick) {
+                const { sleep } = seq.start();
+                const walk = async (i, ms, end = 'done') => {
+                    ui.step(i, 'on');
+                    await sleep(ms);
+                    ui.step(i, end);
+                };
+                ui.pick(pick);
+                ui.resetSteps();
+                try {
+                    emitDone(id, await def.play({ ui, pick, sleep, walk }));
+                } catch (e) { swallow(e); }
+            }
+
+            el.addEventListener('click', (e) => {
+                const chip = e.target.closest('.sim-chip');
+                if (chip) run(chip.dataset.pick);
+            });
+            // A host page can start a demo this way (the open-world "Start mission" buttons).
+            el.addEventListener('sim:play', () => run(first));
+            autoplay(el, () => run(first));
+        });
     }
 
     /* ---------- boot ---------- */
     initNav();
-    initSql();
-    initRag();
-    initIris();
-    initPothole();
-    initIntent();
-    initRecon();
+    initSims();
 
     fitDisplayWords();
     if (document.fonts) document.fonts.ready.then(fitDisplayWords);

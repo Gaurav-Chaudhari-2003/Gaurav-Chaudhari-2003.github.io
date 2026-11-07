@@ -72,7 +72,7 @@
         'The NL→SQL assistant answers in English, Marathi and Hinglish, and in Marathi typed in Latin script.',
         'Project Iris switches office lights and HVAC zone by zone from CCTV person detection.',
         'The document search falls back to HyDE when plain retrieval comes back weak.',
-        'Press Esc at any time to open the menu and the city map.',
+        'Press Esc or M, or click the minimap, to open the menu and the city map.',
         'Press Q for the skill wheel: it highlights every project that uses a skill.',
         'Every mission is playable. Press Start mission and watch the system work.',
     ];
@@ -110,7 +110,7 @@
         svg.innerHTML = out;
     }
 
-    /* ---------- city map (drawn three times: page, pause menu, minimap) ---------- */
+    /* ---------- city map (drawn twice: in the pause menu and in the minimap) ---------- */
     const LAND = 'M60 90 Q 200 36 380 58 T 700 48 Q 880 38 950 120 Q 988 262 960 380 Q 978 520 902 588 Q 700 612 500 596 Q 300 612 118 590 Q 36 520 48 380 Q 24 230 60 90 Z';
     const ROADS = '<ellipse cx="500" cy="320" rx="360" ry="235"/><path d="M30 395 L970 395 M545 30 L545 600 M300 40 L300 600 M60 590 C300 430 640 420 960 120"/>';
     const RIVER = 'M-10 300 C 120 250 230 360 360 300 S 600 200 720 270 S 880 380 1010 330';
@@ -284,7 +284,7 @@
         }
         if (!visited.has(el.id)) {
             visited.add(el.id);
-            if (el.id !== 'hq' && el.id !== 'map') addXP(50);
+            if (el.id !== 'hq') addXP(50);
         }
         updateStars();
     }
@@ -438,14 +438,6 @@
 
     /* ---------- missions: start buttons and completion ---------- */
     const MISSION_BY_DEMO = { sql: 'm1', rag: 'm2', iris: 'm3', pothole: 'm4', intent: 'm5', recon: 'm6' };
-    const STARTERS = {
-        m1: () => { const b = $('[data-sql]'); if (b) b.click(); },
-        m2: () => { const b = $('[data-rag]'); if (b) b.click(); },
-        m3: () => { const b = $('#iris-toggle'); if (b && /start/i.test(b.textContent)) b.click(); },
-        m4: () => { const b = $('#ph-real'); if (b) b.click(); },
-        m5: () => { const b = $('[data-intent*="crore"]'); if (b) b.click(); },
-        m6: () => { const b = $('#recon-run'); if (b) b.click(); },
-    };
 
     function initMissions() {
         $$('.start-mission').forEach((btn) => btn.addEventListener('click', () => {
@@ -454,7 +446,9 @@
             const play = art.querySelector('.m-play');
             const r = play.getBoundingClientRect();
             if (r.top < 0 || r.top > innerHeight * 0.55) play.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
-            if (STARTERS[art.id]) STARTERS[art.id]();
+            // script.js plays the demo's default example on this event.
+            const sim = art.querySelector('[data-sim]');
+            if (sim) sim.dispatchEvent(new CustomEvent('sim:play'));
         }));
 
         document.addEventListener('demo:done', (e) => {
@@ -486,7 +480,7 @@
         setInterval(tick, 30000);
         const apps = $$('.phone-app', phone);
         $$('[data-app]', phone).forEach((b) => b.addEventListener('click', () => {
-            if (b.dataset.app === 'map') { fastTravel('map'); return; }
+            if (b.dataset.app === 'map') { openPause(); return; }
             apps.forEach((a) => a.classList.toggle('open', a.dataset.screen === b.dataset.app));
             const back = $(`.phone-app[data-screen="${b.dataset.app}"] .app-back`, phone);
             if (back) back.focus({ preventScroll: true });
@@ -590,7 +584,7 @@
         buildSkyline($('#skyline-far'), { seed: 11, fill: '#2b1349', windows: false, minH: 90, maxH: 300 });
         buildSkyline($('#skyline-near'), { seed: 7, fill: '#140a24', windows: true, minH: 50, maxH: 230 });
 
-        mountMap($('#city-map'), 'page', (id) => fastTravel(id));
+        // The map lives only in the pause menu; the minimap and M open it.
         mountMap($('#pause-map'), 'pause', (id) => { closePause(); fastTravel(id); });
         mountMap($('#mini-map'), 'mini');
         panMini('hq');
@@ -619,6 +613,7 @@
 
         // HUD + menus
         $('#btn-menu').addEventListener('click', openPause);
+        $('#hud-mini').addEventListener('click', openPause);
         $('#btn-wheel').addEventListener('click', openWheel);
         $('#hud-filter').addEventListener('click', () => selectSkill(null));
         $('#pause-resume').addEventListener('click', closePause);
@@ -658,6 +653,7 @@
             const a = e.target.closest('a[href^="#"]');
             if (!a || a.classList.contains('skip-link')) return;
             const id = a.getAttribute('href').slice(1);
+            if (id === 'map') { e.preventDefault(); openPause(); return; }
             if (!id || !document.getElementById(id)) return;
             e.preventDefault();
             closePause();
@@ -693,6 +689,8 @@
             intro.hidden = true;
             phase = 'done';
             root.classList.add('hero-in');
+            // an old /open-world/#map link opens the map instead of a missing section
+            if (location.hash === '#map') openPause();
         }
     }
 

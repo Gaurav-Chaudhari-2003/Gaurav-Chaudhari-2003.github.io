@@ -17,8 +17,8 @@
         href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow+Condensed:wght@500;600;700;800&family=Barlow:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&family=Neonderthaw&display=swap"
         rel="stylesheet">
     <!-- Base styles and the six demo components come from the classic site. -->
-    <link rel="stylesheet" href="../styles.css?v=10">
-    <link rel="stylesheet" href="world.css?v=5">
+    <link rel="stylesheet" href="../styles.css?v=11">
+    <link rel="stylesheet" href="world.css?v=8">
 
     <!-- Intro plays once per tab; skipped for reduced motion and deep links.
          If world.js never boots, a watchdog reveals the page after 5s. -->
@@ -82,14 +82,15 @@
             <div class="hud-label">Hire level</div>
             <div class="hud-xp"><span>XP</span><b id="xp">00000</b><em id="xp-pop" aria-hidden="true"></em></div>
         </div>
-        <div class="hud-mini" aria-hidden="true">
-            <div class="mini-frame">
-                <div class="mini-map" id="mini-map"></div>
+        <button type="button" class="hud-mini" id="hud-mini" aria-label="Open the city map" aria-keyshortcuts="M">
+            <span class="mini-frame" aria-hidden="true">
+                <span class="mini-map" id="mini-map"></span>
                 <span class="mini-player"></span>
                 <span class="mini-n">N</span>
-            </div>
-            <div class="mini-label" id="mini-label">Downtown HQ</div>
-        </div>
+                <span class="mini-open">Open map</span>
+            </span>
+            <span class="mini-label" id="mini-label" aria-hidden="true">Downtown HQ</span>
+        </button>
     </div>
     <div class="ow-area" id="ow-area" aria-hidden="true"><span class="area-name"></span><span class="area-city">Pune</span></div>
     <div class="ow-toasts" id="toasts" aria-live="polite"></div>
@@ -199,26 +200,6 @@
             <p class="press-hint ui"><span><kbd>Esc</kbd>Menu</span><span><kbd>Q</kbd>Skill wheel</span><span><kbd>M</kbd>Map</span><span>Scroll to play ↓</span></p>
         </section>
 
-        <!-- ============ CITY MAP ============ -->
-        <section class="ow-section" id="map" data-district="hq">
-            <div class="ow-wrap">
-                <header class="ow-head">
-                    <div>
-                        <p class="ow-kicker">Fast travel</p>
-                        <h2 class="ow-h2">City map</h2>
-                    </div>
-                    <p class="ow-note">Every pin fast-travels to a stop on this page.</p>
-                </header>
-                <div class="map-box" id="city-map"></div>
-                <ul class="map-legend ui">
-                    <li class="lg lg-m"><i></i>Mission</li>
-                    <li class="lg lg-q"><i></i>Side quest</li>
-                    <li class="lg lg-f"><i></i>Flashback</li>
-                    <li class="lg lg-i"><i></i>Stats · story · phone</li>
-                </ul>
-            </div>
-        </section>
-
         <!-- ============ STORY MISSIONS ============ -->
         <section class="ow-section" id="missions">
             <div class="ow-wrap">
@@ -247,47 +228,7 @@
                         <div class="m-actions"><button type="button" class="ow-btn start-mission">Start mission ▸</button><span class="m-status">Available</span></div>
                     </div>
                     <div class="m-play">
-                        <div class="demo">
-                        <div class="demo-bar mono"><span class="demo-dots"><i></i><i></i><i></i></span><span class="demo-title">vanna-agent · pmrda_rts_prod</span><span class="demo-flag">Simulation</span></div>
-                        <div class="demo-body">
-                            <div class="status-row mono"><span class="ok">● PostgreSQL 16 · connected</span><span class="info">Role: Town Planner · RLS on</span></div>
-                            <div class="preset-row">
-                                <span class="mono muted">Try</span>
-                                <button type="button" class="chip-btn" data-sql="Show me the monthly application submission trend for the last 12 months">Monthly trend</button>
-                                <button type="button" class="chip-btn" data-sql="What are the total application counts grouped by application status?">Status breakdown</button>
-                                <button type="button" class="chip-btn" data-sql="एकूण किती नागरिक अर्ज दाखल झाले आहेत?" lang="mr">एकूण अर्ज · Marathi</button>
-                            </div>
-                            <form class="demo-input" id="sql-form">
-                                <input id="sql-input" type="text" autocomplete="off" aria-label="Ask a question about PMRDA applications" value="Show me the monthly application submission trend for the last 12 months">
-                                <button class="btn btn-red btn-sm" type="submit">Run</button>
-                            </form>
-                            <p class="demo-idle mono" id="sql-idle">› Pick a preset or type a question, then Run.</p>
-                            <div class="progress" id="sql-progress" hidden>
-                                <div class="progress-step mono" id="sql-step"></div>
-                                <div class="progress-track"><div class="progress-fill" id="sql-bar"></div></div>
-                            </div>
-                            <div class="demo-results" id="sql-results" hidden>
-                                <div class="panel">
-                                    <div class="panel-head mono"><span>Generated SQL</span><span class="pill pill-ok">read-only · RLS</span></div>
-                                    <pre class="code" id="sql-code"></pre>
-                                </div>
-                                <div class="split">
-                                    <div class="panel">
-                                        <div class="panel-head mono"><span>Recordset</span><span id="sql-rows"></span></div>
-                                        <div class="panel-body" id="sql-table"></div>
-                                    </div>
-                                    <div class="panel">
-                                        <div class="panel-head mono"><span>Chart</span><span>plotly</span></div>
-                                        <div class="panel-body chart" id="sql-chart"></div>
-                                    </div>
-                                </div>
-                                <div class="summary">
-                                    <div class="summary-head mono">AI summary</div>
-                                    <p id="sql-summary"></p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                        <div class="demo" data-sim="sql"><p class="sim-nojs mono">Interactive demo · needs JavaScript</p></div>
                     </div>
                 </article>
 
@@ -308,44 +249,7 @@
                         <div class="m-actions"><button type="button" class="ow-btn start-mission">Start mission ▸</button><span class="m-status">Available</span><a class="q-link" href="https://www.linkedin.com/posts/stark-digital-media-services-pvt%2E-ltd%2E_stark-digitals-ai-team-solved-enterprise-activity-7492924379610222592-JgkU" target="_blank" rel="noopener">Proof on LinkedIn ↗</a></div>
                     </div>
                     <div class="m-play">
-                        <div class="demo">
-                        <div class="demo-bar mono"><span class="demo-dots"><i></i><i></i><i></i></span><span class="demo-title">dms · tenant: acme-corp</span><span class="demo-flag">Simulation</span></div>
-                        <div class="demo-body">
-                            <div class="preset-row">
-                                <span class="mono muted">Try</span>
-                                <button type="button" class="chip-btn" data-rag="What is our Q3 revenue?">Q3 revenue</button>
-                                <button type="button" class="chip-btn" data-rag="What is the leave policy for contract staff?">Leave policy</button>
-                                <button type="button" class="chip-btn" data-rag="कंत्राटी कर्मचाऱ्यांसाठी रजा धोरण काय आहे?" lang="mr">रजा धोरण · Marathi</button>
-                            </div>
-                            <form class="demo-input" id="rag-form">
-                                <input id="rag-input" type="text" autocomplete="off" aria-label="Ask the document search engine" value="What is our Q3 revenue?">
-                                <button class="btn btn-red btn-sm" type="submit">Search</button>
-                            </form>
-                            <ol class="steps mono" id="rag-steps">
-                                <li data-step="embed">Embed</li>
-                                <li data-step="expand">Expand</li>
-                                <li data-step="hybrid">Hybrid search</li>
-                                <li data-step="hyde">HyDE</li>
-                                <li data-step="rerank">Rerank</li>
-                                <li data-step="answer">Answer</li>
-                            </ol>
-                            <div class="vscan" id="rag-scan">
-                                <div class="vscan-title mono" id="rag-scan-title">pgvector index · 1,024 chunks · idle</div>
-                                <div class="vgrid" id="rag-grid"></div>
-                                <div class="scanline" hidden></div>
-                            </div>
-                            <div class="demo-results" id="rag-results" hidden>
-                                <div class="panel">
-                                    <div class="panel-head mono"><span>Retrieved chunks</span><span id="rag-k"></span></div>
-                                    <ol class="facts" id="rag-facts"></ol>
-                                </div>
-                                <div class="summary">
-                                    <div class="summary-head mono" id="rag-answer-head">Grounded answer</div>
-                                    <p id="rag-answer"></p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                        <div class="demo" data-sim="rag"><p class="sim-nojs mono">Interactive demo · needs JavaScript</p></div>
                     </div>
                 </article>
 
@@ -366,28 +270,7 @@
                         <div class="m-actions"><button type="button" class="ow-btn start-mission">Start mission ▸</button><span class="m-status">Available</span><a class="q-link" href="https://www.linkedin.com/posts/stark-digital-media-services-pvt%2E-ltd%2E_the-smarter-way-to-automate-commercial-energy-activity-7495097882304454656-rLDQ" target="_blank" rel="noopener">Proof on LinkedIn ↗</a></div>
                     </div>
                     <div class="m-play">
-                        <div class="demo">
-                        <div class="demo-bar mono"><span class="demo-dots"><i></i><i></i><i></i></span><span class="demo-title">iris · ch01 office_main</span><span class="demo-flag">Simulation</span></div>
-                        <div class="demo-body">
-                            <div class="cctv" id="iris-feed">
-                                <div class="cctv-zone za mono">ZONE A</div>
-                                <div class="cctv-zone zb mono">ZONE B</div>
-                                <div class="person" data-person="0"><span class="bbox mono"><b>person 0.98</b></span></div>
-                                <div class="person" data-person="1"><span class="bbox mono"><b>person 0.95</b></span></div>
-                                <div class="person" data-person="2"><span class="bbox mono"><b>person 0.91</b></span></div>
-                                <div class="person" data-person="3"><span class="bbox mono"><b>person 0.99</b></span></div>
-                                <div class="cctv-dark" id="iris-dark"></div>
-                                <div class="cctv-hud mono"><span class="rec">● REC</span> CH01 · YOLOv8n · <span id="iris-fps">idle</span></div>
-                            </div>
-                            <div class="iris-stats">
-                                <div class="stat-cell"><span class="mono">Occupants</span><b id="iris-occ">0</b></div>
-                                <div class="stat-cell"><span class="mono">Lighting</span><b id="iris-light">OFF</b></div>
-                                <div class="stat-cell"><span class="mono">HVAC</span><b id="iris-hvac">Standby</b></div>
-                                <button type="button" class="btn btn-red btn-sm" id="iris-toggle">Start feed</button>
-                            </div>
-                            <p class="log mono" id="iris-log">› relay bus idle · waiting for camera stream</p>
-                        </div>
-                    </div>
+                        <div class="demo" data-sim="iris"><p class="sim-nojs mono">Interactive demo · needs JavaScript</p></div>
                     </div>
                 </article>
 
@@ -408,38 +291,7 @@
                         <div class="m-actions"><button type="button" class="ow-btn start-mission">Start mission ▸</button><span class="m-status">Available</span></div>
                     </div>
                     <div class="m-play">
-                        <div class="demo">
-                        <div class="demo-bar mono"><span class="demo-dots"><i></i><i></i><i></i></span><span class="demo-title">midc-roads · field reports</span><span class="demo-flag">Simulation</span></div>
-                        <div class="demo-body">
-                            <div class="two-up">
-                                <div class="panel">
-                                    <div class="panel-head mono"><span>Citizen upload</span><span id="ph-status">Awaiting image</span></div>
-                                    <div class="ph-view" id="ph-view">
-                                        <span class="ph-empty mono" id="ph-empty">Choose an upload below ↓</span>
-                                        <div class="ph-scan" id="ph-scan" hidden></div>
-                                        <div class="ph-bbox mono" id="ph-bbox" hidden><b>pothole 0.98</b></div>
-                                    </div>
-                                    <div class="panel-actions">
-                                        <button type="button" class="chip-btn" id="ph-real">Upload: pothole</button>
-                                        <button type="button" class="chip-btn" id="ph-clean">Upload: clean road</button>
-                                    </div>
-                                </div>
-                                <div class="panel">
-                                    <div class="panel-head mono"><span>MIDC dashboard</span><span>work orders</span></div>
-                                    <div class="map">
-                                        <svg viewBox="0 0 400 240" preserveAspectRatio="none" aria-hidden="true">
-                                            <path d="M60 -10 L150 250 M-10 130 L410 90 M300 -10 L250 250" class="road" />
-                                            <path d="M60 -10 L150 250 M-10 130 L410 90 M300 -10 L250 250" class="road-dash" />
-                                        </svg>
-                                        <span class="pin pin-done" style="--x:74%;--y:22%" title="Repaired">✓</span>
-                                        <span class="pin pin-work" style="--x:30%;--y:66%" title="In progress">⚒</span>
-                                        <span class="pin pin-new" id="ph-pin" style="--x:58%;--y:44%" title="New report" hidden>!</span>
-                                    </div>
-                                    <p class="log mono" id="ph-log">› System ready. Awaiting citizen reports.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                        <div class="demo" data-sim="pothole"><p class="sim-nojs mono">Interactive demo · needs JavaScript</p></div>
                     </div>
                 </article>
 
@@ -460,36 +312,7 @@
                         <div class="m-actions"><button type="button" class="ow-btn start-mission">Start mission ▸</button><span class="m-status">Available</span></div>
                     </div>
                     <div class="m-play">
-                        <div class="demo">
-                        <div class="demo-bar mono"><span class="demo-dots"><i></i><i></i><i></i></span><span class="demo-title">intent-router · langgraph</span><span class="demo-flag">Simulation</span></div>
-                        <div class="demo-body">
-                            <div class="panel intent-panel">
-                                <svg class="intent-svg" viewBox="0 0 460 220" role="img" aria-label="Routing graph: user to NLP router, then to FAQ bot or MIDC officer">
-                                    <path class="edge" d="M90 110 H170" />
-                                    <path class="edge" d="M280 110 C320 110 320 45 360 45" />
-                                    <path class="edge" d="M280 110 C320 110 320 175 360 175" />
-                                    <path class="flow flow-blue" id="f-in" d="M90 110 H170" />
-                                    <path class="flow flow-green" id="f-faq" d="M280 110 C320 110 320 45 360 45" />
-                                    <path class="flow flow-red" id="f-off" d="M280 110 C320 110 320 175 360 175" />
-                                    <g class="node" id="n-user" transform="translate(10 85)"><rect width="80" height="50" rx="5" /><text x="40" y="22">USER</text><text class="sub" x="40" y="38">message</text></g>
-                                    <g class="node" id="n-router" transform="translate(170 80)"><rect width="110" height="60" rx="5" /><text x="55" y="26">NLP ROUTER</text><text class="sub" id="router-state" x="55" y="44">idle</text></g>
-                                    <g class="node" id="n-faq" transform="translate(360 20)"><rect width="90" height="50" rx="5" /><text x="45" y="22">FAQ BOT</text><text class="sub" x="45" y="38">auto-answer</text></g>
-                                    <g class="node" id="n-off" transform="translate(360 150)"><rect width="90" height="50" rx="5" /><text x="45" y="22">OFFICER</text><text class="sub" x="45" y="38">escalate</text></g>
-                                    <text class="intent-label" id="intent-label" x="225" y="64"></text>
-                                </svg>
-                            </div>
-                            <p class="log mono" id="intent-log">› Waiting for a message…</p>
-                            <form class="demo-input" id="intent-form">
-                                <input id="intent-input" type="text" autocomplete="off" aria-label="Type a message for the NLP router" placeholder="Type a message to route…">
-                                <button class="btn btn-red btn-sm" type="submit">Send</button>
-                            </form>
-                            <div class="preset-row">
-                                <span class="mono muted">Try</span>
-                                <button type="button" class="chip-btn" data-intent="What documents are required to set up a handmill?">FAQ query</button>
-                                <button type="button" class="chip-btn" data-intent="I want to set up a handmill plant in Pune with a 5 crore investment plan.">Investment proposal</button>
-                            </div>
-                        </div>
-                    </div>
+                        <div class="demo" data-sim="intent"><p class="sim-nojs mono">Interactive demo · needs JavaScript</p></div>
                     </div>
                 </article>
 
@@ -510,36 +333,7 @@
                         <div class="m-actions"><button type="button" class="ow-btn start-mission">Start mission ▸</button><span class="m-status">Available</span></div>
                     </div>
                     <div class="m-play">
-                        <div class="demo">
-                        <div class="demo-bar mono"><span class="demo-dots"><i></i><i></i><i></i></span><span class="demo-title">reconciler · on-device</span><span class="demo-flag">Simulation</span></div>
-                        <div class="demo-body">
-                            <div class="two-up">
-                                <div class="panel recon-cam">
-                                    <div class="panel-head mono"><span>Scan receipt</span><span>gemini-nano</span></div>
-                                    <div class="recon-stage">
-                                        <div class="receipt mono">
-                                            <div class="r-merchant"><span class="ext">STARBUCKS COFFEE</span></div>
-                                            <div><span class="ext">21-Aug-2026</span> · 09:14 AM</div>
-                                            <div class="r-line"><span>1× Caramel Macchiato</span><span>$5.50</span></div>
-                                            <div class="r-line"><span>1× Avocado Toast</span><span>$7.00</span></div>
-                                            <div class="r-total"><span class="ext">TOTAL $12.50</span></div>
-                                        </div>
-                                        <div class="recon-scan" id="recon-scan" hidden></div>
-                                    </div>
-                                </div>
-                                <div class="panel">
-                                    <div class="panel-head mono"><span>Bank statement</span><span>21 Aug</span></div>
-                                    <ul class="tx-list">
-                                        <li class="tx" id="tx-1"><div><b>Uber Rides</b><small class="mono">21-Aug · 08:30</small></div><span class="amt mono">−$24.00</span></li>
-                                        <li class="tx" id="tx-2"><div><b>Starbucks Coffee</b><small class="mono">21-Aug · 09:16</small></div><span class="tx-badge mono" id="tx-badge">✓ matched</span><span class="amt mono">−$12.50</span></li>
-                                        <li class="tx" id="tx-3"><div><b>Amazon AWS</b><small class="mono">20-Aug · 23:45</small></div><span class="amt mono">−$85.00</span></li>
-                                    </ul>
-                                    <p class="log mono" id="recon-log">› Awaiting receipt scan…</p>
-                                </div>
-                            </div>
-                            <button type="button" class="btn btn-red btn-sm btn-block" id="recon-run">Run auto-reconciler</button>
-                        </div>
-                    </div>
+                        <div class="demo" data-sim="recon"><p class="sim-nojs mono">Interactive demo · needs JavaScript</p></div>
                     </div>
                 </article>
             </div>
@@ -610,20 +404,20 @@
                 </header>
                 <div class="flashbacks">
                     <article class="vhs" id="f1" data-skills="sql">
-                        <div class="vhs-label"><span>▶ Play</span>2025–26</div>
+                        <div class="vhs-label"><span>Last played</span>2025–26</div>
                         <h3>Vehicle Booking System</h3>
                         <p>Official vehicle bookings for CMPDI RI-4, with admin approvals.</p>
                         <p class="vhs-stack">PHP · SQL</p>
                         <a class="q-link" href="https://github.com/Gaurav-Chaudhari-2003/VehicleBooking" target="_blank" rel="noopener">GitHub ↗</a>
                     </article>
                     <article class="vhs" id="f2" data-skills="edge">
-                        <div class="vhs-label"><span>▶ Play</span>Diploma era</div>
+                        <div class="vhs-label"><span>Last played</span>Diploma era</div>
                         <h3>GPA Achalpur App</h3>
                         <p>College app: attendance, notices, study material and library.</p>
                         <p class="vhs-stack">Java · Android</p>
                     </article>
                     <article class="vhs" id="f3" data-skills="edge">
-                        <div class="vhs-label"><span>▶ Play</span>2024</div>
+                        <div class="vhs-label"><span>Last played</span>2024</div>
                         <h3>Your Notes</h3>
                         <p>Cross-platform notes with cloud sync and sign-in.</p>
                         <p class="vhs-stack">Flutter · Firebase</p>
@@ -790,8 +584,8 @@
         </div>
     </footer>
 
-    <script src="../script.js?v=7"></script>
-    <script src="world.js?v=4"></script>
+    <script src="../script.js?v=8"></script>
+    <script src="world.js?v=6"></script>
 </body>
 
 </html>

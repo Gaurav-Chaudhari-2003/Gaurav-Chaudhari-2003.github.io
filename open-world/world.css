@@ -1161,36 +1161,17 @@ kbd {
     background: #1a0f2c;
 }
 
-.ow .panel,
-.ow .status-row,
-.ow .log,
-.ow .vscan,
-.ow .stat-cell {
-    background: #0f0819;
+.ow .sim {
+    --sim-surface: #0f0819;
+    --sim-raised: #1a1029;
 }
 
-.ow .demo-input input {
-    background: #0b0614;
-}
-
-.ow .chip-btn {
+.ow .ph-map {
     background: #140b22;
 }
 
-.ow .tx {
-    background: #1a1029;
-}
-
-.ow .vgrid i {
-    background: #2a1a40;
-}
-
-.ow .map {
-    background: #140b22;
-}
-
-.ow .intent-svg .node rect {
-    fill: #140b22;
+.ow .ph-map>svg path {
+    stroke: #2c1c44;
 }
 
 .is-dim {
@@ -2135,6 +2116,9 @@ kbd {
     }
 }
 
+/* the minimap is a button: it opens the pause menu, where the full map lives.
+   Only the circle and the label take clicks, so the empty corners around the
+   circle don't block the page underneath. */
 .hud-mini {
     position: absolute;
     left: 18px;
@@ -2145,8 +2129,18 @@ kbd {
     gap: 8px;
 }
 
+.mini-frame,
+.mini-label {
+    pointer-events: auto;
+}
+
+.hud-mini:focus-visible {
+    outline: none;
+}
+
 .mini-frame {
     position: relative;
+    display: block;
     width: 156px;
     height: 156px;
     overflow: hidden;
@@ -2154,6 +2148,37 @@ kbd {
     background: #0a0d26;
     border: 3px solid rgba(255, 255, 255, 0.9);
     box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.6), 0 12px 30px rgba(0, 0, 0, 0.6);
+    transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+}
+
+.hud-mini:hover .mini-frame,
+.hud-mini:focus-visible .mini-frame {
+    border-color: var(--pink);
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.6), 0 0 0 8px rgba(255, 46, 136, 0.35), 0 12px 30px rgba(0, 0, 0, 0.6);
+    transform: scale(1.04);
+}
+
+.mini-open {
+    position: absolute;
+    left: 50%;
+    bottom: 18px;
+    padding: 3px 8px;
+    font-family: var(--f-ui);
+    font-weight: 800;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    color: #fff;
+    background: var(--pink);
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.hud-mini:hover .mini-open,
+.hud-mini:focus-visible .mini-open {
+    opacity: 1;
 }
 
 .mini-map {
@@ -2206,6 +2231,7 @@ kbd {
 }
 
 .mini-label {
+    display: block;
     padding: 4px 10px;
     font-family: var(--f-ui);
     font-weight: 700;
