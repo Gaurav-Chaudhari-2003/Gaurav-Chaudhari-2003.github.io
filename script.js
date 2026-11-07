@@ -51,12 +51,15 @@
         el.hidden = false;
     }
 
+    // Tells a host page (e.g. the open-world edition) that a demo finished a run.
+    const emitDone = (id, stat) => document.dispatchEvent(new CustomEvent('demo:done', { detail: { id, stat } }));
+
     // Play a demo by itself once it is on screen (and built by the swarm), so a
     // visitor who never clicks still sees each system work. Skipped if the visitor
     // already interacted with that demo, and entirely for reduced-motion users.
     // With onLeave, it re-runs on every entry and onLeave fires when it scrolls away.
     function autoplay(demoEl, onEnter, onLeave) {
-        if (reduceMotion || !demoEl || !('IntersectionObserver' in window)) return;
+        if (reduceMotion || root.dataset.autoplay === 'off' || !demoEl || !('IntersectionObserver' in window)) return;
         let touched = false;
         ['pointerdown', 'keydown'].forEach((t) => demoEl.addEventListener(t, () => { touched = true; }, { once: true, passive: true }));
         let timer = 0;
@@ -83,6 +86,7 @@
         const nav = $('#nav');
         const toggle = $('.nav-toggle');
         const menu = $('#nav-menu');
+        if (!nav || !toggle || !menu) return;
         const setOpen = (open) => {
             toggle.setAttribute('aria-expanded', String(open));
             menu.classList.toggle('is-open', open);
@@ -664,6 +668,7 @@ WHERE deleted_at IS NULL
                 summary.textContent = '';
                 results.hidden = false;
                 await typeText(summary, sc.summary, sleep, 12);
+                emitDone('sql', `${sc.rows} · executed in 142 ms`);
             } catch (e) { swallow(e); }
         }
 
@@ -816,6 +821,7 @@ WHERE deleted_at IS NULL
                 setStep('answer', 'on');
                 await typeText(answer, sc.answer, sleep, 12);
                 setStep('answer', sc.withheld ? 'warn' : 'done');
+                emitDone('rag', `${sc.facts.length} chunks · ${sc.withheld ? 'answer withheld' : 'grounded answer'}`);
             } catch (e) {
                 stopFlicker();
                 swallow(e);
@@ -874,6 +880,7 @@ WHERE deleted_at IS NULL
 
         async function loop() {
             const { sleep } = seq.start();
+            let reported = false;
             try {
                 fps.textContent = '24 fps · 1.0 s';
                 for (; ;) {
@@ -885,6 +892,7 @@ WHERE deleted_at IS NULL
                     await sleep(4200);
                     place('full');
                     set('4', '100%', 'var(--green)', 'Cool A+B', 'bright', '› 4 persons across A+B → relays CH1+CH2 <span class="ok">ON</span> · lights 100%');
+                    if (!reported) { reported = true; emitDone('iris', '4 occupants · lights 100%'); }
                     await sleep(3800);
                     place('roam');
                     await sleep(3400);
@@ -953,10 +961,12 @@ WHERE deleted_at IS NULL
                     await sleep(1400);
                     pin.hidden = false;
                     log.innerHTML = '› Work order WO-2291 raised for MIDC road maintenance<br><span class="ok">✓ dashboard updated</span>';
+                    emitDone('pothole', 'severity 7.8/10 · work order raised');
                 } else {
                     status.textContent = 'No defect';
                     status.style.color = 'var(--green)';
                     log.innerHTML = '› YOLO: no defect · Gemini confirms clean road<br><span class="ok">✓ report discarded, no officer time spent</span>';
+                    emitDone('pothole', 'clean road · report discarded');
                 }
             } catch (e) { swallow(e); }
         }
@@ -1018,6 +1028,7 @@ WHERE deleted_at IS NULL
                     await sleep(850);
                     n.off.classList.add('on-red');
                     log.innerHTML = '› <span class="err">ESCALATED</span> to MIDC investment desk · priority HIGH · ticket INV-2026-0412';
+                    emitDone('intent', 'investment → officer escalation');
                 } else {
                     n.router.classList.add('on-green');
                     state.textContent = 'faq';
@@ -1027,6 +1038,7 @@ WHERE deleted_at IS NULL
                     await sleep(850);
                     n.faq.classList.add('on-green');
                     log.innerHTML = '› <span class="ok">AUTO-ANSWERED</span> from the FAQ knowledge base · 3 sources cited';
+                    emitDone('intent', 'FAQ → auto-answered');
                 }
             } catch (e) { swallow(e); }
         }
@@ -1076,6 +1088,7 @@ WHERE deleted_at IS NULL
                 tx[1].classList.remove('is-scan');
                 tx[1].classList.add('is-match');
                 log.innerHTML = '› <span class="ok">Reconciled</span> · transaction marked verified';
+                emitDone('recon', 'merchant match 0.96 · reconciled');
             } catch (e) { swallow(e); }
         }
 
@@ -1100,4 +1113,8 @@ WHERE deleted_at IS NULL
 
     const replayBtn = $('#replay');
     if (replayBtn) replayBtn.addEventListener('click', () => swarm.replay());
+
+    const enableSmooth = () => setTimeout(() => root.classList.add('can-smooth'), 50);
+    if (document.readyState === 'complete') enableSmooth();
+    else addEventListener('load', enableSmooth, { once: true });
 })();

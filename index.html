@@ -23,7 +23,7 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Anton&family=Caveat:wght@600&family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@400;500;700&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="styles.css?v=4">
+    <link rel="stylesheet" href="styles.css?v=8">
 
     <!-- Decide before first paint whether the agent swarm assembles the page.
          Skipped for reduced-motion users, deep links, and after "Skip" in this tab.
@@ -63,6 +63,7 @@
                 <a href="#contact">Contact</a>
             </nav>
             <div class="nav-status"><span class="pulse"></span>Online · Pune, IN</div>
+            <a class="nav-cv" href="assets/Gaurav%20Chaudhari%20AI%20CV.pdf" target="_blank" rel="noopener" type="application/pdf">Résumé ↗</a>
             <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-menu">Menu</button>
         </div>
         <nav class="nav-menu" id="nav-menu" aria-label="Mobile">
@@ -106,6 +107,7 @@
                         <div class="hero-cta" data-build="div.cta">
                             <a class="btn btn-red" href="#systems">Inspect the systems <span aria-hidden="true">→</span></a>
                             <a class="btn btn-ghost" href="#contact">Open a channel</a>
+                            <a class="btn btn-ghost" href="assets/Gaurav%20Chaudhari%20AI%20CV.pdf" target="_blank" rel="noopener" type="application/pdf">View résumé ↗</a>
                         </div>
                         <dl class="hero-stats" data-build="dl.stats">
                             <div><dt>04</dt><dd>Production<br>AI systems</dd></div>
@@ -140,6 +142,8 @@
                         <ul class="hero-links mono" data-build="ul.links">
                             <li><a href="https://github.com/Gaurav-Chaudhari-2003" target="_blank" rel="noopener">GitHub ↗</a></li>
                             <li><a href="https://www.linkedin.com/in/gaurav-chaudhari-8129ab206" target="_blank" rel="noopener">LinkedIn ↗</a></li>
+                            <li><a href="https://leetcode.com/u/Gaurav-Chaudhari-2003/" target="_blank" rel="noopener">LeetCode ↗</a></li>
+                            <li><a href="https://wa.me/919665305197?text=Hi%20Gaurav%2C%20I%20saw%20your%20portfolio." target="_blank" rel="noopener">WhatsApp ↗</a></li>
                             <li><a href="mailto:chaudharigaurav177@gmail.com">Email ↗</a></li>
                         </ul>
                     </div>
@@ -194,11 +198,12 @@
                         <div class="kv" data-build="card.certs">
                             <span class="kv-k mono">Certifications</span>
                             <ul class="cert-list">
-                                <li><a href="https://www.linkedin.com/posts/gaurav-chaudhari-8129ab206_deep-learning-certificate-activity-7484975415321755648-uZLq" target="_blank" rel="noopener">Deep Learning <span class="mono">IIT Ropar ↗</span></a></li>
-                                <li>Machine Learning with Python <span class="mono">IBM</span></li>
-                                <li>DSA using Java <span class="mono">NPTEL</span></li>
-                                <li>Introduction to Git &amp; GitHub <span class="mono">Google</span></li>
-                                <li>Building Web Applications in PHP <span class="mono">U. Michigan</span></li>
+                                <li><a href="https://drive.google.com/file/d/1LKiKiCSyHxDSOxd8qfE8MVaAI8nxudE7/view?usp=sharing" target="_blank" rel="noopener">Introduction to Large Language Models (LLMs) <span class="mono">NPTEL · IIT Madras ↗</span></a></li>
+                                <li><a href="https://nptel.ac.in/noc/E_Certificate/NOC26CS66S16510000604448586" target="_blank" rel="noopener">Deep Learning <span class="mono">NPTEL · IIT Ropar ↗</span></a></li>
+                                <li><a href="https://archive.nptel.ac.in/content/noc/NOC25/SEM2/Ecertificates/106/noc25-cs148/Course/NPTEL25CS148S106440125410436430.pdf" target="_blank" rel="noopener">Data Structure &amp; Algorithms using Java <span class="mono">NPTEL · IIT Kharagpur ↗</span></a></li>
+                                <li><a href="https://www.coursera.org/account/accomplishments/verify/9J72WXSGN29V" target="_blank" rel="noopener">Machine Learning with Python <span class="mono">Coursera · IBM ↗</span></a></li>
+                                <li><a href="https://www.coursera.org/account/accomplishments/verify/3QEFFAUMZB5U" target="_blank" rel="noopener">Introduction to Git &amp; GitHub <span class="mono">Coursera · Google ↗</span></a></li>
+                                <li><a href="https://www.coursera.org/account/accomplishments/verify/P52DN9MHYMEX" target="_blank" rel="noopener">Building Web Applications in PHP <span class="mono">Coursera · U. Michigan ↗</span></a></li>
                             </ul>
                         </div>
                     </aside>
@@ -282,15 +287,17 @@
                             <div class="sys-meta mono"><span class="sys-id">SYS_01</span><span>Natural language → SQL</span><span class="sys-client">PMRDA · PMC</span></div>
                             <h3>Natural-Language to SQL Analytics Engine</h3>
                         </div>
-                        <p data-build="p.desc">An enterprise text-to-SQL assistant for the Pune Metropolitan Region
-                            Development Authority and Pune Municipal Corporation RTS databases. It resolves who is
-                            asking, filters the live schema to what they may see, generates safe PostgreSQL and streams
-                            back tables, charts and an executive summary.</p>
+                        <p data-build="p.desc">An enterprise text-to-SQL assistant over two government databases:
+                            Right-to-Service applications at the Pune Metropolitan Region Development Authority, and
+                            citizen complaints at the Pune Municipal Corporation. It resolves who is asking, filters the
+                            live schema to what they may see, generates safe PostgreSQL and streams back tables, charts
+                            and an executive summary.</p>
                         <ul class="ticks" data-build="ul.features">
                             <li>Live PostgreSQL 16 schema discovery with semantic filtering (bak_* snapshots excluded)</li>
+                            <li>SQL guard: one read-only SELECT per answer, sensitive columns blocked, read-only database role</li>
                             <li>User-aware RBAC and row-level security on every generated query</li>
                             <li>SSE streaming of SQL, recordset, Plotly chart and summary</li>
-                            <li>Questions in English, Marathi and Hinglish</li>
+                            <li>Questions in English, Marathi, Hinglish and Marathi typed in Latin script</li>
                         </ul>
                         <div class="sys-foot" data-build="div.stack">
                             <ul class="stack-line mono"><li>FastAPI</li><li>PostgreSQL 16</li><li>Vanna 2.0</li><li>OpenRouter</li><li>Plotly</li></ul>
@@ -605,7 +612,103 @@
             </div>
         </section>
 
-        <!-- ============ 04 ARCHIVE ============ -->
+        <!-- ============ 04 LAB ============ -->
+        <section class="section" id="lab">
+            <div class="wrap">
+                <div class="sec-index mono" data-build="div.index"><span class="sec-num">// 04.00</span> SEC_LAB <span class="sec-count">INDEX [04 / 07]</span></div>
+                <header class="sec-head sec-head-split" data-build="h2.lab">
+                    <div>
+                        <p class="eyebrow mono">R&amp;D · side projects</p>
+                        <h2>More from the lab</h2>
+                    </div>
+                    <p class="sec-note">Prototypes, a team sprint, a talk and a side project: the work around the six
+                        systems above.</p>
+                </header>
+                <div class="lab-grid">
+                    <article class="lab-card" data-build="card.lab">
+                        <div class="lab-top mono"><span><span class="lab-idx">L.01</span> · AI library</span><span class="lab-status">Prototype</span></div>
+                        <h3>Pustakosh</h3>
+                        <p>An AI library for students and researchers: upload books, search them in English, Hindi or Marathi, and get answers that cite the page. Built on the DMS engine (SYS_02).</p>
+                        <ul class="ticks">
+                            <li>Hybrid pgvector + full-text search, fused with reciprocal rank fusion, reranked, with a HyDE fallback</li>
+                            <li>Answers open the PDF at the cited page</li>
+                            <li>Swappable LLM and embedding providers with fallbacks, including local BGE-M3; offline sync and desktop builds</li>
+                        </ul>
+                        <div class="lab-foot">
+                            <ul class="stack-line mono"><li>FastAPI</li><li>pgvector</li><li>Celery</li><li>Next.js</li><li>Tauri</li></ul>
+                        </div>
+                    </article>
+                    <article class="lab-card" data-build="card.lab">
+                        <div class="lab-top mono"><span><span class="lab-idx">L.02</span> · Multi-agent · MCP</span><span class="lab-status">Prototype</span></div>
+                        <h3>PMC Officer Assistant v1</h3>
+                        <p>An earlier, MCP-based take on the PMC complaints assistant: officers ask in English or Marathi, and a team of agents finds the right query and runs it safely.</p>
+                        <ul class="ticks">
+                            <li>Five-agent orchestrator with OpenRouter tool-calling and model fallback</li>
+                            <li>FastMCP tool server enforcing LIMIT 50, an 8-second timeout and a write-statement blacklist</li>
+                            <li>Query-template retrieval: e5 embeddings and keyword scores fused with reciprocal rank fusion, plus a Top-1/Top-3 evaluation script</li>
+                        </ul>
+                        <div class="lab-foot">
+                            <ul class="stack-line mono"><li>FastAPI</li><li>FastMCP</li><li>PostgreSQL</li><li>sentence-transformers</li><li>React</li></ul>
+                        </div>
+                    </article>
+                    <article class="lab-card" data-build="card.lab">
+                        <div class="lab-top mono"><span><span class="lab-idx">L.03</span> · Healthcare AI</span><span class="lab-status">Team sprint</span></div>
+                        <h3>Edge–Cloud Agentic Triage</h3>
+                        <p>A privacy-first triage pipeline built in a six-day team sprint: patient text or images are scrubbed of personal data, then routed to a small or a larger local model.</p>
+                        <ul class="ticks">
+                            <li>Redacts phone numbers, emails, dates of birth, Aadhaar and PAN before any model sees the text</li>
+                            <li>OCR in English, Hindi and Marathi</li>
+                            <li>My part: the agent restructure, the OCR stage and the domain-classifier rewrite</li>
+                        </ul>
+                        <div class="lab-foot">
+                            <ul class="stack-line mono"><li>FastAPI</li><li>Celery</li><li>Redis</li><li>Ollama</li><li>EasyOCR</li><li>Flutter</li></ul>
+                            <a class="proof mono" href="https://github.com/gaurav-chaudhari-sdms-493/edge-cloud-agentic-triage" target="_blank" rel="noopener">GitHub ↗</a>
+                        </div>
+                    </article>
+                    <article class="lab-card" data-build="card.lab">
+                        <div class="lab-top mono"><span><span class="lab-idx">L.04</span> · Classical ML</span><span class="lab-status">ML project</span></div>
+                        <h3>Credit-Card Fraud Detection</h3>
+                        <p>A fraud classifier for a highly imbalanced dataset, tuned for the real cost of a mistake rather than for accuracy.</p>
+                        <ul class="ticks">
+                            <li>Logistic Regression vs Random Forest with balanced class weights: ROC-AUC 0.98 on held-out data</li>
+                            <li>Decision threshold chosen by cost: a missed fraud costs 100× a false alarm</li>
+                            <li>SHAP explanations and a FastAPI /predict endpoint</li>
+                        </ul>
+                        <div class="lab-foot">
+                            <ul class="stack-line mono"><li>scikit-learn</li><li>pandas</li><li>SHAP</li><li>FastAPI</li></ul>
+                        </div>
+                    </article>
+                    <article class="lab-card" data-build="card.lab">
+                        <div class="lab-top mono"><span><span class="lab-idx">L.05</span> · Talk · mentoring</span><span class="lab-status">Interactive deck</span></div>
+                        <h3>Demystifying Git &amp; GitHub</h3>
+                        <p>A hands-on session for 2nd- and 3rd-year interns, built as an interactive web deck instead of slides.</p>
+                        <ul class="ticks">
+                            <li>Live widgets: a Git graph with a terminal, a merge-conflict resolver, and rebase-vs-merge and pull-request simulators</li>
+                            <li>Presenter tools: laser pointer, drawing, speaker notes and a timer</li>
+                            <li>Ends with a quiz</li>
+                        </ul>
+                        <div class="lab-foot">
+                            <ul class="stack-line mono"><li>React</li><li>Vite</li><li>Tailwind</li></ul>
+                        </div>
+                    </article>
+                    <article class="lab-card" data-build="card.lab">
+                        <div class="lab-top mono"><span><span class="lab-idx">L.06</span> · Side project</span><span class="lab-status">Prototype</span></div>
+                        <h3>Baby Name Battle</h3>
+                        <p>A mobile-first Marathi/English game: family members suggest baby names, then vote them down through elimination rounds to a winner.</p>
+                        <ul class="ticks">
+                            <li>Round engine with two elimination rounds, a top-5 final and joint winners on a tie, covered by tests</li>
+                            <li>Duplicate-name merging and phone-number normalisation</li>
+                            <li>PIN-protected admin dashboard with an audit log</li>
+                        </ul>
+                        <div class="lab-foot">
+                            <ul class="stack-line mono"><li>Next.js</li><li>React</li><li>TypeScript</li><li>Tailwind</li></ul>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ 05 ARCHIVE ============ -->
         <section class="section" id="archive">
             <div class="wrap">
                 <div class="sec-index mono" data-build="div.index"><span class="sec-num">// 05.00</span> SEC_ARCHIVE <span class="sec-count">INDEX [05 / 07]</span></div>
@@ -636,7 +739,7 @@
             </div>
         </section>
 
-        <!-- ============ 05 EXPERIENCE ============ -->
+        <!-- ============ 06 EXPERIENCE ============ -->
         <section class="section" id="log">
             <div class="wrap">
                 <div class="sec-index mono" data-build="div.index"><span class="sec-num">// 06.00</span> SEC_LOG <span class="sec-count">INDEX [06 / 07]</span></div>
@@ -662,15 +765,17 @@
                             <p class="log-org mono">CMPDI RI-4 · Nagpur</p>
                             <p>Engineered backend automation workflows and SQL data-access layers for enterprise web
                                 applications, including the Vehicle Booking System.</p>
+                            <a class="proof mono log-cert" href="https://photos.app.goo.gl/cXYuocPE2nUkgQCb9" target="_blank" rel="noopener">Apprenticeship certificate ↗</a>
                         </div>
                         <span class="log-state mono">Merged</span>
                     </li>
                     <li class="log-item" data-build="li.entry">
-                        <div class="log-when mono">Jun 2022 → Aug 2022</div>
+                        <div class="log-when mono">Jul 2022 → Aug 2022</div>
                         <div class="log-what">
-                            <h3>Python &amp; ML Intern</h3>
+                            <h3>Python Intern</h3>
                             <p class="log-org mono">MDB Electrosoft · Amravati</p>
-                            <p>Developed foundational Python scripts for data processing and predictive ML prototypes.</p>
+                            <p>Six-week internship (1 Jul – 14 Aug 2022) in Python programming and GUI development; delivered the projects on time.</p>
+                            <a class="proof mono log-cert" href="https://photos.app.goo.gl/87jyKpqd8yQv7u2EA" target="_blank" rel="noopener">Internship certificate ↗</a>
                         </div>
                         <span class="log-state mono">Merged</span>
                     </li>
@@ -678,7 +783,7 @@
             </div>
         </section>
 
-        <!-- ============ 06 CONTACT ============ -->
+        <!-- ============ 07 CONTACT ============ -->
         <section class="section contact" id="contact">
             <div class="wrap">
                 <div class="sec-index mono" data-build="div.index"><span class="sec-num">// 07.00</span> SEC_CONTACT <span class="sec-count">INDEX [07 / 07]</span></div>
@@ -691,11 +796,19 @@
                 <div class="contact-grid">
                     <p class="lede" data-build="p.contact">Building something with LLMs, retrieval or computer vision?
                         Send a message and tell me what you're working on.</p>
-                    <a class="contact-mail" href="mailto:chaudharigaurav177@gmail.com" data-build="a.mail">chaudharigaurav177@gmail.com <span aria-hidden="true">↗</span></a>
+                    <div class="contact-reach" data-build="div.reach">
+                        <a class="contact-mail" href="mailto:chaudharigaurav177@gmail.com">chaudharigaurav177@gmail.com <span aria-hidden="true">↗</span></a>
+                        <a class="contact-phone" href="tel:+919665305197">+91 96653 05197</a>
+                        <span class="contact-place mono">Phone &amp; WhatsApp · Pune, Maharashtra, IN</span>
+                        <a class="btn btn-red btn-sm contact-cv" href="assets/Gaurav%20Chaudhari%20AI%20CV.pdf" target="_blank" rel="noopener" type="application/pdf">View résumé (PDF) ↗</a>
+                    </div>
                     <ul class="contact-links mono" data-build="ul.links">
-                        <li><span>GitHub</span><a href="https://github.com/Gaurav-Chaudhari-2003" target="_blank" rel="noopener">Gaurav-Chaudhari-2003 ↗</a></li>
+                        <li><span>WhatsApp</span><a href="https://wa.me/919665305197?text=Hi%20Gaurav%2C%20I%20saw%20your%20portfolio." target="_blank" rel="noopener">Chat on WhatsApp ↗</a></li>
                         <li><span>LinkedIn</span><a href="https://www.linkedin.com/in/gaurav-chaudhari-8129ab206" target="_blank" rel="noopener">gaurav-chaudhari-8129ab206 ↗</a></li>
-                        <li><span>Location</span><span class="v">Pune, Maharashtra, IN</span></li>
+                        <li><span>GitHub</span><a href="https://github.com/Gaurav-Chaudhari-2003" target="_blank" rel="noopener">Gaurav-Chaudhari-2003 ↗</a></li>
+                        <li><span>LeetCode</span><a href="https://leetcode.com/u/Gaurav-Chaudhari-2003/" target="_blank" rel="noopener">Gaurav-Chaudhari-2003 ↗</a></li>
+                        <li><span>Instagram</span><a href="https://www.instagram.com/___gaurav_chaudhari___/" target="_blank" rel="noopener">@___gaurav_chaudhari___ ↗</a></li>
+                        <li><span>X</span><a href="https://x.com/GauravC26733470" target="_blank" rel="noopener">@GauravC26733470 ↗</a></li>
                     </ul>
                 </div>
             </div>
@@ -710,7 +823,7 @@
         </div>
     </footer>
 
-    <script src="script.js?v=4"></script>
+    <script src="script.js?v=7"></script>
 </body>
 
 </html>
