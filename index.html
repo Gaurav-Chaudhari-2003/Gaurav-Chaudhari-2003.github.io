@@ -23,7 +23,7 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Anton&family=Caveat:wght@600&family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@400;500;700&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="styles.css?v=11">
+    <link rel="stylesheet" href="styles.css?v=13">
 
     <!-- Decide before first paint whether the agent swarm assembles the page.
          Skipped for reduced-motion users, deep links, and after "Skip" in this tab.
@@ -51,18 +51,15 @@
         <div class="nav-inner" data-build="nav">
             <a href="#top" class="brand" aria-label="Gaurav Chaudhari, back to top">
                 <span class="brand-mark">GC</span>
-                <span class="brand-txt">gaurav<span>.sys</span></span>
             </a>
             <nav class="nav-links" aria-label="Primary">
                 <a href="#about">About</a>
-                <a href="#stack">Stack</a>
                 <a href="#systems">Systems</a>
-                <a href="#lab">Lab</a>
-                <a href="#archive">Archive</a>
+                <a href="#lab">Projects</a>
                 <a href="#log">Experience</a>
                 <a href="#contact">Contact</a>
             </nav>
-            <div class="nav-status"><span class="pulse"></span>Online · Pune, IN</div>
+            <span class="nav-status" title="Available · Pune, IN"><span class="pulse"></span>Pune</span>
             <a class="nav-ow" href="open-world/" title="The same portfolio, as an open-world game">Open world ▸</a>
             <a class="nav-cv" href="assets/Gaurav%20Chaudhari%20AI%20CV.pdf" target="_blank" rel="noopener" type="application/pdf">Résumé ↗</a>
             <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-menu">Menu</button>
@@ -71,10 +68,9 @@
             <a href="#about"><span>01</span>About</a>
             <a href="#stack"><span>02</span>Stack</a>
             <a href="#systems"><span>03</span>Systems</a>
-            <a href="#lab"><span>04</span>Lab</a>
-            <a href="#archive"><span>05</span>Archive</a>
-            <a href="#log"><span>06</span>Experience</a>
-            <a href="#contact"><span>07</span>Contact</a>
+            <a href="#lab"><span>04</span>Projects</a>
+            <a href="#log"><span>05</span>Experience</a>
+            <a href="#contact"><span>06</span>Contact</a>
             <a href="open-world/" class="menu-ow"><span>▸</span>Open-world edition</a>
         </nav>
     </header>
@@ -152,7 +148,7 @@
         <!-- ============ 01 ABOUT ============ -->
         <section class="section" id="about">
             <div class="wrap">
-                <div class="sec-index mono" data-build="div.index"><span class="sec-num">// 01.00</span> SEC_ABOUT <span class="sec-count">INDEX [01 / 07]</span></div>
+                <div class="sec-index mono" data-build="div.index"><span class="sec-num">// 01.00</span> SEC_ABOUT <span class="sec-count">INDEX [01 / 06]</span></div>
                 <header class="sec-head" data-build="h2.about">
                     <p class="eyebrow mono">Engineer profile</p>
                     <h2>Background &amp; Philosophy</h2>
@@ -197,7 +193,7 @@
         <!-- ============ 02 STACK ============ -->
         <section class="section" id="stack">
             <div class="wrap">
-                <div class="sec-index mono" data-build="div.index"><span class="sec-num">// 02.00</span> SEC_STACK <span class="sec-count">INDEX [02 / 07]</span></div>
+                <div class="sec-index mono" data-build="div.index"><span class="sec-num">// 02.00</span> SEC_STACK <span class="sec-count">INDEX [02 / 06]</span></div>
                 <header class="sec-head" data-build="h2.stack">
                     <p class="eyebrow mono">Toolchain</p>
                     <h2>The stack I ship with</h2>
@@ -254,13 +250,13 @@
         <!-- ============ 03 SYSTEMS ============ -->
         <section class="section" id="systems">
             <div class="wrap">
-                <div class="sec-index mono" data-build="div.index"><span class="sec-num">// 03.00</span> SEC_SYSTEMS <span class="sec-count">INDEX [03 / 07]</span></div>
+                <div class="sec-index mono" data-build="div.index"><span class="sec-num">// 03.00</span> SEC_SYSTEMS <span class="sec-count">INDEX [03 / 06]</span></div>
                 <header class="sec-head sec-head-split" data-build="h2.systems">
                     <div>
                         <p class="eyebrow mono">Enterprise AI</p>
-                        <h2>Systems I've built. Run them.</h2>
+                        <h2>Flagship deployments</h2>
                     </div>
-                    <p class="sec-note">Simulations with sample data. Press an example and watch it work.</p>
+                    <p class="sec-note">Systems I&#39;ve built, running here as simulations with sample data. Press an example and watch it work.</p>
                 </header>
 
                 <!-- SYS_01 · NL → SQL -->
@@ -357,36 +353,42 @@
             </div>
         </section>
 
-        <!-- ============ 04 LAB ============ -->
+        <!-- ============ 04 PROJECTS ============ -->
         <section class="section" id="lab">
             <div class="wrap">
-                <div class="sec-index mono" data-build="div.index"><span class="sec-num">// 04.00</span> SEC_LAB <span class="sec-count">INDEX [04 / 07]</span></div>
+                <div class="sec-index mono" data-build="div.index"><span class="sec-num">// 04.00</span> SEC_PROJECTS <span class="sec-count">INDEX [04 / 06]</span></div>
                 <header class="sec-head sec-head-split" data-build="h2.lab">
                     <div>
-                        <p class="eyebrow mono">R&amp;D · side projects</p>
-                        <h2>More from the lab</h2>
+                        <p class="eyebrow mono">R&amp;D · side projects · earlier builds</p>
+                        <h2>The project matrix</h2>
                     </div>
-                    <p class="sec-note">Prototypes, a team sprint, a talk and a side project.</p>
+                    <p class="sec-note">Prototypes, a team sprint, a talk and the apps that came before the AI focus.</p>
                 </header>
+                <div class="matrix-tabs mono" role="group" aria-label="Filter projects" data-build="div.filters">
+                    <button type="button" class="m-tab is-on" data-filter="all" aria-pressed="true">All <span>9</span></button>
+                    <button type="button" class="m-tab" data-filter="ai" aria-pressed="false">AI &amp; ML <span>4</span></button>
+                    <button type="button" class="m-tab" data-filter="web" aria-pressed="false">Web &amp; tools <span>2</span></button>
+                    <button type="button" class="m-tab" data-filter="early" aria-pressed="false">Earlier builds <span>3</span></button>
+                </div>
                 <div class="lab-grid">
-                    <article class="lab-card" data-build="card.lab">
-                        <div class="lab-top mono"><span><span class="lab-idx">L.01</span> · AI library</span><span class="lab-status">Prototype</span></div>
+                    <article class="lab-card" data-cat="ai" data-build="card.lab">
+                        <div class="lab-top mono"><span class="lab-tag">AI library</span><span class="lab-status">Prototype</span></div>
                         <h3>Pustakosh</h3>
                         <p>An AI library: search your books in English, Hindi or Marathi and get answers that cite the page.</p>
                         <div class="lab-foot">
                             <ul class="stack-line mono"><li>FastAPI</li><li>pgvector</li><li>Celery</li><li>Next.js</li><li>Tauri</li></ul>
                         </div>
                     </article>
-                    <article class="lab-card" data-build="card.lab">
-                        <div class="lab-top mono"><span><span class="lab-idx">L.02</span> · Multi-agent · MCP</span><span class="lab-status">Prototype</span></div>
+                    <article class="lab-card" data-cat="ai" data-build="card.lab">
+                        <div class="lab-top mono"><span class="lab-tag">Multi-agent · MCP</span><span class="lab-status">Prototype</span></div>
                         <h3>Multi-Agent PMC Officer Assistant</h3>
                         <p>Five agents and a guarded MCP tool server that turn officers&#39; questions into safe SQL.</p>
                         <div class="lab-foot">
                             <ul class="stack-line mono"><li>FastAPI</li><li>FastMCP</li><li>PostgreSQL</li><li>sentence-transformers</li><li>React</li></ul>
                         </div>
                     </article>
-                    <article class="lab-card" data-build="card.lab">
-                        <div class="lab-top mono"><span><span class="lab-idx">L.03</span> · Healthcare AI</span><span class="lab-status">Team sprint</span></div>
+                    <article class="lab-card" data-cat="ai" data-build="card.lab">
+                        <div class="lab-top mono"><span class="lab-tag">Healthcare AI</span><span class="lab-status">Team sprint</span></div>
                         <h3>Edge–Cloud Agentic Triage</h3>
                         <p>Patient text and images are scrubbed of personal data, then routed to a small or a large model. My part: agents, OCR and the classifier.</p>
                         <div class="lab-foot">
@@ -394,69 +396,63 @@
                             <a class="proof mono" href="https://github.com/gaurav-chaudhari-sdms-493/edge-cloud-agentic-triage" target="_blank" rel="noopener">GitHub ↗</a>
                         </div>
                     </article>
-                    <article class="lab-card" data-build="card.lab">
-                        <div class="lab-top mono"><span><span class="lab-idx">L.04</span> · Classical ML</span><span class="lab-status">ML project</span></div>
+                    <article class="lab-card" data-cat="ai" data-build="card.lab">
+                        <div class="lab-top mono"><span class="lab-tag">Classical ML</span><span class="lab-status">ML project</span></div>
                         <h3>Credit-Card Fraud Detection</h3>
                         <p>ROC-AUC 0.98 on held-out data, with the decision threshold tuned to the cost of a missed fraud.</p>
                         <div class="lab-foot">
                             <ul class="stack-line mono"><li>scikit-learn</li><li>pandas</li><li>SHAP</li><li>FastAPI</li></ul>
                         </div>
                     </article>
-                    <article class="lab-card" data-build="card.lab">
-                        <div class="lab-top mono"><span><span class="lab-idx">L.05</span> · Talk · mentoring</span><span class="lab-status">Interactive deck</span></div>
+                    <article class="lab-card" data-cat="web" data-build="card.lab">
+                        <div class="lab-top mono"><span class="lab-tag">Talk · mentoring</span><span class="lab-status">Interactive deck</span></div>
                         <h3>Demystifying Git &amp; GitHub</h3>
                         <p>An interactive web deck for interns, with a live Git graph and merge-conflict simulators.</p>
                         <div class="lab-foot">
                             <ul class="stack-line mono"><li>React</li><li>Vite</li><li>Tailwind</li></ul>
                         </div>
                     </article>
-                    <article class="lab-card" data-build="card.lab">
-                        <div class="lab-top mono"><span><span class="lab-idx">L.06</span> · Side project</span><span class="lab-status">Prototype</span></div>
+                    <article class="lab-card" data-cat="web" data-build="card.lab">
+                        <div class="lab-top mono"><span class="lab-tag">Side project</span><span class="lab-status">Prototype</span></div>
                         <h3>Baby Name Battle</h3>
                         <p>A Marathi/English family game that votes baby names down to a winner, round by round.</p>
                         <div class="lab-foot">
                             <ul class="stack-line mono"><li>Next.js</li><li>React</li><li>TypeScript</li><li>Tailwind</li></ul>
                         </div>
                     </article>
+                    <article class="lab-card" data-cat="early" data-build="card.lab">
+                        <div class="lab-top mono"><span class="lab-tag">Web app</span><span class="lab-status">2025–26</span></div>
+                        <h3>Vehicle Booking System</h3>
+                        <p>Official vehicle bookings for CMPDI RI-4, with admin approvals.</p>
+                        <div class="lab-foot">
+                            <ul class="stack-line mono"><li>PHP</li><li>SQL</li></ul>
+                            <a class="proof mono" href="https://github.com/Gaurav-Chaudhari-2003/VehicleBooking" target="_blank" rel="noopener">GitHub ↗</a>
+                        </div>
+                    </article>
+                    <article class="lab-card" data-cat="early" data-build="card.lab">
+                        <div class="lab-top mono"><span class="lab-tag">Android app</span><span class="lab-status">Diploma era</span></div>
+                        <h3>GPA Achalpur App</h3>
+                        <p>College app: attendance, notices, study material and library.</p>
+                        <div class="lab-foot">
+                            <ul class="stack-line mono"><li>Java</li><li>Android</li></ul>
+                        </div>
+                    </article>
+                    <article class="lab-card" data-cat="early" data-build="card.lab">
+                        <div class="lab-top mono"><span class="lab-tag">Mobile app</span><span class="lab-status">2024</span></div>
+                        <h3>Your Notes</h3>
+                        <p>Cross-platform notes with cloud sync and sign-in.</p>
+                        <div class="lab-foot">
+                            <ul class="stack-line mono"><li>Flutter</li><li>Firebase</li></ul>
+                        </div>
+                    </article>
                 </div>
             </div>
         </section>
 
-        <!-- ============ 05 ARCHIVE ============ -->
-        <section class="section" id="archive">
-            <div class="wrap">
-                <div class="sec-index mono" data-build="div.index"><span class="sec-num">// 05.00</span> SEC_ARCHIVE <span class="sec-count">INDEX [05 / 07]</span></div>
-                <header class="sec-head" data-build="h2.archive">
-                    <p class="eyebrow mono">Earlier builds</p>
-                    <h2>Mobile &amp; web, before the AI focus</h2>
-                </header>
-                <ol class="archive">
-                    <li data-build="li.row">
-                        <span class="a-idx mono">A.01</span>
-                        <a class="a-name" href="https://github.com/Gaurav-Chaudhari-2003/VehicleBooking" target="_blank" rel="noopener">Vehicle Booking System <span aria-hidden="true">↗</span></a>
-                        <span class="a-ctx">Official vehicle bookings for CMPDI RI-4, with admin approvals.</span>
-                        <span class="a-stack mono">PHP · SQL</span>
-                    </li>
-                    <li data-build="li.row">
-                        <span class="a-idx mono">A.02</span>
-                        <span class="a-name">GPA Achalpur App</span>
-                        <span class="a-ctx">College app: attendance, notices, study material and library.</span>
-                        <span class="a-stack mono">Java · Android</span>
-                    </li>
-                    <li data-build="li.row">
-                        <span class="a-idx mono">A.03</span>
-                        <span class="a-name">Your Notes</span>
-                        <span class="a-ctx">Cross-platform notes with cloud sync and sign-in.</span>
-                        <span class="a-stack mono">Flutter · Firebase</span>
-                    </li>
-                </ol>
-            </div>
-        </section>
-
-        <!-- ============ 06 EXPERIENCE ============ -->
+        <!-- ============ 05 EXPERIENCE ============ -->
         <section class="section" id="log">
             <div class="wrap">
-                <div class="sec-index mono" data-build="div.index"><span class="sec-num">// 06.00</span> SEC_LOG <span class="sec-count">INDEX [06 / 07]</span></div>
+                <div class="sec-index mono" data-build="div.index"><span class="sec-num">// 05.00</span> SEC_LOG <span class="sec-count">INDEX [05 / 06]</span></div>
                 <header class="sec-head" data-build="h2.log">
                     <p class="eyebrow mono">Experience</p>
                     <h2>Commit history</h2>
@@ -495,31 +491,28 @@
             </div>
         </section>
 
-        <!-- ============ 07 CONTACT ============ -->
+        <!-- ============ 06 CONTACT ============ -->
         <section class="section contact" id="contact">
             <div class="wrap">
-                <div class="sec-index mono" data-build="div.index"><span class="sec-num">// 07.00</span> SEC_CONTACT <span class="sec-count">INDEX [07 / 07]</span></div>
-                <div class="display-word contact-word" data-build="svg.display" aria-hidden="true">
-                    <svg viewBox="0 0 1000 232" preserveAspectRatio="xMidYMid meet">
-                        <text x="0" y="222" textLength="1000" lengthAdjust="spacingAndGlyphs">LET'S BUILD</text>
-                    </svg>
-                </div>
-                <h2 class="sr-only">Contact</h2>
-                <div class="contact-grid">
-                    <p class="lede" data-build="p.contact">Building with LLMs, retrieval or computer vision? Let&#39;s talk.</p>
-                    <div class="contact-reach" data-build="div.reach">
-                        <a class="contact-mail" href="mailto:chaudharigaurav177@gmail.com">chaudharigaurav177@gmail.com <span aria-hidden="true">↗</span></a>
-                        <a class="contact-phone" href="tel:+919665305197">+91 96653 05197</a>
-                        <span class="contact-place mono">Phone &amp; WhatsApp · Pune, Maharashtra, IN</span>
-                        <a class="btn btn-red btn-sm contact-cv" href="assets/Gaurav%20Chaudhari%20AI%20CV.pdf" target="_blank" rel="noopener" type="application/pdf">View résumé (PDF) ↗</a>
+                <div class="sec-index mono" data-build="div.index"><span class="sec-num">// 06.00</span> SEC_CONTACT <span class="sec-count">INDEX [06 / 06]</span></div>
+                <div class="cta">
+                    <header class="cta-head" data-build="h2.contact">
+                        <p class="eyebrow mono">Open channel</p>
+                        <h2>Let&#39;s build something<br> that thinks.</h2>
+                        <p class="cta-sub">Building with LLMs, retrieval or computer vision? Let&#39;s talk.</p>
+                    </header>
+                    <div class="cta-actions" data-build="div.reach">
+                        <a class="cta-mail mono" href="mailto:chaudharigaurav177@gmail.com"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 6h17v12h-17zM3.5 6.5l8.5 6.5 8.5-6.5" /></svg>chaudharigaurav177@gmail.com</a>
+                        <a class="btn btn-fill" href="assets/Gaurav%20Chaudhari%20AI%20CV.pdf" target="_blank" rel="noopener" type="application/pdf">View résumé ↗</a>
                     </div>
-                    <ul class="contact-links mono" data-build="ul.links">
-                        <li><span>WhatsApp</span><a href="https://wa.me/919665305197?text=Hi%20Gaurav%2C%20I%20saw%20your%20portfolio." target="_blank" rel="noopener">Chat on WhatsApp ↗</a></li>
-                        <li><span>LinkedIn</span><a href="https://www.linkedin.com/in/gaurav-chaudhari-8129ab206" target="_blank" rel="noopener">gaurav-chaudhari-8129ab206 ↗</a></li>
-                        <li><span>GitHub</span><a href="https://github.com/Gaurav-Chaudhari-2003" target="_blank" rel="noopener">Gaurav-Chaudhari-2003 ↗</a></li>
-                        <li><span>LeetCode</span><a href="https://leetcode.com/u/Gaurav-Chaudhari-2003/" target="_blank" rel="noopener">Gaurav-Chaudhari-2003 ↗</a></li>
-                        <li><span>Instagram</span><a href="https://www.instagram.com/___gaurav_chaudhari___/" target="_blank" rel="noopener">@___gaurav_chaudhari___ ↗</a></li>
-                        <li><span>X</span><a href="https://x.com/GauravC26733470" target="_blank" rel="noopener">@GauravC26733470 ↗</a></li>
+                    <ul class="cta-links mono" data-build="ul.links">
+                        <li><a href="tel:+919665305197">+91 96653 05197</a></li>
+                        <li><a href="https://wa.me/919665305197?text=Hi%20Gaurav%2C%20I%20saw%20your%20portfolio." target="_blank" rel="noopener">WhatsApp ↗</a></li>
+                        <li><a href="https://www.linkedin.com/in/gaurav-chaudhari-8129ab206" target="_blank" rel="noopener">LinkedIn ↗</a></li>
+                        <li><a href="https://github.com/Gaurav-Chaudhari-2003" target="_blank" rel="noopener">GitHub ↗</a></li>
+                        <li><a href="https://leetcode.com/u/Gaurav-Chaudhari-2003/" target="_blank" rel="noopener">LeetCode ↗</a></li>
+                        <li><a href="https://www.instagram.com/___gaurav_chaudhari___/" target="_blank" rel="noopener">Instagram ↗</a></li>
+                        <li><a href="https://x.com/GauravC26733470" target="_blank" rel="noopener">X ↗</a></li>
                     </ul>
                 </div>
             </div>
@@ -534,7 +527,7 @@
         </div>
     </footer>
 
-    <script src="script.js?v=8"></script>
+    <script src="script.js?v=10"></script>
 </body>
 
 </html>
